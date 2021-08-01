@@ -6077,16 +6077,16 @@ sidebarForceTooltips = 0
 `
 menu
 {
-	name 'LEFT_SIDEBAR'
+	name 'RIGHT_SIDEBAR'
 	align left top
 	ignoreEsc
 	onOpen
 	"
-		if(sidebarVisible.LEFT == 1) then
-			Infinity_PushMenu('LEFT_SIDEBAR_BOTTOM')
+		if(sidebarVisible.RIGHT == 1) then
+			Infinity_PushMenu('RIGHT_SIDEBAR_BOTTOM')
 		else
-			Infinity_PopMenu('LEFT_SIDEBAR')
-			Infinity_PushMenu('LEFT_SIDEBAR_HIDDEN')
+			Infinity_PopMenu('RIGHT_SIDEBAR')
+			Infinity_PushMenu('RIGHT_SIDEBAR_HIDDEN')
 		end
 		if(showJournal == 1) then
 			Infinity_PushMenu('JOURNAL')
@@ -6095,12 +6095,12 @@ menu
 	"
 	onClose
 	"
-		Infinity_PopMenu('LEFT_SIDEBAR_BOTTOM')
+		Infinity_PopMenu('RIGHT_SIDEBAR_BOTTOM')
 		Infinity_PopMenu('JOURNAL')
 	"
 	label
 	{
-		name 'leftSidebarBackground'
+		name 'rightSidebarBackground'
 		enabled "false"
 		area 0 0 0 0
 	}
@@ -6965,16 +6965,16 @@ menu
 `
 menu
 {
-	name 'RIGHT_SIDEBAR'
+	name 'LEFT_SIDEBAR'
 	align left top
 	ignoreEsc
 	onOpen
 	"
-		if(sidebarVisible.RIGHT == 1) then
-			Infinity_PushMenu('RIGHT_SIDEBAR_BOTTOM')
+		if(sidebarVisible.LEFT == 1) then
+			Infinity_PushMenu('LEFT_SIDEBAR_BOTTOM')
 		else
-			Infinity_PopMenu('RIGHT_SIDEBAR')
-			Infinity_PushMenu('RIGHT_SIDEBAR_HIDDEN')
+			Infinity_PopMenu('LEFT_SIDEBAR')
+			Infinity_PushMenu('LEFT_SIDEBAR_HIDDEN')
 		end
 		if(worldScreen == e:GetActiveEngine() and game:GetPartyAI()) then aiButtonToggle = 1 end
 		if(worldScreen == e:GetActiveEngine()) then Infinity_PushMenu('WORLD_LEVEL_UP_BUTTONS') end
@@ -6994,13 +6994,13 @@ menu
 	"
 	onClose
 	"
-		Infinity_PopMenu('RIGHT_SIDEBAR_BOTTOM')
+		Infinity_PopMenu('LEFT_SIDEBAR_BOTTOM')
 		Infinity_PopMenu('WORLD_LEVEL_UP_BUTTONS')
 	"
 
 	label
 	{
-		name 'rightSidebarBackground'
+		name 'leftSidebarBackground'
 		enabled "false"
 		area 0 0 0 0
 	}
