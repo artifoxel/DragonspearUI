@@ -6884,7 +6884,7 @@ menu
 menu
 {
 	name 'RIGHT_SIDEBAR'
-	align right top
+	align left top
 	ignoreEsc
 	onOpen
 	"
@@ -6925,7 +6925,7 @@ menu
 
 	button
 	{
-		area 7 0 88 1
+		area 0 0 88 1
 		text lua "hidePortraits()"
 	}
 
@@ -6935,13 +6935,13 @@ menu
 	{
 		name "portrait1ShadowSmall"
 		enabled "Infinity_GetNumCharacters() > 0 and rgEscPortrait ~= 1 and LargePortraits == 0"
-		area 22 10 68 99
+		area 2 10 68 99
 		mosaic RGGFRM4
 	}
 	button
 	{
 		name "portrait1ButtonSmall"
-		area 24 14 64 91
+		area 4 14 64 91
 		portrait 0
 		bam RGGFRM3
 		enabled "Infinity_GetNumCharacters() > 0 and rgEscPortrait ~= 1 and LargePortraits == 0"
@@ -6961,13 +6961,13 @@ menu
 	{
 		name "portrait2ShadowSmall"
 		enabled "Infinity_GetNumCharacters() > 1 and rgEscPortrait ~= 1 and LargePortraits == 0"
-		area 22 108 68 99
+		area 2 108 68 99
 		mosaic RGGFRM4
 	}
 	button
 	{
 		name "portrait2ButtonSmall"
-		area 24 112 64 91
+		area 4 112 64 91
 		portrait 1
 		bam RGGFRM3
 		enabled "Infinity_GetNumCharacters() > 1 and rgEscPortrait ~= 1 and LargePortraits == 0"
@@ -6987,13 +6987,13 @@ menu
 	{
 		name "portrait3ShadowSmall"
 		enabled "Infinity_GetNumCharacters() > 2 and rgEscPortrait ~= 1 and LargePortraits == 0"
-		area 22 206 68 99
+		area 2 206 68 99
 		mosaic RGGFRM4
 	}
 	button
 	{
 		name "portrait3ButtonSmall"
-		area 24 210 64 91
+		area 4 210 64 91
 		portrait 2
 		bam RGGFRM3
 		enabled "Infinity_GetNumCharacters() > 2 and rgEscPortrait ~= 1 and LargePortraits == 0"
@@ -7013,13 +7013,13 @@ menu
 	{
 		name "portrait4ShadowSmall"
 		enabled "Infinity_GetNumCharacters() > 3 and rgEscPortrait ~= 1 and LargePortraits == 0"
-		area 22 304 68 99
+		area 2 304 68 99
 		mosaic RGGFRM4
 	}
 	button
 	{
 		name "portrait4ButtonSmall"
-		area 24 308 64 91
+		area 4 308 64 91
 		portrait 3
 		bam RGGFRM3
 		enabled "Infinity_GetNumCharacters() > 3 and rgEscPortrait ~= 1 and LargePortraits == 0"
@@ -7039,13 +7039,13 @@ menu
 	{
 		name "portrait5ShadowSmall"
 		enabled "Infinity_GetNumCharacters() > 4 and rgEscPortrait ~= 1 and LargePortraits == 0"
-		area 22 402 68 99
+		area 2 402 68 99
 		mosaic RGGFRM4
 	}
 	button
 	{
 		name "portrait5ButtonSmall"
-		area 24 406 64 91
+		area 4 406 64 91
 		portrait 4
 		bam RGGFRM3
 		enabled "Infinity_GetNumCharacters() > 4 and rgEscPortrait ~= 1 and LargePortraits == 0"
@@ -7065,13 +7065,13 @@ menu
 	{
 		name "portrait6ShadowSmall"
 		enabled "Infinity_GetNumCharacters() > 5 and rgEscPortrait ~= 1 and LargePortraits == 0"
-		area 22 500 68 99
+		area 2 500 68 99
 		mosaic RGGFRM4
 	}
 	button
 	{
 		name "portrait6ButtonSmall"
-		area 24 504 64 91
+		area 4 504 64 91
 		portrait 5
 		bam RGGFRM3
 		enabled "Infinity_GetNumCharacters() > 5 and rgEscPortrait ~= 1 and LargePortraits == 0"
@@ -16448,18 +16448,24 @@ menu
 		end
 		QLcols = 60 / QLrows
 		QLrows = QLrows - 1
+
+		-- if align == 'left' then
+		-- local offset = 76 -- = 34 * 2 + 8 = 2 * arrow width + margin
+		-- else
+		local offset = (6 - QLcols) * 54 -- (actual n_cols - target n_cols) * width
+
 		for j = 0,QLrows,1 do
 			for i = QLcols,0,-1 do
 				if not getSlotContainerId(j*QLcols + i) then
-					Infinity_SetArea('quicklootSlot' .. (j*QLcols + i), (i*54)+76, (j*54)+5, 0, 0)
+					Infinity_SetArea('quicklootSlot' .. (j*QLcols + i), (i*54) + offset, (j*54)+5, 0, 0)
 				elseif getSlotContainerId(j*QLcols + i) then
-					Infinity_SetArea('quicklootSlot' .. (j*QLcols + i), (i*54)+76, (j*54)+5, 52, 52)
+					Infinity_SetArea('quicklootSlot' .. (j*QLcols + i), (i*54) + offset, (j*54)+5, 52, 52)
 				end
 			end
 		end
 		if worldScreen:GroundScrollEnabled(-6) or worldScreen:GroundScrollEnabled(6) then
-			Infinity_SetArea('quicklootArrowL', 8, 5, 34, 53)
-			Infinity_SetArea('quicklootArrowR', 42, 5, 34, 53)
+			Infinity_SetArea('quicklootArrowL', offset - 2 * 34, 5, 34, 53)
+			Infinity_SetArea('quicklootArrowR', offset - 34, 5, 34, 53)
 		else
 			Infinity_SetArea('quicklootArrowL', 8, 5, 0, 0)
 			Infinity_SetArea('quicklootArrowR', 42, 5, 0, 0)
@@ -16568,7 +16574,7 @@ menu
 menu
 {
 	name 'WORLD_QUICKLOOT'
-	align left top
+	align right top
 	ignoreEsc
 	onOpen
 	"
