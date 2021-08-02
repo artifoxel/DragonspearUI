@@ -8203,6 +8203,108 @@ function getEncumberanceArea6()
 	Infinity_SetArea('slotsArea6', nil, nil, 0, 0)
 	end
 end
+
+
+function getInventoryHP()
+	return characters[id].HP.current .. '/' .. characters[id].HP.max
+end
+
+function getInventoryAC()
+	return characters[id].AC.current
+end
+
+if Infinity_GetINIValue('Game Options', 'Equipment Comparison', 1) ~= 0 then
+	-- dimmed ^D, default text color for stats
+	fontcolors['O'] = 'AA96C8FF'
+
+	function getInventoryAC()
+		local character = characters[id]
+		if not character then
+			return ''
+		end
+		local value = character.AC.current
+
+		local diff1 = getTempStat(value, 'AC', -1)
+		if diff1 ~= '-' then
+			value = ('%s ^8| %s'):format(value, diff1, tempStats.AC)
+		end
+		return value
+	end
+
+	function getInventoryTHAC0()
+		local character = characters[id]
+		if not character then
+			return ''
+		end
+
+		local value = character.THAC0.current
+		local diff1 = getTempStat(value, 'THAC0', -1)
+		if diff1 ~= '-' then
+				value = ('%s ^8| %s'):format(value, diff1, tempStats.THAC0)
+				offhand_start, offhand_stop = '^O', '^-'
+
+			if character.THAC0.offhand then
+				value = ('%s\n^O%s^-'):format(value, character.THAC0.offhand)
+			end
+		elseif character.THAC0.offhand then
+			value = ('%s\n%s'):format(value, character.THAC0.offhand)
+		end
+		return value
+	end
+
+	function getInventoryHP()
+		local character = characters[id]
+		if not character then
+			return ''
+		end
+
+		local HP = character.HP
+		local value  = ('%s / %s'):format(HP.current, HP.max)
+
+		local diff1 = getTempStat(HP.current, 'currentHP', 1)
+		local diff2 = getTempStat(HP.max, 'maxHP', 1)
+		if diff1 ~= '-' or diff2 ~= '-' then
+			value = ('%s / %s\n%s / %s'):format(
+				diff1 ~= '-' and diff1 or HP.current,
+				diff2 ~= '-' and diff2 or HP.max,
+				HP.current, HP.max
+			)
+		end
+		return value
+	end
+
+	function getInventoryDamage()
+		local character = characters[id]
+		if not character then
+			return ''
+		end
+
+		local damage = character.damage
+		local value = ('%s - %s'):format(damage.min, damage.max)
+		local offhand_start, offhand_stop = '', ''
+
+		local diff1 = getTempStat(damage.min, 'dmgMin', 1)
+		local diff2 = getTempStat(damage.max, 'dmgMax', 1)
+		if diff1 ~= '-' or diff2 ~= '-' then
+			value = ('%s - %s\n%s - %s'):format(
+				diff1 ~= '-' and diff1 or damage.min,
+				diff2 ~= '-' and diff2 or damage.max,
+				damage.min, damage.max
+			)
+			offhand_start, offhand_stop = '^O', '^-'
+		end
+
+		if damage.minOffhand and damage.maxOffhand then
+			value = ('%s\n%s%s - %s%s'):format(
+				value,
+				offhand_start, damage.minOffhand,
+				damage.maxOffhand, offhand_stop
+			)
+		end
+
+		return value
+	end
+end
 `
 menu
 {
@@ -8271,8 +8373,8 @@ menu
 	label
 	{
 --		enabled		"tempStats[id] == nil"
-		area		82 646 92 51
-		text lua	"characters[id].AC.current"
+		area		79 640 92 51
+		text lua	"getInventoryAC()"
 		text style	"label"
 		text color 'D'
 		align center center
@@ -8280,8 +8382,8 @@ menu
 	label
 	{
 --		enabled		"tempStats[id] == nil"
-		area		184 646 101 51
-		text lua	"characters[id].HP.current .. '/' .. characters[id].HP.max"
+		area		182 640 101 51
+		text lua	"getInventoryHP()"
 		text style	"label"
 		text color 'D'
 		align center center
@@ -8290,7 +8392,7 @@ menu
 	label
 	{
 --		enabled		"tempStats[id] == nil"
-		area		298 646 86 53
+		area		296 640 86 53
 		text lua	"getInventoryTHAC0()"
 		text style	"label"
 		text color 'D'
@@ -8299,7 +8401,7 @@ menu
 	label
 	{
 --		enabled		"tempStats[id] == nil"
-		area		398 646 96 53
+		area		398 640 96 53
 		text lua	"getInventoryDamage()"
 		text style	"label"
 		text color 'D'
@@ -8308,7 +8410,7 @@ menu
 	label
 	{
 --		enabled		"tempStats[id] == nil"
-		area		511 646 81 53
+		area		509 640 81 53
 		text lua	"characters[id].proficiencies.numAttacks.current"
 		text style	"label"
 		text color 'D'
