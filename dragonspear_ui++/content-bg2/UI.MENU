@@ -6020,7 +6020,7 @@ menu
 	{
 		name 'leftSidebarBackground'
 		enabled "false"
-		area 0 0 0 0
+		area 0 0 80 1536
 	}
 }
 menu
@@ -6920,7 +6920,7 @@ menu
 	{
 		name 'rightSidebarBackground'
 		enabled "false"
-		area 0 0 0 0
+		area 0 0 80 1536
 	}
 
 	button
