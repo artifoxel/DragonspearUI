@@ -1,6 +1,7 @@
+#for __, name in ipairs(CHARGEN_PROFICIENCIES or { 'CHARGEN' }) do
 menu
 {
-	name 'CHARGEN_PROFICIENCIES'
+	name '`name`_PROFICIENCIES'
 --	modal
 	align center center
 	ignoreesc
@@ -290,7 +291,7 @@ menu
 			currentChargenProficiency = nil
 		"
 	}
-#if GAME_VERSION ~= 'bg1' and GAME_VERSION ~= 'sod' then
+#if GAME_VERSION ~= 'bg1' and GAME_VERSION ~= 'sod' and GAME_VERSION ~= 'iwd' then
 	button
 	{
 		enabled "chargen.levelingUp"
@@ -328,7 +329,14 @@ menu
 		text "DONE_BUTTON"
 		text style "button"
 		clickable lua "createCharScreen:IsDoneButtonClickable()"
+#if GAME_VERSION == 'iwd' then
+		action "
+			Infinity_PopMenu();
+			createCharScreen:OnDoneButtonClick();
+		"
+#else
 		action "createCharScreen:OnDoneButtonClick();"
+#end
 	}
 	label
 	{
@@ -352,3 +360,4 @@ menu
 	}
 
 }
+#end

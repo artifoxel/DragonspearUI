@@ -65,6 +65,9 @@ REF_KIT_NAME_NECROMANCY = 37210
 REF_KIT_NAME_TRANSMUTATION = 37213
 REF_KIT_NAME_WILD_MAGE = 54893
 
+-- IWD uses different menu sections for chargen/levelup
+CHARGEN_PROFICIENCIES = { 'CHARGEN', 'LEVELUP' }
+
 -- execute before processing each file
 function init()
 	-- output:write(('-- %s\n'):format(__file__))
