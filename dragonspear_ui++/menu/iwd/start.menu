@@ -103,7 +103,6 @@ menu
 	{
 		name "MenuButton4"
 		bam 'STARTBUT'
-		enabled "getTutorialEnabled()"
 		sequence lua "getCampaignButtonSequence()"
 		clickable lua "isTob == 1"
 		area 1536 400 249 45
@@ -186,14 +185,14 @@ menu
 		--tooltip lua "getCampaignTooltip(1)"
 		action
 		"
-			if startEngine:GetCampaign() ~= const.START_CAMPAIGN_BG or isTob ~= 0 then
+			if isTob ~= 0 then
 				startEngine:OnSoAButtonClick(true);
 				isTob = 0
 			end
 		"
 		actionEnter
 		"
-			if startEngine:GetCampaign() ~= const.START_CAMPAIGN_BG or isTob ~= 0 then
+			if isTob ~= 0 then
 				highlightedCampaign = 1;
 			end
 			campaignsString = t('RG_MENU_IWD_CAMPAIGN1')
@@ -219,7 +218,7 @@ menu
 		--tooltip lua "getCampaignTooltip(2)"
 		action
 		"
-			if startEngine:GetCampaign() ~= const.START_CAMPAIGN_BG or isTob ~= 1 then
+			if isTob ~= 1 then
 				startEngine:OnToBButtonClick(true);
 				isTob = 1
 			end
@@ -227,7 +226,7 @@ menu
 		"
 		actionEnter
 		"
-			if startEngine:GetCampaign() ~= const.START_CAMPAIGN_BG or isTob ~= 1 then
+			if isTob ~= 1 then
 				highlightedCampaign = 2;
 			end
 			campaignsString = t('RG_MENU_IWD_CAMPAIGN2')
