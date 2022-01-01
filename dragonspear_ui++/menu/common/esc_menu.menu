@@ -55,7 +55,11 @@ menu
 	label
 	{
 		name "RGESCLOGO"
+	#if GAME_VERSION == 'iwd' then
+		area		656 232 608 608
+	#else
 		area		665 250 587 587
+	#end
 		bam 		BIGLOGO
 		sequence 1
 		frame lua "getBigLogo()"

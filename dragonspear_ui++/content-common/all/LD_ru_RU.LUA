@@ -138,4 +138,7 @@ duiStrings = {
 	RG_MENU_BG2_CAMPAIGN1 = "Тени Амна",
 	RG_MENU_BG2_CAMPAIGN2 = "Трон Баала",
 	RG_MENU_BG2_CAMPAIGN3 = "Черные Копи 2",
+	RG_MENU_IWD_CAMPAIGN = "Долина Ледяного Ветра",
+	RG_MENU_IWD_CAMPAIGN1 = "Долина Ледяного Ветра",
+	RG_MENU_IWD_CAMPAIGN2 = "Сердце Зимы",
 }

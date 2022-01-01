@@ -1,9 +1,9 @@
-	versionString = ""
-	function canClickSaveLoad()
-		return game:IsClient() == false
-	end
+versionString = ""
+function canClickSaveLoad()
+	return game:IsClient() == false
+end
 
-	function getEscMenuArea()
+function getEscMenuArea()
 	local screenWidth, screenHeight = Infinity_GetScreenSize()
 	Infinity_SetArea('RGOPT1', nil, nil, screenWidth, screenHeight)
 	Infinity_SetArea('RGOPT2', (screenWidth-628)/2, (screenHeight-628)/2, nil, nil)
@@ -14,9 +14,13 @@
 	Infinity_SetArea('RGBUT_LOAD', (screenWidth/2)-510, (screenHeight/2)-270, nil, nil)
 	Infinity_SetArea('RGBUT_QUIT', (screenWidth/2)-550, (screenHeight/2)-70, nil, nil)
 	Infinity_SetArea('RGBUT_SAVE', (screenWidth/2)-510, (screenHeight/2)+130, nil, nil)
+#if GAME_VERSION == 'iwd' then
+	Infinity_SetArea('RGESCLOGO', (screenWidth-610)/2, (screenHeight-616)/2, nil, nil)
+#else
 	if startEngine:GetCampaign() == const.START_CAMPAIGN_BG then
-	Infinity_SetArea('RGESCLOGO', (screenWidth-589)/2, (screenHeight-580)/2, nil, nil)
+		Infinity_SetArea('RGESCLOGO', (screenWidth-589)/2, (screenHeight-580)/2, nil, nil)
 	else
-	Infinity_SetArea('RGESCLOGO', (screenWidth-586)/2, (screenHeight-582)/2, nil, nil)
+		Infinity_SetArea('RGESCLOGO', (screenWidth-586)/2, (screenHeight-582)/2, nil, nil)
 	end
-	end
+#end
+end

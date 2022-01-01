@@ -40,7 +40,11 @@ menu
 			setStringTokenLua('<SCHOOLTOKEN>',t('NECROMANCY_SCHOOL_TOKEN'))
 		elseif currentKitName == Infinity_FetchString(`REF_KIT_NAME_TRANSMUTATION`) then
 			setStringTokenLua('<SCHOOLTOKEN>',t('TRANSMUTATION_SCHOOL_TOKEN'))
+	#if GAME_VERSION == 'iwd' then
+		elseif currentKitName == Infinity_FetchString(37216) then
+	#else
 		elseif currentKitName == Infinity_FetchString(`REF_KIT_NAME_WILD_MAGE`) then
+	#end
 			setStringTokenLua('<SCHOOLTOKEN>',Infinity_FetchString(`REF_KIT_NAME_WILD_MAGE`))
 		end
 		rgUnlearnDefault()

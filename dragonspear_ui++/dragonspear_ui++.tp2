@@ -33,7 +33,7 @@ COPY_EXISTING ~M_BG.lua~ ~dragonspear_ui++/backup-M_BG~
 
 BEGIN @1000
 
-REQUIRE_PREDICATE GAME_IS ~bgee bg2ee eet~ @1003
+REQUIRE_PREDICATE GAME_IS ~bgee bg2ee eet iwdee~ @1003
 
 ACTION_MATCH 0 WITH
 	0 WHEN GAME_IS ~eet~ BEGIN OUTER_SPRINT game "eet" END
@@ -45,6 +45,7 @@ ACTION_MATCH 0 WITH
 		END
 	END
 	0 WHEN GAME_IS ~bg2ee~ BEGIN OUTER_SPRINT game "bg2" END
+	0 WHEN GAME_IS ~iwdee~ BEGIN OUTER_SPRINT game "iwd" END
 	DEFAULT FAIL "unhandled match case"
 END
 
@@ -80,7 +81,7 @@ END
 COPY "%build_folder%/ui.menu" ~override~
 COPY ~dragonspear_ui++/content-common/all~ ~override~
 
-ACTION_IF GAME_IS ~bg2ee eet~ OR NOT GAME_INCLUDES ~sod~ BEGIN
+ACTION_IF GAME_IS ~bg2ee eet iwdee~ OR NOT GAME_INCLUDES ~sod~ BEGIN
 	COPY ~dragonspear_ui++/content-common/eet-bg2~ ~override~
 END
 
@@ -104,6 +105,10 @@ ACTION_IF GAME_IS ~eet~ THEN BEGIN
 	COPY ~dragonspear_ui++/content-bg2/rgdback1.wbm~ ~override/rgdback3.wbm~
 	COPY ~dragonspear_ui++/content-bg2/rgdback2.wbm~ ~override/rgdback4.wbm~
 	COPY ~dragonspear_ui++/content-bg2/rgdback3.wbm~ ~override/rgdback6.wbm~
+END
+
+ACTION_IF GAME_IS ~iwdee~ THEN BEGIN
+	COPY ~dragonspear_ui++/content-iwd~ ~override~
 END
 
 ACTION_IF (NOT FILE_EXISTS_IN_GAME ~M_BG.lua~) BEGIN

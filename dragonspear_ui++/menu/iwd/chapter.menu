@@ -1,0 +1,62 @@
+menu
+{
+	name 'CHAPTER'
+	align center center
+	ignoreEsc
+	onOpen
+	"
+	"
+
+	label
+	{
+		area 0 0 1024 768
+		mosaic lua "chapterBackground"
+	}
+
+	label
+	{
+		area 168 24 702 84
+		text lua "getChapterText()"
+		text style "title"
+	}
+	text
+	{
+		name "text_CHAPTERSCROLL_item"
+		area 576 236 316 322
+		text lua "text_CHAPTERSCROLL"
+		text style normal
+		scrollbar 'GUISCRC'
+		scrollbar func 'UpdateChapterScroll'
+		scrollbar hide lua 'text_CHAPTERSCROLL_auto == 1'
+		action
+		"
+			text_CHAPTERSCROLL_auto = 0
+		"
+	}
+	button
+	{
+		area 518 688 234 44
+		bam GUIBUTMT
+		sequenceonce lua "getRandomButtonSequence('GUIBUTMT')"
+		text "DONE_BUTTON"
+		text style "button"
+		clickable lua "chapterScreen:IsDoneButtonClickable()"
+		action
+		"
+			chapterScreen:OnDoneButtonClick()
+		"
+	}
+	button
+	{
+		area 274 688 234 44
+		bam GUIBUTMT
+		sequenceonce lua "getRandomButtonSequence('GUIBUTMT')"
+		text "REPLAY_BUTTON"
+		text style "button"
+		--clickable lua "chapterScreen:IsReplayButtonClickable()"
+		action
+		"
+			chapterScreen:OnReplayButtonClick()
+		"
+	}
+}

@@ -133,4 +133,7 @@ duiStrings = {
 	RG_MENU_BG2_CAMPAIGN1 = "Les Ombres de l'Amn",
 	RG_MENU_BG2_CAMPAIGN2 = "Le Trône de Bhaal",
 	RG_MENU_BG2_CAMPAIGN3 = "Les Fosses Noires 2",
+	RG_MENU_IWD_CAMPAIGN = "Icewind Dale EE Campaigns",
+	RG_MENU_IWD_CAMPAIGN1 = "Icewind Dale",
+	RG_MENU_IWD_CAMPAIGN2 = "Heart of Winter",
 }

@@ -5,7 +5,9 @@ menu
 	onOpen "
 	Infinity_PlayMovie('RGDBACK1','RGDBACK1')
 	Infinity_PlayMovie('RGDBACK2','RGDBACK2')
+#if GAME_VERSION ~= 'iwd' then
 	Infinity_PlayMovie('RGDBACK3','RGDBACK3')
+#end
 	getBackgroundSize()
 	"
 	movie
@@ -28,12 +30,14 @@ menu
 		name "RGDBACK2"
 		area 0 0 1920 1080
 	}
+#if GAME_VERSION ~= 'iwd' then
 	movie
 	{
 		enabled "startEngine:GetCampaign() == const.START_CAMPAIGN_BP"
 		name "RGDBACK3"
 		area 0 0 1920 1080
 	}
+#end
 	label
 	{
 	#if GAME_VERSION == 'sod' or GAME_VERSION == 'bg1' then
@@ -54,10 +58,12 @@ menu
 		area 0 0 10000 8000
 		mosaic "RGBACK2"
 	}
+#if GAME_VERSION ~= 'iwd' then
 	label
 	{
 		enabled "startEngine:GetCampaign() == const.START_CAMPAIGN_BP"
 		area 0 0 10000 8000
 		mosaic "RGBACK3"
 	}
+#end
 }

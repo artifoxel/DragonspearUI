@@ -1,0 +1,257 @@
+menu
+{
+	name 'CHARGEN_SELECTPREGEN'
+	align center center
+	onOpen
+	"
+		createPartyOffset = 0
+		createCharScreen:GetImportableCharacters()
+	"
+
+	label
+	{
+		area 0 0 1024 768
+		mosaic 'GUICGPR'
+	}
+
+	button
+	{
+		area 0 0 1024 768
+		actionScroll
+		"
+			scrollPregens()
+		"
+	}
+
+	label
+	{
+		area 158 18 714 40
+		text style "title"
+		text "CHARGEN_TITLE"
+		actionScroll
+		"
+			scrollPregens()
+		"
+	}
+
+
+	button
+	{
+		bitmap "noportsm"
+		area 48 128 62 90
+		align center center
+		actionScroll
+		"
+			scrollPregens()
+		"
+	}
+	label
+	{
+		area 134 106 534 30
+		text style "label"
+		align left top
+		text lua "Infinity_FetchString(10264)"
+		actionScroll
+		"
+			scrollPregens()
+		"
+	}
+	label
+	{
+		area 152 148 502 82
+		text style "label"
+		align left top
+		text lua "Infinity_FetchString(34752)"
+	}
+	button
+	{
+		bam 'GUIBUTNT'
+		sequenceonce lua "getRandomButtonSequence('GUIBUTNT')"
+		area 760 98 202 42
+		align center center
+		text style "button"
+		text "CREATE_BUTTON"
+		action
+		"
+			Infinity_PopMenu()
+			Infinity_PushMenu('CHARGEN')
+		"
+	}
+
+
+	button
+	{
+		bitmap lua 'getPregenCharacterPortrait(1)'
+		area 48 328 58 86
+		align center center
+		actionScroll
+		"
+			scrollPregens()
+		"
+	}
+	label
+	{
+		area 162 306 542 26
+		text style "label"
+		align left top
+		text lua "getPregenCharacterName(1)"
+		actionScroll
+		"
+			scrollPregens()
+		"
+	}
+	label
+	{
+		area 128 350 602 82
+		text style "label"
+		align left top
+		text lua "getPregenCharacterBiography(1)"
+	}
+	button
+	{
+		bam 'GUIBUTNT'
+		sequenceonce lua "getRandomButtonSequence('GUIBUTNT')"
+		area 760 338 202 42
+		align center center
+		text style "button"
+		text "PLAY_IMPORT_BUTTON"
+		action
+		"
+			Infinity_PopMenu()
+			createCharScreen:OnPrerollCharacterPick(0 + createPartyOffset)
+		"
+	}
+
+
+	button
+	{
+		bitmap lua 'getPregenCharacterPortrait(2)'
+		area 48 474 58 86
+		align center center
+		actionScroll
+		"
+			scrollPregens()
+		"
+	}
+	label
+	{
+		area 162 452 542 28
+		text style "label"
+		align left top
+		text lua "getPregenCharacterName(2)"
+		actionScroll
+		"
+			scrollPregens()
+		"
+	}
+	label
+	{
+		area 128 498 602 82
+		text style "label"
+		align left top
+		text lua "getPregenCharacterBiography(2)"
+	}
+	button
+	{
+		bam 'GUIBUTNT'
+		sequenceonce lua "getRandomButtonSequence('GUIBUTNT')"
+		area 760 490 202 42
+		align center center
+		text style "button"
+		text "PLAY_IMPORT_BUTTON"
+		action
+		"
+			Infinity_PopMenu()
+			createCharScreen:OnPrerollCharacterPick(1 + createPartyOffset)
+		"
+	}
+
+
+	button
+	{
+		bitmap lua 'getPregenCharacterPortrait(3)'
+		area 48 624 58 86
+		align center center
+		actionScroll
+		"
+			scrollPregens()
+		"
+	}
+	label
+	{
+		area 158 602 546 24
+		text style "label"
+		align left top
+		text lua "getPregenCharacterName(3)"
+		actionScroll
+		"
+			scrollPregens()
+		"
+	}
+	label
+	{
+		area 128 648 602 82
+		text style "label"
+		align left top
+		text lua "getPregenCharacterBiography(3)"
+	}
+	button
+	{
+		bam 'GUIBUTNT'
+		sequenceonce lua "getRandomButtonSequence('GUIBUTNT')"
+		area 760 636 202 42
+		align center center
+		text style "button"
+		text "PLAY_IMPORT_BUTTON"
+		action
+		"
+			Infinity_PopMenu()
+			createCharScreen:OnPrerollCharacterPick(2 + createPartyOffset)
+		"
+	}
+
+
+	button
+	{
+		bam 'GUISV10'
+		sequence 0
+		area 52 274 46 50
+		action
+		"
+			scrollPregenUp()
+		"
+		actionScroll
+		"
+			scrollPregens()
+		"
+	}
+	button
+	{
+		bam 'GUISV10'
+		sequence 1
+		area 52 718 46 50
+		action
+		"
+			scrollPregenDown()
+		"
+		actionScroll
+		"
+			scrollPregens()
+		"
+	}
+	button
+	{
+		on escape
+		bam 'GUIBUTMT'
+		sequenceonce lua "getRandomButtonSequence('GUIBUTMT')"
+		area 760 710 232 46
+		align center center
+		text style "button"
+		text "BACK_BUTTON"
+		action
+		"
+			Infinity_PopMenu()
+			createCharScreen:OnMainCancelButtonClick()
+		"
+	}
+}
