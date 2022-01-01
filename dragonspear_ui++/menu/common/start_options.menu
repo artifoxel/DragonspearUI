@@ -23,6 +23,7 @@ menu
 		text "OPTIONS_TITLE"
 		text style "title"
 	}
+#if GAME_VERSION ~= 'iwd' then
 	label
 	{
 		name "MenuTitle1OP"
@@ -59,6 +60,7 @@ menu
 	#end
 	}
 #end
+#end -- iwd == false
 	label
 	{
 		name "MenuTitle3OP"

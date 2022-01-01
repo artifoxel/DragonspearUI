@@ -120,6 +120,8 @@ menu
 		frame 0
 		scaleToClip
 	}
+#elseif GAME_VERSION == 'iwd' then
+	-- TODO: do we need title here?
 #else
 	label
 	{
