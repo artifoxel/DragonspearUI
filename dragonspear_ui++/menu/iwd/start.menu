@@ -196,7 +196,7 @@ menu
 			if startEngine:GetCampaign() ~= const.START_CAMPAIGN_BG or isTob ~= 0 then
 				highlightedCampaign = 1;
 			end
-			campaignsString = t('RG_MENU_IWD_CAMPAIGN') .. ': ' .. t('RG_MENU_IWD_CAMPAIGN1')
+			campaignsString = t('RG_MENU_IWD_CAMPAIGN1')
 		"
 		actionExit
 		"
@@ -230,7 +230,7 @@ menu
 			if startEngine:GetCampaign() ~= const.START_CAMPAIGN_BG or isTob ~= 1 then
 				highlightedCampaign = 2;
 			end
-			campaignsString = t('RG_MENU_IWD_CAMPAIGN') .. ': ' .. t('RG_MENU_IWD_CAMPAIGN2')
+			campaignsString = t('RG_MENU_IWD_CAMPAIGN2')
 		"
 		actionExit
 		"
@@ -255,7 +255,7 @@ menu
 		text style "title"
 		text color '5'
 		text align left center
-		text lua "campaignsString"
+		text lua "t('RG_MENU_IWD_CAMPAIGN') .. ': ' .. campaignsString"
 	}
 	label
 	{
@@ -265,6 +265,6 @@ menu
 		--text shadow 5
 		text color '$'
 		text align left center
-		text lua "campaignsString"
+		text lua "t('RG_MENU_IWD_CAMPAIGN') .. ': ' .. campaignsString"
 	}
 }
