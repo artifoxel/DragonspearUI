@@ -152,7 +152,7 @@
 	Infinity_SetArea('MenuButton7SP', screenWidth-384, nil, nil, nil)
 	Infinity_SetArea('MenuButton5OP', screenWidth-384, nil, nil, nil)
 	Infinity_SetArea('MenuOptionsArea', screenWidth-384, nil, nil, nil)
-#if GAME_VERSION ~= 'iwd' then
+
 	Infinity_SetArea('MenuCampLabel1', 60, screenHeight-210, nil, nil)
 	Infinity_SetArea('MenuCampLabel2', 58, screenHeight-212, nil, nil)
 	Infinity_SetArea('MenuCampA1', 41, screenHeight-163, nil, nil)
@@ -161,12 +161,7 @@
 	Infinity_SetArea('MenuCampB2', 190, screenHeight-148, nil, nil)
 	Infinity_SetArea('MenuCChooser1', 58, screenHeight-146, nil, nil)
 	Infinity_SetArea('MenuCChooser2', 192, screenHeight-146, nil, nil)
-#else
-	Infinity_SetArea('MenuCampLabel1', 60, screenHeight-240, nil, nil)
-	Infinity_SetArea('MenuCampLabel2', 58, screenHeight-242, nil, nil)
-	Infinity_SetArea('MenuCChooser1', 58, screenHeight-235, nil, nil)
-	Infinity_SetArea('MenuCChooser2', 270, screenHeight-235, nil, nil)
-#end
+
 #if GAME_VERSION ~= 'bg1' and GAME_VERSION ~= 'iwd' then
 	Infinity_SetArea('MenuCampA3', 309, screenHeight-163, nil, nil)
 	Infinity_SetArea('MenuCampB3', 324, screenHeight-148, nil, nil)

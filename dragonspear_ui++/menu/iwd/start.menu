@@ -172,64 +172,49 @@ menu
 		"
 	}
 
-	text
+#for i = 1, 2 do
+	label
 	{
-		name "MenuCChooser1"
-		bam "LOGOIWD"
-		sequence 0
-		frame lua "0"
-		useOverlayTint "isTob ~= 0 and not getCampaignHighlight(1)"
-		overlayTint 100 100 100
-		area 58 790 207 260
-		align center center
-		--tooltip lua "getCampaignTooltip(1)"
-		action
-		"
-			if isTob ~= 0 then
-				startEngine:OnSoAButtonClick(true);
-				isTob = 0
-			end
-		"
-		actionEnter
-		"
-			if isTob ~= 0 then
-				highlightedCampaign = 1;
-			end
-			campaignsString = t('RG_MENU_IWD_CAMPAIGN1')
-		"
-		actionExit
-		"
-			highlightedCampaign = nil;
-			campaignsString = ''
-		"
+		name "MenuCampA`i`"
+		enabled "isTob == `i - 1`"
+		area `41 + 134 * (i - 1)` 917 160 160
+		mosaic 'rgopt4'
+	}
+	label
+	{
+		name "MenuCampB`i`"
+		area `56 + 134 * (i - 1)` 932 130 132
+		mosaic 'rgopt3'
 	}
 	text
 	{
-		name "MenuCChooser2"
-		bam "LOGOHOW"
-		sequence 0
+		name "MenuCChooser`i`"
+		bam "BIGLOGO"
 		scaleToClip
-		frame lua "0"
-		useOverlayTint "isTob ~= 1 and not getCampaignHighlight(2)"
-		overlayTint 100 100 100
-		text shadow 1
-		area 270 934 207 260
-		align center center
-		--tooltip lua "getCampaignTooltip(2)"
+		sequence 0
+		frame lua "`i - 1`"
+		useOverlayTint "isTob ~= `i - 1` and not getCampaignHighlight(`i`)"
+		overlayTint 180 180 180
+		area `58 + 134 * (i - 1)` 790 116 116
+		align right bottom
+		--tooltip lua "getCampaignTooltip(`i`)"
 		action
 		"
-			if isTob ~= 1 then
+			if isTob ~= `i - 1` then
+			#if i == 1 then
+				startEngine:OnSoAButtonClick(true);
+			#else
 				startEngine:OnToBButtonClick(true);
-				isTob = 1
+			#end
+				isTob = `i - 1`
 			end
-
 		"
 		actionEnter
 		"
-			if isTob ~= 1 then
-				highlightedCampaign = 2;
+			if isTob ~= `i - 1` then
+				highlightedCampaign = `i`;
 			end
-			campaignsString = t('RG_MENU_IWD_CAMPAIGN2')
+			campaignsString = t('RG_MENU_IWD_CAMPAIGN`i`')
 		"
 		actionExit
 		"
@@ -237,6 +222,7 @@ menu
 			campaignsString = ''
 		"
 	}
+#end
 
 	label
 	{
