@@ -192,6 +192,9 @@ menu
 		text "BACK_BUTTON"
 		text style "button"
 		bam GUIBUTMT
+	#if GAME_VERSION == 'iwd' then
+		enabled "createCharScreen:GetCurrentStep() > 1"
+	#end
 		clickable lua "createCharScreen:IsMainBackButtonClickable()"
 		action
 		"
@@ -206,7 +209,11 @@ menu
 		text "CANCEL_BUTTON"
 		text style "button"
 		bam GUIBUTMT
+	#if GAME_VERSION == 'iwd' then
+		enabled "createCharScreen:GetCurrentStep() == 0"
+	#else
 		enabled "not createCharScreen:IsMainBackButtonClickable()"
+	#end
 		action "createCharScreen:OnMainCancelButtonClick()"
 	}
 	button

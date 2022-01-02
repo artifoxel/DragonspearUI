@@ -65,8 +65,6 @@ REF_KIT_NAME_NECROMANCY = 37210
 REF_KIT_NAME_TRANSMUTATION = 37213
 REF_KIT_NAME_WILD_MAGE = 54893
 
--- IWD uses different menu sections for chargen/levelup
-CHARGEN_PROFICIENCIES = { 'CHARGEN', 'LEVELUP' }
 
 -- execute before processing each file
 function init()
@@ -245,6 +243,8 @@ return {
 		"common/chargen_high_level_abilities.menu",
 		"iwd/chargen_select_pregen.lua",
 		"iwd/chargen_select_pregen.menu",
+		"iwd/chargen_skills.menu",
+		"iwd/levelup_proficiencies.menu",
 		"common/popup_big.lua",
 		"common/popup_big.menu",
 		"common/rg_pp_popup.menu",

@@ -1,7 +1,6 @@
-#for __, name in ipairs(CHARGEN_PROFICIENCIES or { 'CHARGEN' }) do
 menu
 {
-	name '`name`_PROFICIENCIES'
+	name 'CHARGEN_PROFICIENCIES'
 --	modal
 	align center center
 	ignoreesc
@@ -360,4 +359,3 @@ menu
 	}
 
 }
-#end

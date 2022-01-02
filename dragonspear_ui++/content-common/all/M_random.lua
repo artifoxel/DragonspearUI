@@ -32,15 +32,22 @@ function randChar()
 	
 	-- Portrait
 	if createCharScreen:GetCurrentStep() == 1 then
+		local targets = {}
 		if RandGender == 1 then
-			while createCharScreen:GetCurrentPortrait() ~= "MAN2L" do
-				createCharScreen:DecCurrentPortrait()
-			end
-		elseif RandGender == 2 then
-			while createCharScreen:GetCurrentPortrait() ~= "WOMAN2L" do
-				createCharScreen:DecCurrentPortrait()
-			end
+			targets['MAN2L'] = true
+			targets['2MHUM1_L'] = true -- IWD
+		else
+			targets['WOMAN2L'] = true
+			targets['2FHUM4_L'] = true -- IWD
 		end
+
+		for i = 0, 1000 do
+			if targets[createCharScreen:GetCurrentPortrait()] then
+				break
+			end
+			createCharScreen:DecCurrentPortrait()
+		end
+
 		Infinity_PopMenu()
 		createCharScreen:OnDoneButtonClick()
 	end

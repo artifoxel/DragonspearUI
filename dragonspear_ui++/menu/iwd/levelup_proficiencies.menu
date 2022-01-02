@@ -1,0 +1,17 @@
+menu
+{
+	name 'LEVELUP_PROFICIENCIES'
+	modal
+	align center center
+	ignoreesc
+	onopen "
+		Infinity_PopMenu()
+		Infinity_PushMenu('CHARGEN_PROFICIENCIES')
+	"
+
+	label
+	{
+		area 0 0 0 0
+		mosaic GUILUPB
+	}
+}

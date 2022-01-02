@@ -186,7 +186,7 @@ menu
 	{
 		enabled "MultiPortraitPicker == 0"
 		area 356 498 346 82
-		text lua "t(PPStrings.PP_TOTAL) .. '\n' .. t(PPStrings.PP_DEFAULT) ..  t(#portraits) .. '\n' .. t(PPStrings.PP_CUSTOM) .. t(#BGImages)"
+		text lua "t(PPStrings.PP_TOTAL) .. '\n' .. t(PPStrings.PP_DEFAULT) ..  #portraits .. '\n' .. t(PPStrings.PP_CUSTOM) .. #BGImages"
 		text style "label"
 		align left center
 	}

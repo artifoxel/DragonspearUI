@@ -13,3 +13,8 @@ function chargenAcceptOrExport()
 	end
 end
 
+#if GAME_VERSION == 'iwd' then
+function isChargenBackButtonClickable()
+	return createCharScreen:GetCurrentStep() > 0 and createCharScreen:IsMainBackButtonClickable()
+end
+#end
