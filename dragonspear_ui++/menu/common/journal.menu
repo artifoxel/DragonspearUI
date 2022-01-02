@@ -21,6 +21,10 @@ menu
 			positionSmallJournal()
 			QFilter = QFilter ~= 3 and QFilter or 0
 		end
+
+	#if GAME_VERSION == 'iwd' then
+		pushSidebars()
+	#end
 	"
 	onclose
 	"
@@ -1278,7 +1282,13 @@ menu
 		name 		"JournalSmall_9"
 		enabled 	"JournalSize == UIStrings.UI_Small"
 		area 		419 13 66 67
+		-- "esc" doesn't actually work, the journal closes, but probably due to some
+		-- default hotkey, except it's glitchy in IWD, hence the fix to use "escape"
+#if GAME_VERSION == 'iwd' then
+		on escape
+#else
 		on esc
+#end
 		bam 		"XBUTT"
 		action
 		"
