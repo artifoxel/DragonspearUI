@@ -193,7 +193,7 @@ menu
 		text style "button"
 		bam GUIBUTMT
 	#if GAME_VERSION == 'iwd' then
-		enabled "createCharScreen:GetCurrentStep() > 1"
+		enabled "isChargenBackButtonClickable()"
 	#end
 		clickable lua "createCharScreen:IsMainBackButtonClickable()"
 		action
@@ -210,7 +210,7 @@ menu
 		text style "button"
 		bam GUIBUTMT
 	#if GAME_VERSION == 'iwd' then
-		enabled "createCharScreen:GetCurrentStep() == 0"
+		enabled "not isChargenBackButtonClickable()"
 	#else
 		enabled "not createCharScreen:IsMainBackButtonClickable()"
 	#end

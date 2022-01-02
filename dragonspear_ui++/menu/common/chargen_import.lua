@@ -6,3 +6,23 @@ function NextOrDone()
 		return t("DONE_BUTTON")
 	end
 end
+
+#if GAME_VERSION == 'iwd' then
+function getPregeneratedCharacters()
+	prerollCharacters = prerollCharacters or {}
+	createCharScreen:GetImportableCharacters()
+
+	local ret = {}
+	for i = 1, #prerollCharacters do
+		local c = prerollCharacters[i]
+		table.insert(ret, {
+			name = c.name,
+			portrait = c.image,
+			desc = c.description,
+			file = c.file,
+		})
+	end
+
+	return ret
+end
+#end

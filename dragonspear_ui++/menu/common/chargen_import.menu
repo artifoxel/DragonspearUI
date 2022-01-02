@@ -6,6 +6,12 @@ menu
 	ignoreesc
 	onOpen
 	"
+	#if GAME_VERSION == 'iwd' then
+		character_select = getPregeneratedCharacters()
+		Infinity_PopMenu()
+		Infinity_PushMenu('CHARACTER_SELECT')
+	#end
+
 		list_GUICG_20_2_idx = 0
 	"
 	label

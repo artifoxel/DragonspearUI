@@ -752,10 +752,10 @@ menu
 	button
 	{
 		enabled 	"not CurrentlyInGame()"
-		area		394 664 200 40
+		area		572 664 220 42
 		text		"DONE_BUTTON"
 		text style 	"button"
-		bam			GUIBUTNT
+		bam		RGRECBTW
 		sequence	3
 		action		"Infinity_PopMenu()"
 	}

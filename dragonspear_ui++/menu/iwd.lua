@@ -241,7 +241,6 @@ return {
 		"common/chargen_difficulty.menu",
 		"common/chargen_high_level_abilities.lua",
 		"common/chargen_high_level_abilities.menu",
-		"iwd/chargen_select_pregen.lua",
 		"iwd/chargen_select_pregen.menu",
 		"iwd/chargen_skills.menu",
 		"iwd/levelup_proficiencies.menu",
