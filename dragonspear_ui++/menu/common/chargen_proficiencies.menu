@@ -327,13 +327,14 @@ menu
 		bam GUIBUTMT
 		text "DONE_BUTTON"
 		text style "button"
-		clickable lua "createCharScreen:IsDoneButtonClickable()"
 #if GAME_VERSION == 'iwd' then
+		clickable lua "createCharScreen:IsDoneButtonClickable() and chargen.extraSkillPoints == 0"
 		action "
 			Infinity_PopMenu();
 			createCharScreen:OnDoneButtonClick();
 		"
 #else
+		clickable lua "createCharScreen:IsDoneButtonClickable()"
 		action "createCharScreen:OnDoneButtonClick();"
 #end
 	}
