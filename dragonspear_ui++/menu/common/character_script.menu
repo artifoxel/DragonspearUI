@@ -8,8 +8,12 @@ menu
 		doneEnabled = characterScreen:IsDoneButtonClickable(currentID)
 		currentPanelID = const.SCRIPT_ID
 
+	#if GAME_VERSION == 'iwd' then
+		showingSmartOptions = false
+	#else
 		showingSmartOptions = (scriptList_idx == 2)
 		scriptDescription = t(scriptOptions[scriptList_idx][2])
+	#end
 
 		for index, var in pairs(scriptOptions) do
 			var[5] = characterScreen:GetTempSmartScriptLocal(var[3])
@@ -84,7 +88,11 @@ menu
 		scrollbar	'GUISCRC'
 		action
 		"
+		#if GAME_VERSION == 'iwd' then
+			showingSmartOptions = false
+		#else
 			showingSmartOptions = (scriptList_idx == 2)
+		#end
 			if scriptList[scriptList_idx] ~= '' then
 				Infinity_OnScriptItemSelect(scriptList_idx - 1)
 				doneEnabled = characterScreen:IsDoneButtonClickable(currentID)
