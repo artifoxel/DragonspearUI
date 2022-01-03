@@ -10,7 +10,11 @@ menu
 		elseif game:GetMissionPackInfoTBP() then
 			cheatAreaDisplayList = cheatAreasArena
 		elseif `CHEAT_AREAS_EXPANSION_CONDITION` then
+		#if GAME_VERSION == 'iwd' then
+			cheatAreaDisplayList = cheatAreasHoW
+		#else
 			cheatAreaDisplayList = cheatAreasExpansion
+		#end
 		else
 			cheatAreaDisplayList = cheatAreas
 		end

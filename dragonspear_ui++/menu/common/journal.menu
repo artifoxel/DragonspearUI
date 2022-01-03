@@ -271,6 +271,11 @@ menu
 		area 1 55 57 57
 		bam RGGLOGO1
 		ScaleToClip
+	#elseif GAME_VERSION == 'iwd' then
+		enabled "JournalSize == UIStrings.UI_Large"
+		name "journalLeftButton1a"
+		on escape
+		area 1 55 0 0
 	#else
 		enabled "JournalSize == UIStrings.UI_Large and startEngine:GetCampaign() == const.START_CAMPAIGN_BG"
 		name "journalLeftButton1a"

@@ -408,6 +408,7 @@ menu
 		enabled "gameOptions.m_bRenderFrameTimes"
 		frameTimes
 	}
+#if GAME_VERSION ~= 'iwd' then
 	button
 	{
 	#if GAME_VERSION == 'eet' then
@@ -487,6 +488,7 @@ menu
 			rgHighlightLog = 0
 		"
 	}
+#end -- GAME_VERSION ~= 'iwd'
 	button
 	{
 		enabled "e:IsMultiplayer() and sidebarsGreyed ~= 1"
