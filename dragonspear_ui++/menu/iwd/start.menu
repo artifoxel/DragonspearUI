@@ -5,10 +5,19 @@ menu
 	size 1024 768
 	ignoreesc
 	onOpen "
-		-- isTob is actually Heart of Winter
+		-- play INTRO movie and select active campaign, do once on game start
 		if isTob == nil then
-			isTob = 0
+			-- isTob is actually Heart of Winter
+			isTob = Infinity_GetINIValue('Program Options', 'Active Campaign', 0)
+			if isTob ~= 1 then
+				isTob = 0
+				startEngine:OnSoAButtonClick(true)
+			else
+				startEngine:OnToBButtonClick(true)
+			end
+			return
 		end
+
 		duiInitSettings({ doFirstLoad = false })
 
 		campaignsString = ''
@@ -202,8 +211,10 @@ menu
 		"
 			if isTob ~= `i - 1` then
 			#if i == 1 then
+				Infinity_SetINIValue('Program Options', 'Active Campaign', 0)
 				startEngine:OnSoAButtonClick(true);
 			#else
+				Infinity_SetINIValue('Program Options', 'Active Campaign', 1)
 				startEngine:OnToBButtonClick(true);
 			#end
 				isTob = `i - 1`
