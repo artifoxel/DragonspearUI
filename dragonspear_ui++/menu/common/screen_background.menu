@@ -1,0 +1,34 @@
+#if ENABLE_SCREEN_BACKGROUNDS then
+menu {
+	name "SCREEN_BACKGROUND"
+	align left top
+	onOpen "
+		duiActiveEngine = e:GetActiveEngine()
+		duiSetBackgroundSize({
+			'WORLD_MAP_BACKGROUND',
+			'INVENTORY_BACKGROUND',
+		})
+	"
+	onClose "
+		duiActiveEngine = nil
+	"
+
+#if WORLD_MAP_BACKGROUND then
+	label {
+		name "WORLD_MAP_BACKGROUND"
+		enabled "duiActiveEngine == worldMapScreen"
+		area 0 0 10000 10000
+		mosaic `WORLD_MAP_BACKGROUND`
+	}
+#end
+
+#if INVENTORY_BACKGROUND then
+	label {
+		name "INVENTORY_BACKGROUND"
+		enabled "duiActiveEngine == inventoryScreen"
+		area 0 0 10000 10000
+		bam `INVENTORY_BACKGROUND`
+	}
+#end
+}
+#end

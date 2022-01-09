@@ -16,3 +16,10 @@ function getBackgroundSize()
 	Infinity_SetArea('RGDBACK7', nil, nil, screenWidth, screenHeight)
 #end
 end
+
+function duiSetBackgroundSize(areas)
+	local w, h = Infinity_GetScreenSize()
+	for _, area in ipairs(areas) do
+		Infinity_SetArea(area, nil, nil, w, h)
+	end
+end

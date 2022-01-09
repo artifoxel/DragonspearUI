@@ -309,6 +309,7 @@ return {
 		-- "common/right_sidebar_help.menu",
 		-- "common/right_sidebar_bottom_help.menu",
 		-- "common/world_actionbar_help.menu"
-		"common/footer.lua"
+		"common/footer.lua",
+		"common/screen_background.menu",
 	},
 }

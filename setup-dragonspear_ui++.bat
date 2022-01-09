@@ -13,4 +13,10 @@
 :: Add "select all" button store and container screens:
 :: set DUI_ENABLE_BUYSELL_SELECT_ALL=1
 
-setup-dragonspear_ui++.exe
+:: Add backgrounds to various screens.
+:: Put filename.PNG or filename.MOS to the override folder.
+:: set DUI_ENABLE_SCREEN_BACKGROUNDS=1
+:: set DUI_WORLD_MAP_BACKGROUND=filename
+:: set DUI_INVENTORY_BACKGROUND=filename
+
+setup-dragonspear_ui++.exe --noautoupdate

@@ -7,6 +7,9 @@ menu
 
 	onOpen
 	"
+	#if ENABLE_SCREEN_BACKGROUNDS and INVENTORY_BACKGROUND then
+		Infinity_SetBackground('SCREEN_BACKGROUND')
+	#end
 		Infinity_ActivateInventory()
 		pushSidebars()
 		doubleClickEventScheduled = nil
@@ -15,6 +18,9 @@ menu
 	"
 	onClose
 	"
+	#if ENABLE_SCREEN_BACKGROUNDS and INVENTORY_BACKGROUND then
+		Infinity_SetBackground(nil)
+	#end
 		inventory:deinit()
 		inventory = nil
 		Infinity_PopMenu('CHARACTER_COLOR')

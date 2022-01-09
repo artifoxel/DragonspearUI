@@ -6,6 +6,10 @@ menu
 #else
 	align center center
 #end
+#if ENABLE_SCREEN_BACKGROUNDS and WORLD_MAP_BACKGROUND then
+	onOpen "Infinity_SetBackground('SCREEN_BACKGROUND')"
+	onClose "Infinity_SetBackground(nil)"
+#end
 	label
 	{
 	#if GAME_VERSION == 'sod' then
