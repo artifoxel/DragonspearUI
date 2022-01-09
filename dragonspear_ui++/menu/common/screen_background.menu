@@ -27,7 +27,7 @@ menu {
 		name "INVENTORY_BACKGROUND"
 		enabled "duiActiveEngine == inventoryScreen"
 		area 0 0 10000 10000
-		bam `INVENTORY_BACKGROUND`
+		mosaic `INVENTORY_BACKGROUND`
 	}
 #end
 }
