@@ -1,0 +1,10 @@
+menu
+{
+	-- used to create modal tint without modal properties
+	name 'BACKGROUND_MODAL_TINT'
+	modal
+	label {
+		area 0 0 0 0
+		enabled false
+	}
+}

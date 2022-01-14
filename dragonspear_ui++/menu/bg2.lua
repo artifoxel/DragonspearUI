@@ -262,6 +262,7 @@ return {
 		"common/connection_waiting_for_server.menu",
 		"common/background.lua",
 		"common/background.menu",
+		"common/background_modal_tint.menu",
 		"common/multiplayer.lua",
 		"common/multiplayer.menu",
 		"common/mp_permissions.lua",
@@ -278,6 +279,8 @@ return {
 		"common/mp_chat_overlay.menu",
 		"common/journal.lua",
 		"common/journal.menu",
+		"common/journal_large.menu",
+		"common/journal_small.menu",
 		"common/message_screen.lua",
 		"common/journal_recent_events.menu",
 		"common/message_screen.menu",
@@ -304,6 +307,6 @@ return {
 		-- "common/right_sidebar_help.menu",
 		-- "common/right_sidebar_bottom_help.menu",
 		-- "common/world_actionbar_help.menu"
-		"common/footer.lua"
+		"common/footer.lua",
 	},
 }

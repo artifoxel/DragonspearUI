@@ -1,3 +1,4 @@
+
 function initQuests_Small()
 	--instead of always searching the quests, just map entry ids to their quests
 	entryToQuest = {}
@@ -421,27 +422,6 @@ function journalContainsSearchString_Small(row)
 	return nil --does not contain search string
 end
 
-function dragJournal(newX,newY)
-	local area = {Infinity_GetArea("JournalSmall_Background")}
-	local screenWidth, screenHeight = Infinity_GetScreenSize()
-
-	--clamping
-	if area[1] + newX < 1364/2 - screenWidth/2 then
-		newX = ((1364 / 2) - (screenWidth / 2)) - area[1]
-	end
-	if area[2] + newY < 756/2 - screenHeight/2 then
-		newY = 756/2 - screenHeight/2 - area[2]
-	end
-
-	if area[1] + area[3] + newX > 1364/2 + screenWidth/2 - 80 then
-		newX = 1364/2 + screenWidth/2 - 80 - area[1] - area[3]
-	end
-	if area[2] + area[4] + newY > screenHeight/2 + 756/2 - 120 then
-		newY = screenHeight/2 + 756/2 - area[2] - area[4] - 120
-	end
-
-	adjustItemGroup({"JournalSmall_Background","JournalSmall_1","JournalSmall_2","JournalSmall_3","JournalSmall_4","JournalSmall_6","JournalSmall_7","JournalSmall_8","JournalSmall_9","JournalSmall_10","JournalSmall_11","JournalSmall_12","JournalSmall_13","JournalSmall_14","JournalSmall_15","JournalSmall_16","JournalSmall_17","JournalSmall_18","JournalSmall_19","JournalSmall_20","JournalSmall_21","JournalSmall_22","JournalSmall_23","JournalSmall_24","JournalSmall_25","JournalSmall_26"}, newX, newY, 0, 0)
-end
 function journalEntryClickable_Small(selectedJournal)
 	local entry = journalDisplay[selectedJournal]
 	if(entry) then return true end

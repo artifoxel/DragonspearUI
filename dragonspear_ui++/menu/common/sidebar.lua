@@ -19,3 +19,8 @@ function onPortraitsSidebarOpen()
 		groundItemsButtonToggle = 0
 	end
 end
+
+function duiIsActiveSidebarBottom()
+	local noJournal = showJournal ~= 1 or JournalSize ~= UIStrings.UI_Large
+	return worldScreen == e:GetActiveEngine() and noJournal
+end

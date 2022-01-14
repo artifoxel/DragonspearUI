@@ -6,8 +6,17 @@ menu
 #else
 	align center center
 #end
+	onOpen "
+	#if GAME_VERSION == 'iwd' then
+		if showJournal == 1 and JournalSize ~= UIStrings.UI_Large then
+			Infinity_PopMenu('JOURNAL_SMALL')
+		end
+	#end
+	#if ENABLE_SCREEN_BACKGROUNDS and WORLD_MAP_BACKGROUND then
+		Infinity_SetBackground('SCREEN_BACKGROUND')
+	#end
+	"
 #if ENABLE_SCREEN_BACKGROUNDS and WORLD_MAP_BACKGROUND then
-	onOpen "Infinity_SetBackground('SCREEN_BACKGROUND')"
 	onClose "Infinity_SetBackground(nil)"
 #end
 	label

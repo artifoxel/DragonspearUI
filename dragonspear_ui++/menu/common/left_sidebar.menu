@@ -11,9 +11,12 @@ menu
 			Infinity_PopMenu('LEFT_SIDEBAR')
 			Infinity_PushMenu('LEFT_SIDEBAR_HIDDEN')
 		end
+	-- this creates an infinite loop if you open the journal in IWD
+	#if GAME_VERSION ~= 'iwd' then
 		if(showJournal == 1) then
 			Infinity_PushMenu('JOURNAL')
 		end
+	#end
 		sidebarForceTooltips = 0
 #if WITH_LEFT_SIDE_PORTRAITS then
 		onPortraitsSidebarOpen()

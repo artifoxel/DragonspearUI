@@ -4,6 +4,13 @@ function math.sign(value)
 	else return 0 end
 end
 
+function math.clamp(value, min, max)
+	if value > max then
+		value = max
+	end
+	return value > min and value or min
+end
+
 SpellBook = {}
 
 function SpellBook:create()

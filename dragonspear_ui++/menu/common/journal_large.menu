@@ -1,0 +1,602 @@
+menu
+{
+	name 'JOURNAL_LARGE'
+	align center center
+	ignoreEsc
+
+	onOpen "
+		worldScreenWasPaused = PauseJournal()
+		Infinity_PopMenu('WORLD_MESSAGES')
+		Infinity_PopMenu('WORLD_ACTIONBAR')
+
+	#if GAME_VERSION == 'iwd' then
+		for _, name in ipairs({ 'LEFT', 'RIGHT' }) do
+			if sidebarVisible[name] == 1 then
+				Infinity_PushMenu(name .. '_SIDEBAR')
+			end
+		end
+		Infinity_PopMenu('WORLD_QUICKLOOT')
+	#else
+		Infinity_SetBackground('BACKGROUND_MODAL_TINT')
+	#end
+	"
+	onClose "
+		-- if we're switching to the map screen,
+		-- the journal remains open without the next line:
+		showJournal = 0
+
+		if worldScreenWasPaused and e:GetActiveEngine() == worldScreen then
+			worldScreen:TogglePauseGame(true)
+		end
+		worldScreenWasPaused = nil
+
+		#if GAME_VERSION ~= 'iwd' then
+			Infinity_SetBackground(nil)
+			Infinity_PushMenu('WORLD_MESSAGES')
+			Infinity_PushMenu('WORLD_ACTIONBAR')
+		#end
+
+		if groundItemsButtonToggle == 1 then
+			Infinity_PushMenu('WORLD_QUICKLOOT')
+		end
+	"
+
+	label
+	{
+		name "journalLarge_1"
+		area 0 0 1364 756
+		mosaic "RGJRNL"
+		-- disable spacebar to avoid messing up pause/unpause logic
+		on space
+	}
+
+	label
+	{
+		name "journalLarge_2"
+		area 205 31 954 44
+		text "JOURNAL_LABEL"
+		text style "title"
+	}
+	button
+	{
+		name "journalLarge_3"
+		area 879 82 52 44
+--		text "JOURNAL_LABEL"
+--		text style "label_parchment"
+--		text point 16
+		bam "RGQBUT1"
+		sequence 1
+		glow lua "journalMode == const.JOURNAL_MODE_JOURNAL"
+		action "journalMode = const.JOURNAL_MODE_JOURNAL"
+	}
+	button
+	{
+		name "journalLarge_4"
+		area 437 82 52 44
+--		text "QUESTS_LABEL"
+--		text style "label_parchment"
+--		text point 16
+		bam "RGQBUT1"
+		sequence 0
+		glow lua "journalMode == const.JOURNAL_MODE_QUESTS"
+		action "journalMode = const.JOURNAL_MODE_QUESTS"
+	}
+	button
+	{
+		name "journalLarge_5"
+		area 122 90 230 44
+		enabled "journalMode == const.JOURNAL_MODE_QUESTS"
+		text 'RG_CURRENT_QUESTS'
+		text style "label_parchment"
+		text point 16
+		action
+		"
+			CloseAll(1)
+		"
+	}
+	button
+	{
+		name "journalLarge_6"
+		area 1012 90 234 44
+		enabled "journalMode == const.JOURNAL_MODE_QUESTS"
+		text 'RG_FINISHED_QUESTS'
+		text style "label_parchment"
+		text point 16
+		action
+		"
+			CloseAll(2)
+		"
+	}
+	label
+	{
+		area 122 90 230 44
+		name "journalLarge_7"
+		enabled "journalMode == const.JOURNAL_MODE_JOURNAL"
+		text "JOURNAL_LABEL"
+		text style "label_parchment"
+		text point 16
+	}
+	label
+	{
+		area 1012 90 230 44
+		name "journalLarge_26"
+		enabled "journalMode == const.JOURNAL_MODE_JOURNAL"
+		text lua "string.sub(JFStrings.JF_Notes, 1, string.len(JFStrings.JF_Notes) - 1)"
+		text style "label_parchment"
+		text point 16
+	}
+	button -- Chapter
+	{
+		name "journalLarge_8"
+		area 582 83 200 40
+		text lua "chapterText()"
+		text style "label"
+		bam "GUIBUTNT"
+		action
+		"
+			e:GetActiveEngine():OnLeftPanelButtonClick(2)
+			if JournalSize == UIStrings.UI_Large then
+				JournalSize = UIStrings.UI_Small
+			else
+				JournalSize = UIStrings.UI_Large
+			end
+			e:GetActiveEngine():OnLeftPanelButtonClick(2)
+		"
+	}
+	button --prev chapter
+	{
+		name "journalLarge_9"
+		area		538 73 39 65
+		bam "GUIPRC"
+		sequence 3
+
+		action
+		"
+			incrChapter(-1);
+		"
+	}
+	button
+	{
+		name "journalLarge_10"
+		area		788 73 42 65
+		bam "GUIPRC"
+		sequence 2
+
+		action
+		"
+			incrChapter(1);
+		"
+	}
+	--[Bug #20368] Recent events button cut for now.
+	--
+	--button
+	--{
+	--	enabled "journalMode == const.JOURNAL_MODE_QUESTS"
+	--	area 278 616 162 47
+	--	bam "PAPERBUT"
+	--	sequence 1
+	--	text "RECENT_EVENTS_LABEL"
+	--	text style "button_parchment"
+	--	action
+	--	"
+	--		Infinity_PushMenu('JOURNAL_RECENT_EVENTS')
+	--	"
+	--}
+	label
+	{
+		name "journalLarge_11"
+		enabled "journalMode == const.JOURNAL_MODE_JOURNAL"
+		area 122 140 200 32
+		fill 50 50 50 150
+	}
+	edit
+	{
+		name "journalLarge_12"
+		enabled "journalMode == const.JOURNAL_MODE_JOURNAL"
+		area 124 144 192 29
+		var journalSearchString
+		placeholder "ENTER_SEARCH_TERM_NORMAL"
+		text style "edit"
+		maxlines 1
+	}
+	list
+	{
+		column
+		{
+			width 5
+			label
+			{
+				area 0 0 31 31
+				enabled "getArrowEnabled(rowNumber) and hideFinished(rowNumber)"
+				bam "PCHEV"
+				frame lua "getArrowFrame(rowNumber)"
+				text style "label_parchment"
+				align top center
+			}
+		}
+		column {
+			width 95
+			label
+			{
+				enabled "questEnabled(rowNumber) and hideFinished(rowNumber)"
+				area 0 0 400 38
+				mosaic RGQBACK
+			}
+			label
+			{
+				enabled "questEnabled(rowNumber) and hideFinished(rowNumber)"
+				area 16 0 400 38
+				text lua "getQuestText(rowNumber)"
+				text style "normal_parchment"
+				--text color '5'
+				align left center
+			}
+			label
+			{
+				enabled "objectiveEnabled(rowNumber) and hideFinished(rowNumber)"
+				area 16 0 -1 -1
+				pad 0 10 0 10
+				text lua "getObjectiveText(rowNumber)"
+				text style "normal_parchment"
+			}
+			label
+			{
+				enabled "entryEnabled(rowNumber) and hideFinished(rowNumber)"
+				area 16 0 -1 -1
+--				pad 0 10 0 10
+				text lua "getEntryText(rowNumber)"
+				text style "normal_parchment"
+				text color M
+			}
+		}
+		name "journalLarge_13"
+		enabled "journalMode == const.JOURNAL_MODE_QUESTS"
+		rowheight	dynamic
+		hidehighlight
+		seperator "showObjectiveSeperator(rowNumber)"
+		table		"questDisplay"
+		var			selectedQuest
+		scrollbar	'GUISCRP'
+		area		122 141 534 534
+		action
+		"
+			if(questDisplay[selectedQuest].expanded) then
+				questDisplay[selectedQuest].expanded = nil
+			else
+				questDisplay[selectedQuest].expanded = 1
+			end
+		"
+
+	}
+	list
+	{
+		column
+		{
+			width 5
+			label
+			{
+				area 0 0 31 31
+				enabled "getArrowEnabled(rowNumber) and hideUnfinished(rowNumber)"
+				bam "PCHEV"
+				frame lua "getArrowFrame(rowNumber)"
+				text style "label_parchment"
+				align top center
+			}
+		}
+		column {
+			width 95
+			label
+			{
+				enabled "questEnabled(rowNumber) and hideUnfinished(rowNumber)"
+				area 0 0 400 38
+				mosaic RGQBACK
+			}
+			label
+			{
+				enabled "questEnabled(rowNumber) and hideUnfinished(rowNumber)"
+				area 16 0 400 38
+				text lua "getQuestText(rowNumber)"
+				text style "normal_parchment"
+				align left center
+			}
+			label
+			{
+				enabled "objectiveEnabled(rowNumber) and hideUnfinished(rowNumber)"
+				area 16 0 -1 -1
+				pad 0 10 0 10
+				text lua "getObjectiveText(rowNumber)"
+				text style "normal_parchment"
+			}
+			label
+			{
+				enabled "entryEnabled(rowNumber) and hideUnfinished(rowNumber)"
+				area 16 0 -1 -1
+--				pad 0 10 0 10
+				text lua "getEntryText(rowNumber)"
+				text style "normal_parchment"
+				text color M
+			}
+		}
+		name "journalLarge_14"
+		enabled "journalMode == const.JOURNAL_MODE_QUESTS"
+		rowheight	dynamic
+		hidehighlight
+		seperator "showObjectiveSeperator(rowNumber)"
+		table		"questDisplay"
+		var			selectedQuest
+		scrollbar	'GUISCRP'
+		area		712 141 534 540
+		action
+		"
+			if(questDisplay[selectedQuest].expanded) then
+				questDisplay[selectedQuest].expanded = nil
+			else
+				questDisplay[selectedQuest].expanded = 1
+			end
+		"
+
+	}
+
+	list --journal
+	{
+		column
+		{
+			width 100
+			--light
+			label
+			{
+				enabled "getJournalTitleEnabled(rowNumber) and not getJournalDarken(rowNumber) and NotMyNotes(rowNumber)"
+				area 0 0 -1 -1
+				pad 0 16 0 0
+				text lua "getJournalTitleText(rowNumber)"
+				text style "label_parchment"
+				text color 0 120 0 255
+			}
+			label
+			{
+				enabled "getJournalEntryEnabled(rowNumber) and NotMyNotes(rowNumber) and not getJournalDarken(rowNumber)"
+				area 0 0 -1 -1
+				pad 8 16 0 16
+				text lua "getJournalEditedColours(getJournalEntryText(rowNumber))"
+				text style "normal_parchment"
+			}
+
+			--dark
+			label
+			{
+				enabled "NotMyNotes(rowNumber) and getJournalDarken(rowNumber) and (getJournalTitleEnabled(rowNumber) or getJournalEntryEnabled(rowNumber))"
+				area 0 0 -1 -1
+				fill 0 0 0 150
+			}
+			label
+			{
+				enabled "getJournalTitleEnabled(rowNumber) and getJournalDarken(rowNumber) and NotMyNotes(rowNumber)"
+				area 0 0 -1 -1
+				pad 0 16 0 0
+				text lua "getJournalTitleText(rowNumber)"
+				text style "label_parchment"
+				text color 255 100 100 255
+			}
+			label
+			{
+				enabled "getJournalEntryEnabled(rowNumber) and getJournalDarken(rowNumber) and NotMyNotes(rowNumber)"
+				area 0 0 -1 -1
+				pad 8 16 0 16
+				text lua "getJournalEditedColours(getJournalEntryText(rowNumber))"
+				text style "normal_parchment"
+				text color 'B'
+			}
+
+
+		}
+		name "journalLarge_15"
+		enabled "journalMode == const.JOURNAL_MODE_JOURNAL"
+		seperator "getJournalEntryEnabled(rowNumber)"
+		rowheight	dynamic
+		hidehighlight
+		table		"journalDisplay"
+		var			selectedJournal
+		scrollbar	'GUISCRP'
+		area		122 173 538 502
+		actionDbl
+		"
+			LargeEditAction()
+		"
+	}
+	list --journal
+	{
+		column
+		{
+			width 100
+			--light
+			label
+			{
+				enabled "getJournalTitleEnabled(rowNumber) and not getJournalDarken(rowNumber) and myNotes(rowNumber)"
+				area 0 0 -1 -1
+				pad 0 16 0 0
+				text lua "getJournalTitleText(rowNumber)"
+				text style "label_parchment"
+				text color 0 120 0 255
+			}
+			label
+			{
+				enabled "getJournalEntryEnabled(rowNumber) and not getJournalDarken(rowNumber) and myNotes(rowNumber)"
+				area 0 0 -1 -1
+				pad 8 16 0 16
+				text lua "string.sub(getJournalEntryText(rowNumber),string.len(JFStrings.JF_Notes)+2)"
+				text style "normal_parchment"
+			}
+
+			--dark
+			label
+			{
+				enabled "myNotes(rowNumber) and getJournalDarken(rowNumber) and (getJournalTitleEnabled(rowNumber) or getJournalEntryEnabled(rowNumber))"
+				area 0 0 -1 -1
+				fill 0 0 0 150
+			}
+			label
+			{
+				enabled "getJournalTitleEnabled(rowNumber) and getJournalDarken(rowNumber) and myNotes(rowNumber)"
+				area 0 0 -1 -1
+				pad 0 16 0 0
+				text lua "getJournalTitleText(rowNumber)"
+				text style "label_parchment"
+				text color 255 100 100 255
+			}
+			label
+			{
+				enabled "getJournalEntryEnabled(rowNumber) and getJournalDarken(rowNumber) and myNotes(rowNumber)"
+				area 0 0 -1 -1
+				pad 8 16 0 16
+				text lua "string.sub(getJournalEntryText(rowNumber),string.len(JFStrings.JF_Notes)+2)"
+				text style "normal_parchment"
+				text color 'B'
+			}
+
+
+		}
+		name "journalLarge_16"
+		enabled "journalMode == const.JOURNAL_MODE_JOURNAL"
+		seperator "getJournalEntryEnabled(rowNumber)"
+		rowheight	dynamic
+		hidehighlight
+		table		"journalDisplay"
+		var			selectedJournal
+		scrollbar	'GUISCRP'
+		area		712 173 534 502
+		actionDbl
+		"
+			LargeEditAction()
+		"
+	}
+	button
+	{
+		name "journalLarge_17"
+		enabled "journalMode == const.JOURNAL_MODE_JOURNAL"
+		area 327 128 162 47
+		bam "PAPERBUT"
+		sequence 1
+		text "ADD_ENTRY_LABEL"
+		text style "button_parchment"
+		action
+		"
+			journalMode = const.JOURNAL_MODE_EDIT
+			journalNoteEdit = ''
+			journalNoteEditRef = nil
+			Infinity_FocusTextEdit('journalLarge_22')
+		"
+	}
+	button
+	{
+		name "journalLarge_18"
+		enabled "journalMode == const.JOURNAL_MODE_JOURNAL"
+		clickable lua "journalEntryClickable(selectedJournal)"
+		area 489 128 162 47
+		bam "PAPERBUT"
+		sequence 1
+		text "EDIT_ENTRY_LABEL"
+		text style "button_parchment"
+		action
+		"
+			LargeEditAction()
+		"
+	}
+
+
+	label
+	{
+		name "journalLarge_19"
+		enabled "journalMode == const.JOURNAL_MODE_EDIT"
+		area 122 148 534 36
+		text style "normal_parchment"
+		text "WRITE_ENTRY_TEXT"
+
+	}
+	label
+	{
+		name "journalLarge_20"
+		enabled "journalMode == const.JOURNAL_MODE_EDIT"
+		area 122 185 534 4
+		fill 10 71 1 255
+	}
+	label
+	{
+		name "journalLarge_21"
+		enabled "journalMode == const.JOURNAL_MODE_EDIT"
+		area 122 189 534 42
+		text style "label"
+		text color 0 120 0 255
+		text lua "Infinity_GetTimeString()"
+	}
+	edit
+	{
+		name "journalLarge_22"
+		enabled "journalMode == const.JOURNAL_MODE_EDIT"
+		area		122 231 534 379
+		text style	"edit_parchment"
+		var			journalNoteEdit
+		scrollbar	'GUISCRP'
+	}
+
+	button
+	{
+		name "journalLarge_23"
+		enabled "journalMode == const.JOURNAL_MODE_EDIT"
+		area 426 610 162 47
+		bam "PAPERBUT"
+		sequence 1
+		text "CANCEL_BUTTON"
+		text style "button_parchment"
+		action
+		"
+			journalMode = const.JOURNAL_MODE_JOURNAL
+		"
+	}
+	button
+	{
+		name "journalLarge_24"
+		enabled "journalMode == const.JOURNAL_MODE_EDIT and journalNoteEdit ~= ''"
+		area 190 610 162 47
+		bam "PAPERBUT"
+		sequence 1
+		text "DONE_BUTTON"
+		text style "button_parchment"
+		action
+		"
+			if (journalNoteEditRef == nil) then
+				journalNoteEdit = JFStrings.JF_Notes .. '\n\n' .. journalNoteEdit .. '\n - ' .. Infinity_GetTimeString()
+				Infinity_OnAddUserEntry(journalNoteEdit)
+			else
+				if string.find(string.lower(journalNoteOld),string.lower(JFStrings.JF_Notes)) then
+					journalNoteEdit = JFStrings.JF_Notes .. '\n\n' .. journalNoteEdit .. '\n - ' .. Infinity_GetTimeString()
+				else
+					journalNoteEdit = JFStrings.JF_Edited .. '\n\n' .. journalNoteEdit .. '\n -' .. Infinity_GetTimeString()
+				end
+				Infinity_OnEditUserEntry(journalNoteEditRef, journalNoteEdit)
+			end
+			journalMode = const.JOURNAL_MODE_JOURNAL
+		"
+	}
+	button
+	{
+		name 		"journalLarge_25"
+		enabled 	"journalMode == const.JOURNAL_MODE_EDIT and string.find(string.lower(journalNoteOld),string.lower(JFStrings.JF_Notes))"
+		area 		626 196 30 26
+		text 		"X"
+		text style 	"button_parchment"
+		text align 	center center
+		text color	R
+		action
+		"
+			journalNoteEditRef = getJournalEntryRef_Small(selectedJournal)
+			journalNoteOld = Infinity_FetchString(journalNoteEditRef)
+
+			if string.find(string.lower(journalNoteOld),string.lower(JFStrings.JF_Notes)) then
+				journalNoteEditRef = getJournalEntryRef_Small(selectedJournal)
+				journalNoteEdit = ''
+			end
+			Infinity_OnEditUserEntry(journalNoteEditRef, journalNoteEdit)
+			journalMode = const.JOURNAL_MODE_JOURNAL
+		"
+	}
+}

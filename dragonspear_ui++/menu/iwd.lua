@@ -283,6 +283,8 @@ return {
 		"common/mp_chat_overlay.menu",
 		"common/journal.lua",
 		"common/journal.menu",
+		"common/journal_large.menu",
+		"common/journal_small.menu",
 		"common/message_screen.lua",
 		"common/journal_recent_events.menu",
 		"common/message_screen.menu",

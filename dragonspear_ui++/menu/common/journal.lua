@@ -419,29 +419,17 @@ function journalContainsSearchString(row)
 
 	return nil --does not contain search string
 end
--- function dragJournal()
-	-- local offsetX,offsetY,menuWidth,menuHeight = Infinity_GetMenuArea('JOURNAL')
-	-- offsetX = offsetX + motionX
-	-- offsetY = offsetY + motionY
 
-	-- clamping
-	-- if(offsetX < 80) then
-		-- offsetX = 80
-	-- end
-	-- if(offsetY < 0) then
-		-- offsetY = 0
-	-- end
+function dragJournal()
+	local sw, sh = Infinity_GetScreenSize()
+	local x, y, w, h = Infinity_GetMenuArea('JOURNAL_SMALL')
 
-	-- local screenWidth, screenHeight = Infinity_GetScreenSize()
-	-- if(offsetX > screenWidth - 80 - menuWidth) then
-		-- offsetX = screenWidth - 80 - menuWidth
-	-- end
-	-- if(offsetY > screenHeight - menuHeight) then
-		-- offsetY = screenHeight - menuHeight
-	-- end
+	x = math.clamp(x + motionX, 0, sw - w - 80)
+	y = math.clamp(y + motionY, 0, sh - h - 120)
 
-	-- Infinity_SetOffset('JOURNAL', offsetX, offsetY)
--- end
+	Infinity_SetOffset('JOURNAL_SMALL', x, y)
+end
+
 function journalEntryClickable(selectedJournal)
 	local entry = journalDisplay[selectedJournal]
 	if(entry) then return true end
@@ -462,125 +450,20 @@ function getJournalBackgroundFrame()
 		return 1
 	end
 end
+
 function PauseJournal()
 	if worldScreen:CheckIfPaused() then
 		return
-	else
-		worldScreen:TogglePauseGame(true)
 	end
-end
-function getSidebarButtons_Large()
-	local screenWidth, screenHeight = Infinity_GetScreenSize()
-	Infinity_SetArea('journalLeftBack1', -((screenWidth-1364)/2), ((screenHeight-756)/2)+640, nil, nil)
-	Infinity_SetArea('journalLeftBack2', -((screenWidth-1364)/2), ((screenHeight-756)/2)+703, nil, nil)
-	Infinity_SetArea('journalRightBack1', ((screenWidth-1364)/2)+1245, ((screenHeight-756)/2)+640, nil, nil)
-	Infinity_SetArea('journalRightBack2', ((screenWidth-1364)/2)+964, ((screenHeight-756)/2)+703, nil, nil)
-	Infinity_SetArea('journalLeftButton1a', -((screenWidth-1364)/2), ((screenHeight-756)/2)+691, nil, nil)
-	Infinity_SetArea('journalLeftButton1b', -((screenWidth-1364)/2)+1, ((screenHeight-756)/2)+692, nil, nil)
-	Infinity_SetArea('journalLeftButton1c', -((screenWidth-1364)/2)+1, ((screenHeight-756)/2)+691, nil, nil)
-	Infinity_SetArea('journalLeftButton2', -((screenWidth-1364)/2)+69, ((screenHeight-756)/2)+708, nil, nil)
-	Infinity_SetArea('journalLeftButton3', -((screenWidth-1364)/2)+119, ((screenHeight-756)/2)+709, nil, nil)
-	Infinity_SetArea('journalLeftButton4', -((screenWidth-1364)/2)+169, ((screenHeight-756)/2)+708, nil, nil)
-	Infinity_SetArea('journalLeftButton5', -((screenWidth-1364)/2)+216, ((screenHeight-756)/2)+709, nil, nil)
-	Infinity_SetArea('journalLeftButton6', -((screenWidth-1364)/2)+261, ((screenHeight-756)/2)+709, nil, nil)
-	Infinity_SetArea('journalLeftButton7', -((screenWidth-1364)/2)+309, ((screenHeight-756)/2)+709, nil, nil)
-	Infinity_SetArea('journalLeftButton8', -((screenWidth-1364)/2), ((screenHeight-756)/2)+688, nil, nil)
-	Infinity_SetArea('journalLeftButton9', -((screenWidth-1364)/2), ((screenHeight-756)/2)+688, nil, nil)
-	Infinity_SetArea('journalLeftButton10', -((screenWidth-1364)/2), ((screenHeight-756)/2)+650, nil, nil)
-	Infinity_SetArea('journalRightButton1', ((screenWidth-1364)/2)+1295, -((screenHeight-756)/2)+14, nil, nil)
-	Infinity_SetArea('journalRightButton2', ((screenWidth-1364)/2)+1295, -((screenHeight-756)/2)+112, nil, nil)
-	Infinity_SetArea('journalRightButton3', ((screenWidth-1364)/2)+1295, -((screenHeight-756)/2)+210, nil, nil)
-	Infinity_SetArea('journalRightButton4', ((screenWidth-1364)/2)+1295, -((screenHeight-756)/2)+308, nil, nil)
-	Infinity_SetArea('journalRightButton5', ((screenWidth-1364)/2)+1295, -((screenHeight-756)/2)+406, nil, nil)
-	Infinity_SetArea('journalRightButton6', ((screenWidth-1364)/2)+1295, -((screenHeight-756)/2)+504, nil, nil)
-	Infinity_SetArea('journalRightButton1a', ((screenWidth-1364)/2)+1292, -((screenHeight-756)/2)+10, nil, nil)
-	Infinity_SetArea('journalRightButton2a', ((screenWidth-1364)/2)+1292, -((screenHeight-756)/2)+108, nil, nil)
-	Infinity_SetArea('journalRightButton3a', ((screenWidth-1364)/2)+1292, -((screenHeight-756)/2)+206, nil, nil)
-	Infinity_SetArea('journalRightButton4a', ((screenWidth-1364)/2)+1292, -((screenHeight-756)/2)+304, nil, nil)
-	Infinity_SetArea('journalRightButton5a', ((screenWidth-1364)/2)+1292, -((screenHeight-756)/2)+402, nil, nil)
-	Infinity_SetArea('journalRightButton6a', ((screenWidth-1364)/2)+1292, -((screenHeight-756)/2)+500, nil, nil)
-	Infinity_SetArea('journalRightButton7', ((screenWidth-1364)/2)+1311, ((screenHeight-756)/2)+701, nil, nil)
-	Infinity_SetArea('journalRightButton8', ((screenWidth-1364)/2)+1004, ((screenHeight-756)/2)+709, nil, nil)
-	Infinity_SetArea('journalRightButton9', ((screenWidth-1364)/2)+1050, ((screenHeight-756)/2)+709, nil, nil)
-	Infinity_SetArea('journalRightButton10', ((screenWidth-1364)/2)+1098, ((screenHeight-756)/2)+709, nil, nil)
-	Infinity_SetArea('journalRightButton11', ((screenWidth-1364)/2)+1149, ((screenHeight-756)/2)+709, nil, nil)
-	Infinity_SetArea('journalRightButton12', ((screenWidth-1364)/2)+1197, ((screenHeight-756)/2)+709, nil, nil)
-	Infinity_SetArea('journalRightButton13', ((screenWidth-1364)/2)+1242, ((screenHeight-756)/2)+708, nil, nil)
-	Infinity_SetArea('journalRightButton14', ((screenWidth-1364)/2)+1343, ((screenHeight-756)/2)+650, nil, nil)
-end
-FirstUse = 0
-function positionSmallJournal()
-	HideLargeJournal()
-	if FirstUse == 0 then
-		FirstUse = 1
-		-- Set the background to 0,0 (top-left)
-		local screenWidth, screenHeight = Infinity_GetScreenSize()
-		local area = {Infinity_GetArea('JournalSmall_Background')}
-		area[1] = (1364 / 2) - (screenWidth / 2)
-		area[2] = (756 / 2) - (screenHeight / 2)
 
-		Infinity_SetArea('JournalSmall_Background', area[1], area[2], 501, 773)
-		Infinity_SetArea('JournalSmall_1', area[1], area[2], 485, 747)
-		Infinity_SetArea('JournalSmall_2', area[1], area[2], 472, 80)
-		Infinity_SetArea('JournalSmall_3', area[1]+218, area[2]+18, 134, 42)
-		Infinity_SetArea('JournalSmall_4', area[1]+34, area[2]+18, 136, 42)
-		Infinity_SetArea('JournalSmall_6', area[1]+84, area[2]+140, 118, 35)
-		Infinity_SetArea('JournalSmall_7', area[1]+202, area[2]+140, 118, 35)
-		Infinity_SetArea('JournalSmall_8', area[1]+320, area[2]+140, 118, 35)
-		Infinity_SetArea('JournalSmall_9', area[1]+419, area[2]+13, 66, 67)
-		Infinity_SetArea('JournalSmall_10', area[1]+170, area[2]+80, 146, 60)
-		Infinity_SetArea('JournalSmall_11', area[1]+134, area[2]+80, 41, 60)
-		Infinity_SetArea('JournalSmall_12', area[1]+306, area[2]+80, 41, 60)
-		Infinity_SetArea('JournalSmall_13', area[1]+44, area[2]+175, 382, 29)
-		Infinity_SetArea('JournalSmall_14', area[1]+62, area[2]+180, 357, 20)
-		Infinity_SetArea('JournalSmall_15', area[1]+44, area[2]+174, 396, 490)
-		Infinity_SetArea('JournalSmall_16', area[1]+44, area[2]+208, 396, 490)
-		Infinity_SetArea('JournalSmall_17', area[1]+44, area[2]+140, 132, 35)
-		Infinity_SetArea('JournalSmall_18', area[1]+176, area[2]+140, 132, 35)
-		Infinity_SetArea('JournalSmall_19', area[1]+308, area[2]+140, 132, 35)
-		Infinity_SetArea('JournalSmall_20', area[1]+44, area[2]+154, 382, 26)
-		Infinity_SetArea('JournalSmall_21', area[1]+44, area[2]+200, 382, 4)
-		Infinity_SetArea('JournalSmall_22', area[1]+44, area[2]+204, 382, 26)
-		Infinity_SetArea('JournalSmall_23', area[1]+44, area[2]+230, 382, 411)
-		Infinity_SetArea('JournalSmall_24', area[1]+44, area[2]+641, 162, 47)
-		Infinity_SetArea('JournalSmall_25', area[1]+260, area[2]+641, 162, 47)
-		Infinity_SetArea('JournalSmall_26', area[1]+400, area[2]+204, 30, 26)
+	if e:GetActiveEngine() ~= worldScreen then
+		return
 	end
+
+	worldScreen:TogglePauseGame(true)
+	return true
 end
-function HideLargeJournal()
-	local screenWidth, screenHeight = Infinity_GetScreenSize()
-	for i = 1, 26, 1 do
-		Infinity_SetArea(('journalLarge_' .. i), -(screenWidth * 2), -(screenHeight * 2), -1, -1)
-	end
-end
-function unHideLargeJournal()
-	Infinity_SetArea(('journalLarge_1'), 0,0,1364,756)
-	Infinity_SetArea(('journalLarge_2'), 205,31,954,44)
-	Infinity_SetArea(('journalLarge_3'), 879,82,52,44)
-	Infinity_SetArea(('journalLarge_4'), 437,82,52,44)
-	Infinity_SetArea(('journalLarge_5'), 122,90,230,44)
-	Infinity_SetArea(('journalLarge_6'), 1012,90,234,44)
-	Infinity_SetArea(('journalLarge_7'), 122,90,230,44)
-	Infinity_SetArea(('journalLarge_8'), 582,83,200,40)
-	Infinity_SetArea(('journalLarge_9'), 538,73,39,65)
-	Infinity_SetArea(('journalLarge_10'), 788,73,42,65)
-	Infinity_SetArea(('journalLarge_11'), 122,140,200,32)
-	Infinity_SetArea(('journalLarge_12'), 124,144,192,29)
-	Infinity_SetArea(('journalLarge_13'), 122,141,534,534)
-	Infinity_SetArea(('journalLarge_14'), 712,141,534,540)
-	Infinity_SetArea(('journalLarge_15'), 122,173,538,502)
-	Infinity_SetArea(('journalLarge_16'), 712,173,534,502)
-	Infinity_SetArea(('journalLarge_17'), 327,128,162,47)
-	Infinity_SetArea(('journalLarge_18'), 489,128,162,47)
-	Infinity_SetArea(('journalLarge_19'), 122,148,534,36)
-	Infinity_SetArea(('journalLarge_20'), 122,185,534,4)
-	Infinity_SetArea(('journalLarge_21'), 122,189,534,42)
-	Infinity_SetArea(('journalLarge_22'), 122,231,534,379)
-	Infinity_SetArea(('journalLarge_23'), 426,610,162,47)
-	Infinity_SetArea(('journalLarge_24'), 190,610,162,47)
-	Infinity_SetArea(('journalLarge_25'), 626,196,30,26)
-	Infinity_SetArea(('journalLarge_26'), 1012,90,234,44)
-end
+
 journalMode = const.JOURNAL_MODE_QUESTS
 journalSearchString = ""
 

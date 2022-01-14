@@ -50,7 +50,7 @@ menu
 		action
 		"
 			FindTitle = getSubtitleString()
-			if(sidebarsGreyed ~= 1) and journalOpen ~= 1 then
+			if(sidebarsGreyed ~= 1) and showJournal ~= 1 then
 				if JournalSize == UIStrings.UI_Large then
 					e:GetActiveEngine():OnLeftPanelButtonClick(2)
 				elseif JournalSize == UIStrings.UI_Small then

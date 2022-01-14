@@ -29,25 +29,11 @@ menu
 
 	label
 	{
-		enabled "showJournal ~= 1 and JournalSize ~= UIStrings.UI_Small"
 		area 281 0 119 116
 		mosaic RGGAM11
 	}
 	label
 	{
-		enabled "showJournal ~= 1 and JournalSize ~= UIStrings.UI_Small"
-		area 0 63 400 53
-		mosaic RGGAM12
-	}
-	label
-	{
-		enabled "JournalSize ~= UIStrings.UI_Large"
-		area 281 0 119 116
-		mosaic RGGAM11
-	}
-	label
-	{
-		enabled "JournalSize ~= UIStrings.UI_Large"
 		area 0 63 400 53
 		mosaic RGGAM12
 	}
@@ -61,42 +47,14 @@ menu
 	button
 	{
 		area 40 69 48 47
-		enabled "worldScreen ~= e:GetActiveEngine() and showJournal ~= 1 and sidebarsGreyed ~= 1"
+		enabled "sidebarsGreyed ~= 1 and not duiIsActiveSidebarBottom()"
 		bam RGGBUT
 		sequence 17
 	}
 	button
 	{
 		area 40 69 48 47
-		enabled "worldScreen == e:GetActiveEngine() and showJournal ~= 1 and JournalSize ~= UIStrings.UI_Small and sidebarsGreyed ~= 1"
-		bam RGGBUT
-		sequence 10
-		frame lua "rggbuttHighlight8()"
-		tooltip lua "getTooltipWithHotkey(28,`REF_TOOLTIP_QUICK_SAVE`)"
-		tooltip force lua "sidebarForceTooltips == 1"
-		tooltip force top
-		clickable lua "sidebarsGreyed ~= 1"
-		action
-		"
-			worldScreen:OnQuickSaveButtonClick(false)
-		"
-		actionAlt
-		"
-			worldScreen:OnQuickSaveButtonClick(true)
-		"
-		actionEnter
-		"
-			rgHighlightSav = 1
-		"
-		actionExit
-		"
-			rgHighlightSav = 0
-		"
-	}
-	button
-	{
-		area 40 69 48 47
-		enabled "worldScreen == e:GetActiveEngine() and JournalSize ~= UIStrings.UI_Large and sidebarsGreyed ~= 1"
+		enabled "sidebarsGreyed ~= 1 and duiIsActiveSidebarBottom()"
 		bam RGGBUT
 		sequence 10
 		frame lua "rggbuttHighlight8()"
@@ -124,14 +82,14 @@ menu
 	button
 	{
 		area 86 69 48 47
-		enabled "worldScreen ~= e:GetActiveEngine() and showJournal ~= 1 and sidebarsGreyed ~= 1"
+		enabled "sidebarsGreyed ~= 1 and not duiIsActiveSidebarBottom()"
 		bam RGGBUT
 		sequence 15
 	}
 	button
 	{
 		area 86 69 48 47
-		enabled "worldScreen == e:GetActiveEngine() and showJournal ~= 1 and JournalSize ~= UIStrings.UI_Small and sidebarsGreyed ~= 1"
+		enabled "sidebarsGreyed ~= 1 and duiIsActiveSidebarBottom()"
 		bam RGGBUT
 		sequence 8
 		frame lua "rggbuttHighlight9()"
@@ -140,43 +98,7 @@ menu
 	button
 	{
 		area 86 69 48 47
-		enabled "worldScreen == e:GetActiveEngine() and JournalSize ~= UIStrings.UI_Large and sidebarsGreyed ~= 1"
-		bam RGGBUT
-		sequence 8
-		frame lua "rggbuttHighlight9()"
-		clickable lua "sidebarsGreyed ~= 1"
-	}
-	button
-	{
-		area 86 69 48 47
-		enabled "worldScreen == e:GetActiveEngine() and showJournal ~= 1 and JournalSize ~= UIStrings.UI_Small and sidebarsGreyed ~= 1"
-		bam RGGBUT
-		sequence 8
-		tooltip lua "Infinity_FetchString(`REF_TOOLTIP_GROUND_ITEMS_TOGGLE`)"
-		toggle groundItemsButtonToggle
-		clickable lua "sidebarsGreyed ~= 1"
-		action
-		"
-			if(groundItemsButtonToggle == 0) then
-				worldScreen:StopGroundItems()
-
-			else
-				worldScreen:StartGroundItems()
-			end
-		"
-		actionEnter
-		"
-			rgHighlightQLo = 1
-		"
-		actionExit
-		"
-			rgHighlightQLo = 0
-		"
-	}
-	button
-	{
-		area 86 69 48 47
-		enabled "worldScreen == e:GetActiveEngine() and JournalSize ~= UIStrings.UI_Large and sidebarsGreyed ~= 1"
+		enabled "sidebarsGreyed ~= 1 and duiIsActiveSidebarBottom()"
 		bam RGGBUT
 		sequence 8
 		tooltip lua "Infinity_FetchString(`REF_TOOLTIP_GROUND_ITEMS_TOGGLE`)"
@@ -217,31 +139,7 @@ menu
 --	}
 	button
 	{
-		enabled "showJournal ~= 1 and JournalSize ~= UIStrings.UI_Small and sidebarsGreyed ~= 1"
-		area 134 69 48 47
-		bam RGGBUT
-		sequence 7
-		frame lua "rggbuttHighlight10()"
-		tooltip lua "getTooltipWithHotkey(31,11942)"
-		tooltip force lua "sidebarForceTooltips == 1"
-		tooltip force top
-		clickable lua "sidebarsGreyed ~= 1"
-		action
-		"
-			e:GetActiveEngine():OnRestButtonClick()
-		"
-		actionEnter
-		"
-			rgHighlightRes = 1
-		"
-		actionExit
-		"
-			rgHighlightRes = 0
-		"
-	}
-	button
-	{
-		enabled "JournalSize ~= UIStrings.UI_Large and sidebarsGreyed ~= 1"
+		enabled "sidebarsGreyed ~= 1"
 		area 134 69 48 47
 		bam RGGBUT
 		sequence 7
@@ -266,14 +164,14 @@ menu
 	button
 	{
 		area 185 69 48 47
-		enabled "worldScreen ~= e:GetActiveEngine() and showJournal ~= 1 and sidebarsGreyed ~= 1"
+		enabled "sidebarsGreyed ~= 1 and not duiIsActiveSidebarBottom()"
 		bam RGGBUT
 		sequence 14
 	}
 	button
 	{
 		area 185 69 48 47
-		enabled "worldScreen == e:GetActiveEngine() and showJournal ~= 1 and JournalSize ~= UIStrings.UI_Small and sidebarsGreyed ~= 1"
+		enabled "sidebarsGreyed ~= 1 and duiIsActiveSidebarBottom()"
 		bam RGGBUT
 		sequence 6
 		frame lua "rggbuttHighlight11()"
@@ -282,16 +180,7 @@ menu
 	button
 	{
 		area 185 69 48 47
-		enabled "worldScreen == e:GetActiveEngine() and JournalSize ~= UIStrings.UI_Large and sidebarsGreyed ~= 1"
-		bam RGGBUT
-		sequence 6
-		frame lua "rggbuttHighlight11()"
-		clickable lua "sidebarsGreyed ~= 1"
-	}
-	button
-	{
-		area 185 69 48 47
-		enabled "worldScreen == e:GetActiveEngine() and showJournal ~= 1 and JournalSize ~= UIStrings.UI_Small and sidebarsGreyed ~= 1"
+		enabled "sidebarsGreyed ~= 1 and duiIsActiveSidebarBottom()"
 		toggle highlightButtonToggle
 		tooltip lua "Infinity_FetchString(`REF_TOOLTIP_HIGHLIGHT_ITEMS_TOGGLE`)"
 		clickable lua "sidebarsGreyed ~= 1"
@@ -314,43 +203,18 @@ menu
 			rgHighlightRev = 0
 		"
 	}
-	button
-	{
-		area 185 69 48 47
-		enabled "worldScreen == e:GetActiveEngine() and JournalSize ~= UIStrings.UI_Large and sidebarsGreyed ~= 1"
-		toggle highlightButtonToggle
-		tooltip lua "Infinity_FetchString(`REF_TOOLTIP_HIGHLIGHT_ITEMS_TOGGLE`)"
-		clickable lua "sidebarsGreyed ~= 1"
-		action
-		"
-			worldScreen:SetHighlightEnabled(highlightButtonToggle == 1)
-		"
-		actionhold
-		"
-		if Infinity_GetINIValue('Game Options','CheatMode',1) == 1 then
-			C:ExploreArea()
-		end
-		"
-		actionEnter
-		"
-			rgHighlightRev = 1
-		"
-		actionExit
-		"
-			rgHighlightRev = 0
-		"
-	}
+
 	button
 	{
 		area 233 69 48 47
-		enabled "worldScreen ~= e:GetActiveEngine() and showJournal ~= 1 and sidebarsGreyed ~= 1"
+		enabled "sidebarsGreyed ~= 1 and not duiIsActiveSidebarBottom()"
 		bam RGGBUT
 		sequence 16
 	}
 	button
 	{
 		area 233 69 48 47
-		enabled "worldScreen == e:GetActiveEngine() and showJournal ~= 1 and JournalSize ~= UIStrings.UI_Small and sidebarsGreyed ~= 1"
+		enabled "sidebarsGreyed ~= 1 and duiIsActiveSidebarBottom()"
 		bam RGGBUT
 		sequence 9
 		frame lua "rggbuttHighlight12()"
@@ -359,38 +223,7 @@ menu
 	button
 	{
 		area 233 69 48 47
-		enabled "worldScreen == e:GetActiveEngine() and JournalSize ~= UIStrings.UI_Large and sidebarsGreyed ~= 1"
-		bam RGGBUT
-		sequence 9
-		frame lua "rggbuttHighlight12()"
-		clickable lua "sidebarsGreyed ~= 1"
-	}
-	button
-	{
-		area 233 69 48 47
-		enabled "worldScreen == e:GetActiveEngine() and showJournal ~= 1 and JournalSize ~= UIStrings.UI_Small and sidebarsGreyed ~= 1"
-		bam RGGBUT
-		sequence 9
-		tooltip lua "getPartyAITooltip()"
-		toggle aiButtonToggle
-		clickable lua "sidebarsGreyed ~= 1"
-		action
-		"
-			game:ToggleAI()
-		"
-		actionEnter
-		"
-			rgHighlightSAI = 1
-		"
-		actionExit
-		"
-			rgHighlightSAI = 0
-		"
-	}
-	button
-	{
-		area 233 68 48 47
-		enabled "worldScreen == e:GetActiveEngine() and JournalSize ~= UIStrings.UI_Large and sidebarsGreyed ~= 1"
+		enabled "sidebarsGreyed ~= 1 and duiIsActiveSidebarBottom()"
 		bam RGGBUT
 		sequence 9
 		tooltip lua "getPartyAITooltip()"
@@ -412,14 +245,14 @@ menu
 	button
 	{
 		area 278 68 48 47
-		enabled "worldScreen ~= e:GetActiveEngine() and showJournal ~= 1 and sidebarsGreyed ~= 1"
+		enabled "sidebarsGreyed ~= 1 and not duiIsActiveSidebarBottom()"
 		bam RGGBUT
 		sequence 18
 	}
 	button
 	{
 		area 278 68 48 48
-		enabled "worldScreen == e:GetActiveEngine() and showJournal ~= 1 and JournalSize ~= UIStrings.UI_Small and sidebarsGreyed ~= 1"
+		enabled "sidebarsGreyed ~= 1 and duiIsActiveSidebarBottom()"
 		tooltip lua "Infinity_FetchString(10485)"
 		bam RGGBUT
 		sequence 11
@@ -444,48 +277,6 @@ menu
 	}
 	button
 	{
-		area 278 68 48 48
-		enabled "worldScreen == e:GetActiveEngine() and JournalSize ~= UIStrings.UI_Large and sidebarsGreyed ~= 1"
-		tooltip lua "Infinity_FetchString(10485)"
-		bam RGGBUT
-		sequence 11
-		frame lua "rggbuttHighlight13()"
-		clickable lua "sidebarsGreyed ~= 1"
-		action
-		"
-			game:SelectAll()
-		"
-		actionDbl
-		"
-			game:CenterOnGroupLeader()
-		"
-		actionEnter
-		"
-			rgHighlightSel = 1
-		"
-		actionExit
-		"
-			rgHighlightSel = 0
-		"
-	}
-	button
-	{
-		enabled "showJournal ~= 1 and JournalSize ~= UIStrings.UI_Small"
-		area 347 61 49 43
-		bam RGGOPT
-		tooltip lua "getTooltipWithHotkey(7,`REF_TOOLTIP_OPTIONS_TOGGLE`)"
-		tooltip force lua "sidebarForceTooltips == 1"
-		tooltip force top
-		glow lua "highlightSidebarButton(optionsScreen)"
-		clickable lua "sidebarsGreyed ~= 1"
-		action
-		"
-			e:GetActiveEngine():OnLeftPanelButtonClick(7)
-		"
-	}
-	button
-	{
-		enabled "JournalSize ~= UIStrings.UI_Large"
 		area 347 61 49 43
 		bam RGGOPT
 		tooltip lua "getTooltipWithHotkey(7,`REF_TOOLTIP_OPTIONS_TOGGLE`)"
