@@ -1,3 +1,47 @@
+#if GAME_VERSION == 'iwd' then
+-- IWD has a special quest "Important Events" that is used by both complete and
+-- active quest lists, because only a single list is shown at a time based on
+-- the value of the journalMode variable.
+-- We show both lists at the same time and have to use 2 separate quests.
+local function splitImportantEvents(quests)
+	local n = quests and #quests or -1
+	if n < 1 then
+		return quests
+	end
+
+	-- assume "Important Events" is always the first quest
+	local quest = quests[1]
+	local complete = { objectives = {}, stateType = const.ENTRY_TYPE_COMPLETE }
+	local inprogress = { objectives = {}, stateType = const.ENTRY_TYPE_INPROGRESS }
+
+	for _, objective in ipairs(quest.objectives) do
+		if objective.stateType == const.ENTRY_TYPE_INPROGRESS then
+			table.insert(inprogress.objectives, objective)
+		else
+			table.insert(complete.objectives, objective)
+		end
+	end
+
+	-- copy missing props from quest
+	-- skip children, buildQuestDisplay adds them later
+	for k, v in pairs(quest) do
+		if not complete[k] and k ~= 'children' then
+			-- copy in case v is a table, e.g. chapters
+			complete[k] = deepcopy(v)
+			inprogress[k] = deepcopy(v)
+		end
+	end
+
+	local list = { complete, inprogress }
+
+	for i = 2, n do
+		list[i + 1] = quests[i]
+	end
+
+	return list
+end
+#end
+
 function reinitQuests()
 	for questIdx, quest in pairs(quests) do
 		local noquest = true
@@ -171,6 +215,11 @@ function buildQuestDisplay()
 	journalDisplay = {}
 
 	local journalEntries = {} --temp holding table for sorting the entries
+
+#if GAME_VERSION == 'iwd' then
+	-- pre-process quests to make them compatible with this code
+	local quests = splitImportantEvents(quests)
+#end
 
 	for k,quest in pairs(quests) do
 		--skip inactive quests
