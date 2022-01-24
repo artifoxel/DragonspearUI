@@ -156,6 +156,7 @@ return {
 		"common/mage.menu",
 		"common/mage_contingency.lua",
 		"common/mage_contingency.menu",
+		"iwd/contingency.menu",
 		"common/popup_details.menu",
 		"common/priest.lua",
 		"common/priest.menu",

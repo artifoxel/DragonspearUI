@@ -1,0 +1,18 @@
+menu
+{
+	name 'CONTINGENCY'
+	align center center
+	onOpen
+	"
+		bookMode = 1
+		Infinity_PopMenu()
+		Infinity_PushMenu('MAGE')
+	"
+
+	label
+	{
+		area 0 0 0 0
+		-- mosaic "GUIPOPF"
+		enabled false
+	}
+}
