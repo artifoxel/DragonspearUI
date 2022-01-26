@@ -250,13 +250,25 @@ function buildQuestDisplay()
 			table.insert(questDisplay, quest)
 			local curQuestIdx = #questDisplay --we'll need to modify current quest with it's children, store a reference.
 			local questChildren = {}
+			local questText = Infinity_FetchString(quest.text)
 			for k2,objective in pairs(quest.objectives) do
 				if(objective.stateType ~= const.ENTRY_TYPE_NONE) then
 					objective.objective = 1
 					objective.parent = curQuestIdx
-					if(objective.text == Infinity_FetchString(quest.text) or objective.text == nil) then
-						objective.text = objective.entries[1].timeStamp
+
+					-- fix for missing data in bg1 and bg2
+					if objective.text == nil or objective.text == questText then
+						-- show timestamp only
+						objective.text = nil
+						objective.timeStamp = objective.entries[1].timeStamp
+					elseif #objective.entries == 1 then
+						-- if contains only a single entry, show timestamp + text
+						objective.timeStamp = objective.entries[1].timeStamp
+					else
+						-- show text only, children entries will have timestamps
+						objective.timeStamp = nil
 					end
+
 					if(objective.stateType ~= const.ENTRY_TYPE_INFO) then
 						--info entries should not go into quests
 						table.insert(questDisplay, objective)
@@ -329,7 +341,13 @@ function entryEnabled(row, alwaysExpanded)
 	if expanded and objectiveEnabled(rowTab.parent) then return 1 else return nil end
 end
 function getEntryText(row)
-	return questDisplay[row].timeStamp .. "\n" .. questDisplay[row].text
+	local entry = questDisplay[row]
+	local parent = questDisplay[entry.parent]
+	if parent and parent.timeStamp then
+		return entry.text
+	else
+		return entry.timeStamp .. "\n" .. entry.text
+	end
 end
 
 function objectiveEnabled(row)
@@ -341,10 +359,16 @@ end
 function getObjectiveText(row, smallJournal)
 	local rowTab =  questDisplay[row]
 	if (rowTab == nil) then return nil end
+
 	local text = rowTab.text
-	if(text == "" or text == nil) then
-		text = t("NO_OBJECTIVE_NORMAL")
+	local timestamp = rowTab.timeStamp
+
+	if text == "" or text == nil then
+		text = timestamp or t("NO_OBJECTIVE_NORMAL")
+	elseif timestamp then
+		text = timestamp .. "\n" .. text
 	end
+
 	--objectives shouldn't really display a completed state since they don't actually follow a progression.
 	--if(getFinished(row)) then
 	-- if smallJournal then
