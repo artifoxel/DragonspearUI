@@ -584,6 +584,18 @@ function PauseJournal()
 	end
 
 	worldScreen:TogglePauseGame(true)
+
+	-- pausing the game might fail, e.g. when switching from inventory to journal
+	if not worldScreen:CheckIfPaused() then
+#if JOURNAL_AUTO_PAUSE_FALLBACK then
+		-- this logs a message <charname>: Auto-Paused: Scripted
+		C:Eval("ActionOverride(Player1, PauseGame())")
+		return true
+#else
+		return
+#end
+	end
+
 	return true
 end
 

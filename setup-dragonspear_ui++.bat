@@ -13,6 +13,10 @@
 :: Add "select all" button store and container screens:
 :: set DUI_ENABLE_BUYSELL_SELECT_ALL=1
 
+:: Pausing the game upon opening the large journal doesn't always succeed.
+:: Enabling this feature adds a fallback method based on party AI scripting.
+:: set DUI_JOURNAL_AUTO_PAUSE_FALLBACK=1
+
 :: Add backgrounds to various screens.
 :: Put filename.PNG or filename.MOS to the override folder.
 :: set DUI_ENABLE_SCREEN_BACKGROUNDS=1
