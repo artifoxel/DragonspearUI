@@ -241,6 +241,12 @@ function buildQuestDisplay()
 	-- It should be okay to skip this function, if the journal is hidden, because
 	-- the questDisplay and journalDisplay tables are only used by the journal menu.
 	if showJournal ~= 1 then
+#if GAME_VERSION == 'iwd' then
+		-- the journal stays open on reload, close it manually
+		if smallJournalOpen then
+			Infinity_PopMenu('JOURNAL_SMALL')
+		end
+#end
 		return
 	end
 

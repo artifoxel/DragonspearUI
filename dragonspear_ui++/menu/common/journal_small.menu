@@ -5,9 +5,17 @@ menu {
 
 	onOpen "
 		QFilter = QFilter ~= 3 and QFilter or 0
+
+	#if GAME_VERSION == 'iwd' then
+		smallJournalOpen = true
+	#end
 	"
 	onClose "
 		showJournal = 0
+
+	#if GAME_VERSION == 'iwd' then
+		smallJournalOpen = nil
+	#end
 
 		if saveQFilter and QFilter ~= 3 then
 			Infinity_SetINIValue('Journal', 'Quest Filter', QFilter)
