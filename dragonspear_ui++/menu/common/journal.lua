@@ -372,30 +372,6 @@ function questEnabled(row)
 	return (questDisplay[row] and questDisplay[row].quest and containsChapter(questDisplay[row].chapters,chapter) and childrenContainsChapter(questDisplay[row].children))
 end
 
-function CloseAll(side)
-	for i=1,#questDisplay,1 do
-		if side == 1 then
-			if questDisplay[i].expanded == 1 and questDisplay[i].stateType ~= const.ENTRY_TYPE_COMPLETE then
-				questDisplay[i].expanded = nil
-			end
-		elseif side == 2 then
-			if questDisplay[i].expanded == 1 and questDisplay[i].stateType == const.ENTRY_TYPE_COMPLETE then
-				questDisplay[i].expanded = nil
-			end
-		else -- nil, i.e. small journal
-			if questDisplay[i].expanded == 1 then questDisplay[i].expanded = nil end
-		end
-	end
-end
-
-
-function hideFinished(row)
-	return (questDisplay[row].stateType ~= const.ENTRY_TYPE_COMPLETE)
-end
-function hideUnfinished(row)
-	return (questDisplay[row].stateType == const.ENTRY_TYPE_COMPLETE)
-end
-
 function getQuestText(row, smallJournal)
 	local rowTab =  questDisplay[row]
 	if (rowTab == nil) then return nil end
@@ -551,6 +527,9 @@ function getJournalBackgroundFrame()
 	end
 end
 
+journalMode = const.JOURNAL_MODE_QUESTS
+journalSearchString = ""
+
 function PauseJournal()
 	if worldScreen:CheckIfPaused() then
 		return
@@ -564,8 +543,31 @@ function PauseJournal()
 	return true
 end
 
-journalMode = const.JOURNAL_MODE_QUESTS
-journalSearchString = ""
+function CloseAll(side)
+	for _, quest in ipairs(questDisplay) do
+		if quest.expanded == 1 then
+			if side == 1 then
+				if quest.stateType ~= const.ENTRY_TYPE_COMPLETE then
+					quest.expanded = nil
+				end
+			elseif side == 2 then
+				if quest.stateType == const.ENTRY_TYPE_COMPLETE then
+					quest.expanded = nil
+				end
+			else -- nil, i.e. small journal
+				quest.expanded = nil
+			end
+		end
+	end
+end
+
+function hideFinished(row)
+	return questDisplay[row].stateType ~= const.ENTRY_TYPE_COMPLETE
+end
+
+function hideUnfinished(row)
+	return questDisplay[row].stateType == const.ENTRY_TYPE_COMPLETE
+end
 
 function myNotes(row)
 	return journalRowContainsString(row, JFStrings.JF_Notes:lower())
