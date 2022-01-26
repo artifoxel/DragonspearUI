@@ -433,6 +433,11 @@ function getFinished(row)
 	if(questDisplay[row].stateType == const.ENTRY_TYPE_COMPLETE) then return 1 else return nil end
 end
 function showObjectiveSeperator(row, alwaysExpanded)
+	-- TODO: add option to always hide the separator
+#if GAME_VERSION == 'iwd' then
+	-- this seems like a hack
+	row = row - 1
+#end
 	local tab = questDisplay[row]
 	if(objectiveEnabled(row) or entryEnabled(row, alwaysExpanded)) then
 		--seperator is enabled for objective or entry as long as the next thing is an objective.
