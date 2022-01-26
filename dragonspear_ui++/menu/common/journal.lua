@@ -1,46 +1,71 @@
-#if GAME_VERSION == 'iwd' then
--- IWD has a special quest "Important Events" that is used by both complete and
--- active quest lists, because only a single list is shown at a time based on
--- the value of the journalMode variable.
--- We show both lists at the same time and have to use 2 separate quests.
-local function splitImportantEvents(quests)
-	local n = quests and #quests or -1
-	if n < 1 then
-		return quests
-	end
+-- Splits every quest with mixed stateType objectives in two,
+-- one containing only completed objectives and the other one the rest.
+local function splitCompletedObjectives(quests)
+	local i = 1
+	local extra = nil
 
-	-- assume "Important Events" is always the first quest
-	local quest = quests[1]
-	local complete = { objectives = {}, stateType = const.ENTRY_TYPE_COMPLETE }
-	local inprogress = { objectives = {}, stateType = const.ENTRY_TYPE_INPROGRESS }
-
-	for _, objective in ipairs(quest.objectives) do
-		if objective.stateType == const.ENTRY_TYPE_INPROGRESS then
-			table.insert(inprogress.objectives, objective)
-		else
-			table.insert(complete.objectives, objective)
+	return function()
+		if extra then
+			local value = extra
+			i, extra = i + 1, nil
+			return value
 		end
-	end
 
-	-- copy missing props from quest
-	-- skip children, buildQuestDisplay adds them later
-	for k, v in pairs(quest) do
-		if not complete[k] and k ~= 'children' then
-			-- copy in case v is a table, e.g. chapters
-			complete[k] = deepcopy(v)
-			inprogress[k] = deepcopy(v)
+		local quest = quests[i]
+
+		-- end of iterator
+		if not quest then
+			return nil
 		end
+
+		-- inactive quest or nothing to split
+		local active = quest.stateType and quest.stateType ~= const.ENTRY_TYPE_NONE
+		if not active or #quest.objectives < 2 then
+			i = i + 1
+			return quest
+		end
+
+		local complete = {}
+		local inprogress = {}
+
+		-- where to put INFO and USER objectives
+		local questComplete = quest.stateType == const.ENTRY_TYPE_COMPLETE
+		local other = questComplete and complete or inprogress
+
+		for _, objective in ipairs(quest.objectives) do
+			local state = objective.stateType
+			if state == const.ENTRY_TYPE_COMPLETE then
+				table.insert(complete, objective)
+			elseif state == const.ENTRY_TYPE_INPROGRESS then
+				table.insert(inprogress, objective)
+			elseif state ~= const.ENTRY_TYPE_NONE then
+				table.insert(other, objective)
+			end
+		end
+
+		-- all objectives are in the same category, just return the quest
+		if #complete == 0 or #inprogress == 0 then
+			i = i + 1
+			return quest
+		end
+
+		complete = { objectives = complete, stateType = const.ENTRY_TYPE_COMPLETE }
+		inprogress = { objectives = inprogress, stateType = const.ENTRY_TYPE_INPROGRESS }
+
+		-- copy missing props from quest
+		-- skip children, buildQuestDisplay adds them later
+		for k, v in pairs(quest) do
+			if not complete[k] and k ~= 'children' then
+				-- copy in case v is a table, e.g. chapters
+				complete[k] = deepcopy(v)
+				inprogress[k] = deepcopy(v)
+			end
+		end
+
+		extra = inprogress
+		return complete
 	end
-
-	local list = { complete, inprogress }
-
-	for i = 2, n do
-		list[i + 1] = quests[i]
-	end
-
-	return list
 end
-#end
 
 function reinitQuests()
 	for questIdx, quest in pairs(quests) do
@@ -216,12 +241,9 @@ function buildQuestDisplay()
 
 	local journalEntries = {} --temp holding table for sorting the entries
 
-#if GAME_VERSION == 'iwd' then
-	-- pre-process quests to make them compatible with this code
-	local quests = splitImportantEvents(quests)
-#end
-
-	for k,quest in pairs(quests) do
+	-- Quests that contain both active and completed objectives mess up the large journal UI
+	-- and are misleading in the small journal, hence we're doing the split.
+	for quest in splitCompletedObjectives(quests) do
 		--skip inactive quests
 		if(quest.stateType ~= nil and quest.stateType ~= const.ENTRY_TYPE_NONE) then
 			quest.quest = 1 -- tell the renderer what type of entry this is
@@ -244,6 +266,9 @@ function buildQuestDisplay()
 					local curObjectiveIdx = #questDisplay
 					local objectiveChildren = {}
 					for k3,entry in pairs(objective.entries) do
+						-- sometimes entry state doesn't match the objective state
+						-- this causes the entry to appear in the wrong place
+						entry.stateType = objective.stateType
 						entry.entry = 1
 
 						entry.parent = curObjectiveIdx
