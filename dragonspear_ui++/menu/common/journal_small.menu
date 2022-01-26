@@ -27,7 +27,7 @@ menu {
 		area  		0 0 485 747
 		bam 		"QUESTBG"
 		sequence 	0
-		frame lua 	"getJournalBackgroundFrame_Small()"
+		frame lua 	"getJournalBackgroundFrame()"
 	}
 	handle
 	{
@@ -47,7 +47,7 @@ menu {
 		text point 	16
 		action
 		"
-		CloseAll_Small()
+		CloseAll()
 		CheckForOpenedQuests_Small()
 		journalMode = const.JOURNAL_MODE_JOURNAL
 		"
@@ -61,7 +61,7 @@ menu {
 		text point 	16
 		action
 		"
-		CloseAll_Small()
+		CloseAll()
 		CheckForOpenedQuests_Small()
 		journalMode = const.JOURNAL_MODE_QUESTS
 		"
@@ -76,7 +76,7 @@ menu {
 		text point 	12
 		action
 		"
-			CloseAll_Small()
+			CloseAll()
 			CheckForOpenedQuests_Small()
 			setQuestFilter(0)
 		"
@@ -91,7 +91,7 @@ menu {
 		text point 	12
 		action
 		"
-			CloseAll_Small()
+			CloseAll()
 			CheckForOpenedQuests_Small()
 			setQuestFilter(1)
 		"
@@ -106,7 +106,7 @@ menu {
 		text point 	12
 		action
 		"
-			CloseAll_Small()
+			CloseAll()
 			CheckForOpenedQuests_Small()
 			setQuestFilter(2)
 		"
@@ -204,7 +204,7 @@ menu {
 				area 		0 0 31 31
 				enabled 	"getArrowEnabled_Small(rowNumber)"
 				bam 		"PCHEV"
-				frame lua 	"getArrowFrame_Small(rowNumber)"
+				frame lua 	"getArrowFrame(rowNumber)"
 				text style 	"label_parchment"
 				align 		top center
 			}
@@ -221,24 +221,24 @@ menu {
 			{
 				enabled 	"questEnabled_Small(rowNumber)"
 				area 		8 0 -1 -1
-				text lua 	"getQuestText_Small(rowNumber)"
+				text lua 	"getQuestText(rowNumber, true)"
 				text style 	"label"
 				align 		left center
 			}
 			label
 			{
-				enabled 	"objectiveEnabled_Small(rowNumber)"
+				enabled 	"objectiveEnabled(rowNumber)"
 				area 		16 0 -1 -1
 				pad 		0 10 0 10
-				text lua 	"getObjectiveText_Small(rowNumber)"
+				text lua 	"getObjectiveText(rowNumber, true)"
 				text style 	"normal_parchment"
 			}
 			label
 			{
-				enabled 	"entryEnabled_Small(rowNumber)"
+				enabled 	"entryEnabled(rowNumber)"
 				area 		16 0 -1 -1
 				pad 		0 10 0 10
-				text lua 	"getEntryText_Small(rowNumber)"
+				text lua 	"getEntryText(rowNumber)"
 				text style 	"normal_parchment"
 				text color 	M
 			}
@@ -247,7 +247,7 @@ menu {
 		enabled 	"journalMode == const.JOURNAL_MODE_QUESTS"
 		rowheight	dynamic
 		hidehighlight
-		seperator 	"showObjectiveSeperator_Small(rowNumber)"
+		seperator 	"showObjectiveSeperator(rowNumber)"
 		table		"questDisplay"
 		var			selectedQuest
 		scrollbar	'GUISCRP'
@@ -272,44 +272,44 @@ menu {
 			--light
 			label
 			{
-				enabled 	"getJournalTitleEnabled_Small(rowNumber) and not getJournalDarken_Small(rowNumber)"
+				enabled 	"getJournalTitleEnabled(rowNumber) and not getJournalDarken(rowNumber)"
 				area 		0 0 -1 -1
 				pad 		0 16 0 0
-				text lua 	"getJournalTitleText_Small(rowNumber)"
+				text lua 	"getJournalTitleText(rowNumber)"
 				text style 	"label_parchment"
 				text color 	0 60 0 255
 			}
 			label
 			{
-				enabled 	"getJournalEntryEnabled_Small(rowNumber) and not getJournalDarken_Small(rowNumber)"
+				enabled 	"getJournalEntryEnabled(rowNumber) and not getJournalDarken(rowNumber)"
 				area 		0 0 -1 -1
 				pad 		8 16 0 16
-				text lua 	"getJournalEditedColours(getJournalEntryText_Small(rowNumber))"
+				text lua 	"getJournalEditedColours(getJournalEntryText(rowNumber))"
 				text style 	"normal_parchment"
 			}
 
 			--dark
 			label
 			{
-				enabled 	"(getJournalTitleEnabled_Small(rowNumber) or getJournalEntryEnabled_Small(rowNumber)) and getJournalDarken_Small(rowNumber)"
+				enabled 	"(getJournalTitleEnabled(rowNumber) or getJournalEntryEnabled(rowNumber)) and getJournalDarken(rowNumber)"
 				area 		0 0 -1 -1
 				fill 		0 0 0 150
 			}
 			label
 			{
-				enabled 	"getJournalTitleEnabled_Small(rowNumber) and getJournalDarken_Small(rowNumber)"
+				enabled 	"getJournalTitleEnabled(rowNumber) and getJournalDarken(rowNumber)"
 				area 		0 0 -1 -1
 				pad 		0 16 0 0
-				text lua 	"getJournalTitleText_Small(rowNumber)"
+				text lua 	"getJournalTitleText(rowNumber)"
 				text style 	"label_parchment"
 				text color 	255 100 100 255
 			}
 			label
 			{
-				enabled 	"getJournalEntryEnabled_Small(rowNumber) and getJournalDarken_Small(rowNumber)"
+				enabled 	"getJournalEntryEnabled(rowNumber) and getJournalDarken(rowNumber)"
 				area 		0 0 -1 -1
 				pad 		8 16 0 16
-				text lua 	"getJournalEditedColours(getJournalEntryText_Small(rowNumber))"
+				text lua 	"getJournalEditedColours(getJournalEntryText(rowNumber))"
 				text style 	"normal_parchment"
 				text color 	'B'
 			}
@@ -318,7 +318,7 @@ menu {
 		}
 		name 		"JournalSmall_16"
 		enabled 	"journalMode == const.JOURNAL_MODE_JOURNAL"
-		seperator 	"getJournalEntryEnabled_Small(rowNumber)"
+		seperator 	"getJournalEntryEnabled(rowNumber)"
 		rowheight	dynamic
 		hidehighlight
 		table		"journalDisplay"
@@ -349,7 +349,7 @@ menu {
 	{
 		name 		"JournalSmall_18"
 		enabled 	"journalMode == const.JOURNAL_MODE_JOURNAL"
-		clickable 	lua "journalEntryClickable_Small(selectedJournal)"
+		clickable 	lua "journalEntryClickable(selectedJournal)"
 		area 		176 140 132 35
 		text 		"EDIT_ENTRY_LABEL"
 		text style 	"button_parchment"
@@ -462,11 +462,11 @@ menu {
 		text color	R
 		action
 		"
-			journalNoteEditRef = getJournalEntryRef_Small(selectedJournal)
+			journalNoteEditRef = getJournalEntryRef(selectedJournal)
 			journalNoteOld = Infinity_FetchString(journalNoteEditRef)
 
 			if string.find(string.lower(journalNoteOld),string.lower(JFStrings.JF_Notes)) then
-				journalNoteEditRef = getJournalEntryRef_Small(selectedJournal)
+				journalNoteEditRef = getJournalEntryRef(selectedJournal)
 				journalNoteEdit = ''
 			end
 			Infinity_OnEditUserEntry(journalNoteEditRef, journalNoteEdit)

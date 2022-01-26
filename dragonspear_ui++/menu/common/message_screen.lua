@@ -1,5 +1,5 @@
 function SmallEditAction()
-	journalNoteEditRef = getJournalEntryRef_Small(selectedJournal)
+	journalNoteEditRef = getJournalEntryRef(selectedJournal)
 	journalNoteOld = Infinity_FetchString(journalNoteEditRef)
 	if string.find(string.lower(journalNoteOld),string.lower(JFStrings.JF_Notes)) then
 		journalNoteEdit = string.sub(journalNoteOld,string.len(JFStrings.JF_Notes)+2) .. '\n\n'

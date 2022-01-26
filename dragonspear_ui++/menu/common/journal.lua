@@ -321,11 +321,12 @@ function containsChapter(tab, chapter)
 	if(not tab) then return nil end
 	return tab[chapter]
 end
-function entryEnabled(row)
+function entryEnabled(row, alwaysExpanded)
 	local rowTab =  questDisplay[row]
 	if(rowTab == nil or rowTab.entry == nil or not containsChapter(rowTab.chapters,chapter)) then return nil end
 
-	if objectiveEnabled(rowTab.parent) then return 1 else return nil end
+	local expanded = alwaysExpanded or questDisplay[rowTab.parent].expanded
+	if expanded and objectiveEnabled(rowTab.parent) then return 1 else return nil end
 end
 function getEntryText(row)
 	return questDisplay[row].timeStamp .. "\n" .. questDisplay[row].text
@@ -337,7 +338,7 @@ function objectiveEnabled(row)
 
 	if(questEnabled(rowTab.parent) and questDisplay[rowTab.parent].expanded) then return 1 else return nil end
 end
-function getObjectiveText(row)
+function getObjectiveText(row, smallJournal)
 	local rowTab =  questDisplay[row]
 	if (rowTab == nil) then return nil end
 	local text = rowTab.text
@@ -346,7 +347,11 @@ function getObjectiveText(row)
 	end
 	--objectives shouldn't really display a completed state since they don't actually follow a progression.
 	--if(getFinished(row)) then
+	-- if smallJournal then
+	--  text = "^M .. text .. " (Finished)^-"
+	-- else
 	--	text = "^0xFF666666" .. text .. " (Finished)^-"
+	-- end
 	--end
 
 	return text
@@ -377,6 +382,8 @@ function CloseAll(side)
 			if questDisplay[i].expanded == 1 and questDisplay[i].stateType == const.ENTRY_TYPE_COMPLETE then
 				questDisplay[i].expanded = nil
 			end
+		else -- nil, i.e. small journal
+			if questDisplay[i].expanded == 1 then questDisplay[i].expanded = nil end
 		end
 	end
 end
@@ -388,13 +395,18 @@ end
 function hideUnfinished(row)
 	return (questDisplay[row].stateType == const.ENTRY_TYPE_COMPLETE)
 end
-function getQuestText(row)
+
+function getQuestText(row, smallJournal)
 	local rowTab =  questDisplay[row]
 	if (rowTab == nil) then return nil end
 	local text = Infinity_FetchString(rowTab.text)
 
 	if(getFinished(row)) then
-		text = "^0xFF000000" .. text-- .. " (" .. t("OBJECTIVE_FINISHED_NORMAL") .. ")^-"
+		if smallJournal then
+			text = "^5" .. text .. " (" .. t("OBJECTIVE_FINISHED_NORMAL") .. ")^-"
+		else
+			text = "^0xFF000000" .. text-- .. " (" .. t("OBJECTIVE_FINISHED_NORMAL") .. ")^-"
+		end
 	end
 
 	return text
@@ -420,9 +432,9 @@ end
 function getFinished(row)
 	if(questDisplay[row].stateType == const.ENTRY_TYPE_COMPLETE) then return 1 else return nil end
 end
-function showObjectiveSeperator(row)
+function showObjectiveSeperator(row, alwaysExpanded)
 	local tab = questDisplay[row]
-	if(objectiveEnabled(row) or entryEnabled(row)) then
+	if(objectiveEnabled(row) or entryEnabled(row, alwaysExpanded)) then
 		--seperator is enabled for objective or entry as long as the next thing is an objective.
 		--search until we find something enabled or end of table.
 		local idx = row + 1
@@ -430,7 +442,7 @@ function showObjectiveSeperator(row)
 			if(objectiveEnabled(idx)) then
 				return 1
 			else
-				if(questEnabled(idx) or entryEnabled(idx)) then
+				if(questEnabled(idx) or entryEnabled(idx, alwaysExpanded)) then
 					return nil
 				end
 			end
@@ -471,27 +483,41 @@ function getJournalDarken(row)
 		return (row == selectedJournal or row - 1 == selectedJournal)
 	end
 end
-function journalContainsSearchString(row)
-	if(journalSearchString == nil or journalSearchString == "") then return 1 end --no search string, do nothing
-	local text = Infinity_FetchString(journalDisplay[row].text)
-	if(text == "") then text = journalDisplay[row].text end --no stringref, use the text.
-	if(string.find(string.lower(text),string.lower(journalSearchString))) then return 1 end -- string contains search string.
 
-	--check if the corresponding row to this one contains the string.
-	local pairText = nil
-	if(journalDisplay[row].title) then
-		--check the corresponding entry
-		pairText = Infinity_FetchString(journalDisplay[row+1].text) or journalDisplay[row+1].text
-		if(pairText == "") then pairText = journalDisplay[row+1].text end
-	else
-		if (journalDisplay[row].entry) then
-			pairText = Infinity_FetchString(journalDisplay[row-1].text) or journalDisplay[row-1].text
-			if(pairText == "") then pairText = journalDisplay[row-1].text end
+local function journalRowContainsString(row, search)
+	local item = journalDisplay[row]
+	local title = nil
+
+	-- check if the corresponding row to this one contains the string.
+	if item.title then
+		title = journalDisplay[row + 1].text
+	elseif item.entry then
+		title = journalDisplay[row - 1].Text
+	end
+
+	for _, text in ipairs({ item.text, title }) do
+		local str = Infinity_FetchString(text)
+
+		-- no stringref, use the text
+		if str == nil or str == "" then
+			str = text
+		end
+
+		if str:lower():find(search) then
+			return 1
 		end
 	end
-	if(string.find(string.lower(pairText),string.lower(journalSearchString))) then return 1 end -- pair string contains search string.
 
-	return nil --does not contain search string
+	-- does not contain search string
+	return nil
+end
+
+function journalContainsSearchString(row)
+	-- no search string, do nothing
+	if journalSearchString == nil or journalSearchString == "" then
+		return 1
+	end
+	return journalRowContainsString(row, journalSearchString:lower())
 end
 
 function dragJournal()
@@ -542,44 +568,9 @@ journalMode = const.JOURNAL_MODE_QUESTS
 journalSearchString = ""
 
 function myNotes(row)
-	local text = Infinity_FetchString(journalDisplay[row].text)
-	if(text == "") then text = journalDisplay[row].text end
-
-	--check if the corresponding row to this one contains the string.
-	local pairText = nil
-	if(journalDisplay[row].title) then
-		--check the corresponding entry
-		pairText = Infinity_FetchString(journalDisplay[row+1].text) or journalDisplay[row+1].text
-		if(pairText == "") then pairText = journalDisplay[row+1].text end
-	else
-		if (journalDisplay[row].entry) then
-			pairText = Infinity_FetchString(journalDisplay[row-1].text) or journalDisplay[row-1].text
-			if(pairText == "") then pairText = journalDisplay[row-1].text end
-		end
-	end
-	if(string.find(string.lower(pairText),string.lower(JFStrings.JF_Notes))) then return 1 end -- pair string contains My Notes
-
-	if(string.find(string.lower(text),string.lower(JFStrings.JF_Notes))) then return 1 end -- string contains My Notes
-	return nil --does not contain My Notes
+	return journalRowContainsString(row, JFStrings.JF_Notes:lower())
 end
+
 function NotMyNotes(row)
-	local text = Infinity_FetchString(journalDisplay[row].text)
-	if(text == "") then text = journalDisplay[row].text end
-
-	--check if the corresponding row to this one contains the string.
-	local pairText = nil
-	if(journalDisplay[row].title) then
-		--check the corresponding entry
-		pairText = Infinity_FetchString(journalDisplay[row+1].text) or journalDisplay[row+1].text
-		if(pairText == "") then pairText = journalDisplay[row+1].text end
-	else
-		if (journalDisplay[row].entry) then
-			pairText = Infinity_FetchString(journalDisplay[row-1].text) or journalDisplay[row-1].text
-			if(pairText == "") then pairText = journalDisplay[row-1].text end
-		end
-	end
-	if(string.find(string.lower(pairText),string.lower(JFStrings.JF_Notes))) then return nil end -- pair string contains My Notes
-
-	if(string.find(string.lower(text),string.lower(JFStrings.JF_Notes))) then return nil end -- string contains My Notes
-	return 1 --does contain My Notes
+	return not myNotes(row) and 1 or nil
 end

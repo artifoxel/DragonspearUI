@@ -241,7 +241,7 @@ menu
 			}
 			label
 			{
-				enabled "entryEnabled(rowNumber) and hideFinished(rowNumber)"
+				enabled "entryEnabled(rowNumber, true) and hideFinished(rowNumber)"
 				area 16 0 -1 -1
 --				pad 0 10 0 10
 				text lua "getEntryText(rowNumber)"
@@ -253,7 +253,7 @@ menu
 		enabled "journalMode == const.JOURNAL_MODE_QUESTS"
 		rowheight	dynamic
 		hidehighlight
-		seperator "showObjectiveSeperator(rowNumber)"
+		seperator "showObjectiveSeperator(rowNumber, true)"
 		table		"questDisplay"
 		var			selectedQuest
 		scrollbar	'GUISCRP'
@@ -309,7 +309,7 @@ menu
 			}
 			label
 			{
-				enabled "entryEnabled(rowNumber) and hideUnfinished(rowNumber)"
+				enabled "entryEnabled(rowNumber, true) and hideUnfinished(rowNumber)"
 				area 16 0 -1 -1
 --				pad 0 10 0 10
 				text lua "getEntryText(rowNumber)"
@@ -321,7 +321,7 @@ menu
 		enabled "journalMode == const.JOURNAL_MODE_QUESTS"
 		rowheight	dynamic
 		hidehighlight
-		seperator "showObjectiveSeperator(rowNumber)"
+		seperator "showObjectiveSeperator(rowNumber, true)"
 		table		"questDisplay"
 		var			selectedQuest
 		scrollbar	'GUISCRP'
@@ -588,11 +588,11 @@ menu
 		text color	R
 		action
 		"
-			journalNoteEditRef = getJournalEntryRef_Small(selectedJournal)
+			journalNoteEditRef = getJournalEntryRef(selectedJournal)
 			journalNoteOld = Infinity_FetchString(journalNoteEditRef)
 
 			if string.find(string.lower(journalNoteOld),string.lower(JFStrings.JF_Notes)) then
-				journalNoteEditRef = getJournalEntryRef_Small(selectedJournal)
+				journalNoteEditRef = getJournalEntryRef(selectedJournal)
 				journalNoteEdit = ''
 			end
 			Infinity_OnEditUserEntry(journalNoteEditRef, journalNoteEdit)
