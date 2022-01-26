@@ -40,11 +40,11 @@ menu
 		end
 	#end
 
-		reinitQuests()
-		buildQuestDisplay()
 		chapter = math.max(0,Infinity_GetMaxChapterPage())
 		questOpened = 0
 		showJournal = 1
+		reinitQuests()
+		buildQuestDisplay()
 
 		if isLarge then
 			Infinity_PushMenu('JOURNAL_LARGE')

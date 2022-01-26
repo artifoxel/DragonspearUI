@@ -235,6 +235,15 @@ function checkEntryComplete(journalId, stateType)
 end
 --this should maybe be done recursively, but i kinda want direct control over each level
 function buildQuestDisplay()
+	-- Every time a save game is loaded, this function is called at least once for every
+	-- updateJournalEntry call, with many quest entries it might take a while (3+ seconds)
+	-- to process all the entries.
+	-- It should be okay to skip this function, if the journal is hidden, because
+	-- the questDisplay and journalDisplay tables are only used by the journal menu.
+	if showJournal ~= 1 then
+		return
+	end
+
 	--this is basically just a flatten
 	questDisplay = {}
 	journalDisplay = {}
