@@ -1,23 +1,3 @@
-function hasMatchingJournal()
-	FindTitle = string.sub(getSubtitleString(),1,15)
-	for i=1,#questDisplay,1 do
-		local rowTab =  questDisplay[i]
-		local text = Infinity_FetchString(rowTab.text)
-		if string.find(string.lower(text), string.lower(FindTitle)) then
-			return 1
-		end
-	end
-	return nil
-end
-
-function getNewTitle()
-	if hasMatchingJournal() then
-		return '^C' .. getTitleString() .. '^-\n^D' .. getSubtitleString() .. '^-'
-	else
-		return '^D' .. getSubtitleString() .. '^-'
-	end
-end
-
 luaEdit = ""
 luaEditDebugDump = 0
 luaEditHistory = {}
