@@ -15,19 +15,6 @@ LANGUAGE
 
 
 /////////////////////////////////////////////////////////////////////////////////
-///  M_BG.LUA BACKUP
-/////////////////////////////////////////////////////////////////////////////////
-
-BEGIN @1004 NO_LOG_RECORD
-
-REQUIRE_PREDICATE GAME_IS ~bgee bg2ee eet~ @1003
-
-REQUIRE_PREDICATE FILE_EXISTS ~override/M_BG.lua~ @1005
-
-COPY_EXISTING ~M_BG.lua~ ~dragonspear_ui++/backup-M_BG~
-
-
-/////////////////////////////////////////////////////////////////////////////////
 ///  SOD GUI OVERHAUL CORE COMPONENT
 /////////////////////////////////////////////////////////////////////////////////
 
@@ -110,41 +97,6 @@ END
 ACTION_IF GAME_IS ~iwdee~ THEN BEGIN
 	COPY ~dragonspear_ui++/copy/iwd~ ~override~
 END
-
-ACTION_IF (NOT FILE_EXISTS_IN_GAME ~M_BG.lua~) BEGIN
-<<<<<<<< .../M_BG.lua
-BGImages = {
-{"NO PORTRAIT","D","NOPORTM"}
-}
->>>>>>>>
-	COPY ~.../M_BG.lua~ ~override~
-END ELSE BEGIN
-	COPY_EXISTING + ~M_BG.lua~ ~override~
-		REPLACE_EVALUATE CASE_INSENSITIVE ~\({[%TAB% ]*"[^"]+"[%TAB% ]*,[%TAB% ]*"[MFD]"[%TAB% ]*,[%TAB% ]*"\)\([^"]+\)\("[%TAB% ]*},?[%WNL%%LNL%%MNL%%TAB% ]*\)~ BEGIN
-			PATCH_IF (NOT FILE_EXISTS ~%USER_DIRECTORY%/portraits/%MATCH2%.bmp~) BEGIN
-				SPRINT MATCH1 ~~
-				SPRINT MATCH2 ~~
-				SPRINT MATCH3 ~~
-			END
-		END ~%MATCH1%%MATCH2%%MATCH3%~
-	BUT_ONLY
-END
-
-COPY_EXISTING ~M_BG.lua~ ~override~
-	PATCH_BASH_FOR ~%USER_DIRECTORY%/portraits~ ~^.+bmp$~ BEGIN
-		PATCH_IF (STRING_LENGTH ~%BASH_FOR_RES%~ < 8) AND (NOT FILE_CONTAINS_EVALUATED (~M_BG.lua~ ~"%BASH_FOR_RES%"~)) BEGIN
-			PATCH_IF ((~%BASH_FOR_RES%~ STRING_CONTAINS_REGEXP ~^[Mm]#~)=0) BEGIN
-				SPRINT gender ~M~
-			END ELSE PATCH_IF ((~%BASH_FOR_RES%~ STRING_CONTAINS_REGEXP ~^[Ff]#~)=0) BEGIN
-				SPRINT gender ~F~
-			END ELSE BEGIN
-				SPRINT gender ~D~
-			END
-			REPLACE_TEXTUALLY ~\({[%TAB% ]*"[^"]+"[%TAB% ]*,[%TAB% ]*"[MFD]"[%TAB% ]*,[%TAB% ]*"[^"]+"[%TAB% ]*}\),?[%WNL%%LNL%%MNL%%TAB% ]*}~ ~\1,
-{"%BASH_FOR_RES%","%gender%","%BASH_FOR_RES%"},
-}~
-		END
-	END
 
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -245,51 +197,6 @@ SUBCOMPONENT @1008
 COPY_EXISTING ~savename.2da~ ~override~
 	SET_2DA_ENTRY 1 3 4 6
 
-
-/////////////////////////////////////////////////////////////////////////////////
-///  PORTRAIT PICKER UPDATE
-/////////////////////////////////////////////////////////////////////////////////
-
-BEGIN @1002
-
-REQUIRE_PREDICATE GAME_IS ~bgee bg2ee eet~ @1003
-
-REQUIRE_PREDICATE FILE_EXISTS ~override/RGCGAPP.png~ @1006
-
-ACTION_IF (NOT FILE_EXISTS_IN_GAME ~M_BG.lua~) BEGIN
-<<<<<<<< .../M_BG.lua
-BGImages = {
-{"NO PORTRAIT","D","NOPORTM"}
-}
->>>>>>>>
-	COPY + ~.../M_BG.lua~ ~override~
-END ELSE BEGIN
-	COPY_EXISTING + ~M_BG.lua~ ~override~
-		REPLACE_EVALUATE CASE_INSENSITIVE ~\({[%TAB% ]*"[^"]+"[%TAB% ]*,[%TAB% ]*"[MFD]"[%TAB% ]*,[%TAB% ]*"\)\([^"]+\)\("[%TAB% ]*},?[%WNL%%LNL%%MNL%%TAB% ]*\)~ BEGIN
-			PATCH_IF (NOT FILE_EXISTS ~%USER_DIRECTORY%/portraits/%MATCH2%.bmp~) BEGIN
-				SPRINT MATCH1 ~~
-				SPRINT MATCH2 ~~
-				SPRINT MATCH3 ~~
-			END
-		END ~%MATCH1%%MATCH2%%MATCH3%~
-	BUT_ONLY
-END
-
-COPY_EXISTING + ~M_BG.lua~ ~override~
-	PATCH_BASH_FOR ~%USER_DIRECTORY%/portraits~ ~^.+bmp$~ BEGIN
-		PATCH_IF (STRING_LENGTH ~%BASH_FOR_RES%~ < 8) AND (NOT FILE_CONTAINS_EVALUATED (~M_BG.lua~ ~"%BASH_FOR_RES%"~)) BEGIN
-			PATCH_IF ((~%BASH_FOR_RES%~ STRING_CONTAINS_REGEXP ~^[Mm]#~)=0) BEGIN
-				SPRINT gender ~M~
-			END ELSE PATCH_IF ((~%BASH_FOR_RES%~ STRING_CONTAINS_REGEXP ~^[Ff]#~)=0) BEGIN
-				SPRINT gender ~F~
-			END ELSE BEGIN
-				SPRINT gender ~D~
-			END
-			REPLACE_TEXTUALLY ~\({[%TAB% ]*"[^"]+"[%TAB% ]*,[%TAB% ]*"[MFD]"[%TAB% ]*,[%TAB% ]*"[^"]+"[%TAB% ]*}\),?[%WNL%%LNL%%MNL%%TAB% ]*}~ ~\1,
-{"%BASH_FOR_RES%","%gender%","%BASH_FOR_RES%"},
-}~
-		END
-	END
 
 /////////////////////////////////////////////////////////////////////////////////
 ///  BLURRY PORTRAITS FIX
