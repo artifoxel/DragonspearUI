@@ -8,29 +8,15 @@ menu
 		if MultiPortraitPicker == 1 then
 			IncPortraitArray()
 		else
-			local gender = nil
-			if toggleMale == 1 then
-				gender = 'M'
-			elseif toggleFemale == 1 then
-				gender = 'F'
-			else
-				-- TODO: replace string refs with constants
-				local genders = { [1050] = 'M', [1051] = 'F' }
-				gender = genders[characters[currentID].gender]
-			end
-
 			duiPPNameFilter1 = ''
 			duiPPNameFilter2 = ''
-			listPP = ListPortraitPicker:create(gender)
-			listPP:update()
+			listPP = ListPortraitPicker:create()
 		end
 	"
 	onclose "
 		duiPPNameFilter1 = nil
 		duiPPNameFilter2 = nil
 		listPP = nil
-		toggleMale = nil
-		toggleFemale = nil
 	"
 
 	label
@@ -135,7 +121,7 @@ menu
 	{
 		enabled "MultiPortraitPicker == 0"
 		area 356 498 346 82
-		text lua "t(PPStrings.PP_TOTAL) .. '\n' .. t(PPStrings.PP_DEFAULT) ..  t(#portraits) .. '\n' .. t(PPStrings.PP_CUSTOM) .. t(#BGImages)"
+		text lua "listPP.portraitCountLabel"
 		text style "label"
 		align left center
 	}
@@ -159,11 +145,11 @@ menu
 	{
 		enabled "MultiPortraitPicker == 0"
 		area 1142 248 210 330
-		bitmap lua "listPP:selectedPortrait()"
+		bitmap lua "listPP.selected and listPP.selected.filename or 'NOPORTMD'"
 	}
 	button
 	{
---		enabled "listPP.selected ==''"
+--		enabled "listPP.selected == nil"
 		enabled "MultiPortraitPicker == 0 and not e:IsTouchUI()"
 		area 1134 604 230 40
 		bam GUIBUTMT
@@ -177,34 +163,34 @@ menu
 	label
 	{
 --		area 1120 618 234 78
-		enabled "MultiPortraitPicker == 0 and listPP:isCurrentPortraitSelected()"
+		enabled "MultiPortraitPicker == 0 and listPP.selected ~= nil"
 		rectangle 4
 	}
 	label
 	{
 		area 356 372 346 60
-		enabled "MultiPortraitPicker == 0 and listPP:isCurrentPortraitSelected()"
-		text lua "listPP:selectedPortraitDescription()"
+		enabled "MultiPortraitPicker == 0 and listPP.selected ~= nil"
+		text lua "listPP.selected.description"
 		text style "label"
 		align left center
 	}
 	label
 	{
-		enabled "MultiPortraitPicker == 0 and listPP.mediumPortrait ~= '' and listPP.selected ~= ''"
+		enabled "MultiPortraitPicker == 0 and (listPP.selected and listPP.selected.medium) ~= nil"
 		area 1206 108 76 108
 		rectangle 0
 	}
 	label
 	{
-		enabled "MultiPortraitPicker == 0 and listPP.mediumPortrait ~= '' and listPP.selected ~= ''"
+		enabled "MultiPortraitPicker == 0 and (listPP.selected and listPP.selected.medium) ~= nil"
 		area 1217 120 54 85
-		bitmap lua "listPP.mediumPortrait"
+		bitmap lua "listPP.selected.medium"
 	}
 	label
 	{
 		enabled "MultiPortraitPicker == 0"
 		area 356 446 346 36
-		text lua "t(PPStrings.PP_SORT) .. t(listPP.tSort)"
+		text lua "t(PPStrings.PP_SORT) .. t(listPP.sort.selected.label)"
 		text style "label"
 		align left center
 	}
@@ -229,8 +215,12 @@ menu
 		bam GUIBUTMT
 		text "DONE_BUTTON"
 		text style "button"
-		clickable lua "listPP and listPP.selected ~= '' and createCharScreen:IsDoneButtonClickable()"
+		clickable lua "listPP.selected ~= nil and createCharScreen:IsDoneButtonClickable()"
 		action "
+			local filename = listPP.selected.filename
+			while createCharScreen:GetCurrentPortrait() ~= filename do
+				createCharScreen:IncCurrentPortrait()
+			end
 			Infinity_PopMenu();
 			createCharScreen:OnDoneButtonClick()
 		"
@@ -295,7 +285,7 @@ menu
 			{
 				enabled "listPP:filter(rowNumber)"
 				area		0 0 329 90
-				mosaic lua 	'listPP:portraitBackground(rowNumber)'
+				mosaic lua 	'listPP:portraitBackground(rowNumber, selectedRow)'
 				respectClipping
 				align		center center
 			}
@@ -311,7 +301,7 @@ menu
 			{
 				enabled "listPP:filter(rowNumber)"
 				area		270 2 54 85
-				bitmap lua 	'listPP.portraits[rowNumber].filename:lower()'
+				bitmap lua 	'listPP.portraits[rowNumber].filename'
 				respectClipping
 				align		center center
 			}
@@ -326,17 +316,11 @@ menu
 		scrollbar	'GUISCRC'
 		action
 		"
-			if listPP.selectedRow == selectedRow then
-				listPP.selectedRow = 0
-				listPP.selected = ''
+			local selected = listPP.portraits[selectedRow]
+			if listPP.selected == selected then
+				listPP.selected = nil
 			else
-				local filename = listPP.portraits[selectedRow].filename:lower()
-				listPP.selected = filename
-				listPP.selectedRow = selectedRow
-				listPP:updateMediumPortrait()
-				while createCharScreen:GetCurrentPortrait():lower() ~= filename do
-					createCharScreen:IncCurrentPortrait()
-				end
+				listPP.selected = selected
 			end
 		"
 	}
@@ -347,9 +331,7 @@ menu
 --		text lua "PPStrings.PP_SORT_LABEL"
 --		text style "button"
 		bam RGCSORT
-		action "
-			listPP:sort()
-		"
+		action "listPP:onSortButtonClicked()"
 	}
 
 
