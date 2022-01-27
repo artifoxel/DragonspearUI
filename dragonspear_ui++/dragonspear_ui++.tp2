@@ -218,7 +218,8 @@ END
 ///  ORIGINAL ICEWIND DALE CURSOR
 /////////////////////////////////////////////////////////////////////////////////
 
-BEGIN @1010
+BEGIN ~Yes~
 
 REQUIRE_PREDICATE GAME_IS ~iwdee~ @1003
-	COPY ~dragonspear_ui++/copy/CURSORS.BAM~ ~override~
+SUBCOMPONENT @1010
+COPY ~dragonspear_ui++/copy/CURSORS.BAM~ ~override~
