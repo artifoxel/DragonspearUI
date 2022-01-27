@@ -306,3 +306,12 @@ ACTION_PHP_EACH blurry_portraits AS _ => v BEGIN
 		COPY_EXISTING ~%v%l.bmp~ ~override/%v%m.bmp~
 	END
 END
+
+/////////////////////////////////////////////////////////////////////////////////
+///  ORIGINAL ICEWIND DALE CURSOR
+/////////////////////////////////////////////////////////////////////////////////
+
+BEGIN @1010
+
+REQUIRE_PREDICATE GAME_IS ~iwdee~ @1003
+	COPY ~dragonspear_ui++/copy/CURSORS.BAM~ ~override~
