@@ -462,7 +462,7 @@ menu {
 	button
 	{
 		name 		"JournalSmall_26"
-		enabled 	"journalMode == const.JOURNAL_MODE_EDIT and string.find(string.lower(journalNoteOld),string.lower(JFStrings.JF_Notes))"
+		enabled 	"journalMode == const.JOURNAL_MODE_EDIT and journalNoteOld and journalNoteOld:lower():find(JFStrings.JF_Notes:lower())"
 		area 		400 204 30 26
 		text 		"X"
 		text style 	"button_parchment"

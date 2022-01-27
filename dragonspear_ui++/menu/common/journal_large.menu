@@ -580,7 +580,7 @@ menu
 	button
 	{
 		name 		"journalLarge_25"
-		enabled 	"journalMode == const.JOURNAL_MODE_EDIT and string.find(string.lower(journalNoteOld),string.lower(JFStrings.JF_Notes))"
+		enabled 	"journalMode == const.JOURNAL_MODE_EDIT and journalNoteOld and journalNoteOld:lower():find(JFStrings.JF_Notes:lower())"
 		area 		626 196 30 26
 		text 		"X"
 		text style 	"button_parchment"
