@@ -79,36 +79,36 @@ END
 
 
 COPY "%build_folder%/ui.menu" ~override~
-COPY ~dragonspear_ui++/content-common/all~ ~override~
+COPY ~dragonspear_ui++/copy/all~ ~override~
 
 ACTION_IF GAME_IS ~bg2ee eet iwdee~ OR NOT GAME_INCLUDES ~sod~ BEGIN
-	COPY ~dragonspear_ui++/content-common/eet-bg2~ ~override~
+	COPY ~dragonspear_ui++/copy/eet-bg2~ ~override~
 END
 
 ACTION_IF GAME_IS ~bgee~ THEN BEGIN
-	COPY ~dragonspear_ui++/content-common/eet-sod~ ~override~
-	COPY ~dragonspear_ui++/content-sod~ ~override~
+	COPY ~dragonspear_ui++/copy/eet-sod~ ~override~
+	COPY ~dragonspear_ui++/copy/sod~ ~override~
 END
 
 ACTION_IF GAME_IS ~bg2ee~ THEN BEGIN
-	COPY ~dragonspear_ui++/content-bg2~ ~override~
+	COPY ~dragonspear_ui++/copy/bg2~ ~override~
 END
 
 ACTION_IF GAME_IS ~eet~ THEN BEGIN
-	COPY ~dragonspear_ui++/content-common/eet-sod~ ~override~
-	COPY ~dragonspear_ui++/content-eet~ ~override~
+	COPY ~dragonspear_ui++/copy/eet-sod~ ~override~
+	COPY ~dragonspear_ui++/copy/eet~ ~override~
 
-	COPY ~dragonspear_ui++/content-sod/rgdback1.wbm~ ~override/rgdback1.wbm~
-	COPY ~dragonspear_ui++/content-sod/rgdback1.wbm~ ~override/rgdback7.wbm~
-	COPY ~dragonspear_ui++/content-sod/rgdback2.wbm~ ~override/rgdback2.wbm~
-	COPY ~dragonspear_ui++/content-sod/rgdback3.wbm~ ~override/rgdback5.wbm~
-	COPY ~dragonspear_ui++/content-bg2/rgdback1.wbm~ ~override/rgdback3.wbm~
-	COPY ~dragonspear_ui++/content-bg2/rgdback2.wbm~ ~override/rgdback4.wbm~
-	COPY ~dragonspear_ui++/content-bg2/rgdback3.wbm~ ~override/rgdback6.wbm~
+	COPY ~dragonspear_ui++/copy/sod/rgdback1.wbm~ ~override/rgdback1.wbm~
+	COPY ~dragonspear_ui++/copy/sod/rgdback1.wbm~ ~override/rgdback7.wbm~
+	COPY ~dragonspear_ui++/copy/sod/rgdback2.wbm~ ~override/rgdback2.wbm~
+	COPY ~dragonspear_ui++/copy/sod/rgdback3.wbm~ ~override/rgdback5.wbm~
+	COPY ~dragonspear_ui++/copy/bg2/rgdback1.wbm~ ~override/rgdback3.wbm~
+	COPY ~dragonspear_ui++/copy/bg2/rgdback2.wbm~ ~override/rgdback4.wbm~
+	COPY ~dragonspear_ui++/copy/bg2/rgdback3.wbm~ ~override/rgdback6.wbm~
 END
 
 ACTION_IF GAME_IS ~iwdee~ THEN BEGIN
-	COPY ~dragonspear_ui++/content-iwd~ ~override~
+	COPY ~dragonspear_ui++/copy/iwd~ ~override~
 END
 
 ACTION_IF (NOT FILE_EXISTS_IN_GAME ~M_BG.lua~) BEGIN
@@ -155,7 +155,7 @@ BEGIN @1007
 
 REQUIRE_PREDICATE GAME_IS ~bgee bg2ee eet~ @1003
 
-COPY ~dragonspear_ui++/content-tooltip~ ~override~
+COPY ~dragonspear_ui++/copy/tooltip~ ~override~
 
 
 /////////////////////////////////////////////////////////////////////////////////
