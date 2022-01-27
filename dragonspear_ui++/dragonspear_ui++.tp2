@@ -153,7 +153,7 @@ COPY_EXISTING ~M_BG.lua~ ~override~
 
 BEGIN @1007
 
-REQUIRE_PREDICATE GAME_IS ~bgee bg2ee eet~ @1003
+REQUIRE_PREDICATE GAME_IS ~bgee bg2ee eet iwdee~ @1003
 
 COPY ~dragonspear_ui++/copy/tooltip~ ~override~
 
@@ -164,7 +164,7 @@ COPY ~dragonspear_ui++/copy/tooltip~ ~override~
 
 BEGIN @1001
 
-REQUIRE_PREDICATE GAME_IS ~bgee bg2ee eet~ @1003
+REQUIRE_PREDICATE GAME_IS ~bgee bg2ee eet iwdee~ @1003
 
 STRING_SET ~23084~ @101
 
@@ -177,7 +177,7 @@ STRING_SET ~11953~ @110
 ACTION_IF GAME_IS ~bgee~ THEN BEGIN
 STRING_SET ~24366~ @102
 END
-ACTION_IF GAME_IS ~bg2ee eet~ THEN BEGIN
+ACTION_IF GAME_IS ~bg2ee eet iwdee~ THEN BEGIN
 STRING_SET ~5684~ @102
 END
 
@@ -188,7 +188,7 @@ END
 
 BEGIN ~1~
 
-REQUIRE_PREDICATE GAME_IS ~bgee bg2ee eet~ @1003
+REQUIRE_PREDICATE GAME_IS ~bgee bg2ee eet iwdee~ @1003
 
 SUBCOMPONENT @1008
 
@@ -198,7 +198,7 @@ COPY_EXISTING ~savename.2da~ ~override~
 
 BEGIN ~2~
 
-REQUIRE_PREDICATE GAME_IS ~bgee bg2ee eet~ @1003
+REQUIRE_PREDICATE GAME_IS ~bgee bg2ee eet iwdee~ @1003
 
 SUBCOMPONENT @1008
 
@@ -208,7 +208,7 @@ COPY_EXISTING ~savename.2da~ ~override~
 
 BEGIN ~3~
 
-REQUIRE_PREDICATE GAME_IS ~bgee bg2ee eet~ @1003
+REQUIRE_PREDICATE GAME_IS ~bgee bg2ee eet iwdee~ @1003
 
 SUBCOMPONENT @1008
 
@@ -218,7 +218,7 @@ COPY_EXISTING ~savename.2da~ ~override~
 
 BEGIN ~4~
 
-REQUIRE_PREDICATE GAME_IS ~bgee bg2ee eet~ @1003
+REQUIRE_PREDICATE GAME_IS ~bgee bg2ee eet iwdee~ @1003
 
 SUBCOMPONENT @1008
 
@@ -228,7 +228,7 @@ COPY_EXISTING ~savename.2da~ ~override~
 
 BEGIN ~5~
 
-REQUIRE_PREDICATE GAME_IS ~bgee bg2ee eet~ @1003
+REQUIRE_PREDICATE GAME_IS ~bgee bg2ee eet iwdee~ @1003
 
 SUBCOMPONENT @1008
 
@@ -238,7 +238,7 @@ COPY_EXISTING ~savename.2da~ ~override~
 
 BEGIN ~6~
 
-REQUIRE_PREDICATE GAME_IS ~bgee bg2ee eet~ @1003
+REQUIRE_PREDICATE GAME_IS ~bgee bg2ee eet iwdee~ @1003
 
 SUBCOMPONENT @1008
 
