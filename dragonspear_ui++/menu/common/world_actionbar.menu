@@ -4,11 +4,17 @@ menu
 	align center bottom
 	onOpen
 	"
-		QuicklootMode = Infinity_GetINIString('Game Options','QuicklootMode',1)
-		QuicklootStartPref = Infinity_GetINIString('Game Options','QuicklootStartPreference',1)
 		toolbarTop = 50
 		Infinity_PushMenu('WORLD_MESSAGES')
---		Infinity_PushMenu('WORLD_QUICKLOOT')
+
+		if duiSettings:get('quickLootVisible') then
+			groundItemsButtonToggle = 1
+			worldScreen:StartGroundItems()
+		else
+			groundItemsButtonToggle = 0
+			worldScreen:StopGroundItems()
+		end
+
 		worldScreen:SetHighlightEnabled(highlightButtonToggle == 1) -- TODO: review added by SOD v2.5
 	"
 	onClose

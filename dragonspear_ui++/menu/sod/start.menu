@@ -12,7 +12,7 @@ menu
 		versionString = CBaldurChitin:GetVersionString()
 		campaignsString = ''
 
-		duiInitSettings({ doFirstLoad = true })
+		duiOnStartOpen({ doFirstLoad = true })
 
 		canContinue = startEngine:HasGameToContinue()
 		Infinity_PlayMovie('flames','flames')

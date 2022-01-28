@@ -18,7 +18,7 @@
 		local visible, hidden = 'Big', 'Small'
 		local sw, sh, bw, bh = 86, 131, 82, 123
 
-		if LargePortraits == 0 then
+		if not duiLargePortraits then
 			visible, hidden = 'Small', 'Big'
 			sw, sh, bw, bh = 68, 99, 64, 91
 		end

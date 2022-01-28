@@ -9,8 +9,11 @@ menu
 		ticksStarting = 0
 		MethodToggle = 0
 		MethDescToggle = 0
-		cheatMode = Infinity_GetINIValue('Game Options','CheatMode','1')
-		rgAbilityText()
+		cheatMode = duiSettings:get('cheatMode')
+		rgAbilityText(cheatMode)
+	"
+	onclose "
+		cheatMode = nil
 	"
 	label
 	{
@@ -19,7 +22,7 @@ menu
 	}
 	label
 	{
-		enabled "Infinity_GetINIValue('Game Options','CheatMode','1')"
+		enabled "cheatMode"
 		area 708 349 420 55
 		mosaic RGCROLX
 	}
@@ -174,13 +177,13 @@ menu
 	}
 --	label
 --	{
---		enabled 	"Infinity_GetINIValue('Game Options','CheatMode','1')"
+--		enabled 	"cheatMode"
 --		area 		696 358 444 366
 --		Rectangle 	3
 --	}
 	label
 	{
-		enabled 	"Infinity_GetINIValue('Game Options','CheatMode','1') and MethodToggle > 0 and MethodToggle < 6"
+		enabled 	"cheatMode and MethodToggle > 0 and MethodToggle < 6"
 		area 		714 543 400 37
 		text		"ACM_ROLL_SPEED_LABEL"
 		text style 	"label"
@@ -189,7 +192,7 @@ menu
 	}
 	slider
 	{
-		enabled "Infinity_GetINIValue('Game Options','CheatMode','1') and MethodToggle > 0 and MethodToggle < 6"
+		enabled "cheatMode and MethodToggle > 0 and MethodToggle < 6"
 		area 806 586 212 22
 		position "arspeed"
 		bam	 'SLDRSTAR'
@@ -208,7 +211,7 @@ menu
 
 	text
 	{
-		enabled 	"MethodToggle == 0 and Infinity_GetINIValue('Game Options','CheatMode','1')"
+		enabled 	"MethodToggle == 0 and cheatMode"
 		area 		718 354 396 40
 		text 		"ACM_CHEAT_METHOD"
 		text style 	"normal"
@@ -217,7 +220,7 @@ menu
 	}
 	text
 	{
-		enabled 	"MethodToggle == 0 and MethDescToggle == 0 and Infinity_GetINIValue('Game Options','CheatMode','1')"
+		enabled 	"MethodToggle == 0 and MethDescToggle == 0 and cheatMode"
 		area 		724 542 390 154
 		text		"ACM_UF_DESCRIPTION"
 		text style 	"normal"
@@ -226,7 +229,7 @@ menu
 	}
 	button
 	{
-		enabled 	"MethodToggle == 0 and Infinity_GetINIValue('Game Options','CheatMode','1')"
+		enabled 	"MethodToggle == 0 and cheatMode"
 		area 		716 404 200 40
 		bam 		GUIBUTNT
 		text 		"ACM_AUTOROLL_BUTTON"
@@ -244,7 +247,7 @@ menu
 	}
 	button
 	{
-		enabled 	"MethodToggle == 0 and Infinity_GetINIValue('Game Options','CheatMode','1')"
+		enabled 	"MethodToggle == 0 and cheatMode"
 		area 		914 404 200 40
 		bam 		GUIBUTNT
 		text 		"ACM_RANGEROLL_BUTTON"
@@ -262,7 +265,7 @@ menu
 	}
 	button
 	{
-		enabled 	"MethodToggle == 0 and Infinity_GetINIValue('Game Options','CheatMode','1')"
+		enabled 	"MethodToggle == 0 and cheatMode"
 		area 		716 448 200 40
 		bam 		GUIBUTNT
 		text 		"ACM_POINTBUY_BUTTON"
@@ -280,7 +283,7 @@ menu
 	}
 	button
 	{
-		enabled 	"MethodToggle == 0 and HasExceptionalStrength() and Infinity_GetINIValue('Game Options','CheatMode','1')"
+		enabled 	"MethodToggle == 0 and HasExceptionalStrength() and cheatMode"
 		area 		716 492 200 40
 		bam 		GUIBUTNT
 		text 		"ACM_MINSTR_BUTTON"
@@ -298,7 +301,7 @@ menu
 	}
 	button
 	{
-		enabled 	"MethodToggle == 0 and HasExceptionalStrength() and Infinity_GetINIValue('Game Options','CheatMode','1')"
+		enabled 	"MethodToggle == 0 and HasExceptionalStrength() and cheatMode"
 		area 		914 492 200 40
 		bam			GUIBUTNT
 		text 		"ACM_PRISTR_BUTTON"
@@ -316,7 +319,7 @@ menu
 	}
 	button
 	{
-		enabled 	"MethodToggle == 0 and Infinity_GetINIValue('Game Options','CheatMode','1')"
+		enabled 	"MethodToggle == 0 and cheatMode"
 		area 		914 448 200 40
 		bam 		GUIBUTNT
 		text 		"ACM_MAXMAX_BUTTON"
@@ -338,7 +341,7 @@ menu
 
 	text
 	{
-		enabled 	"Infinity_GetINIValue('Game Options','CheatMode','1') and MethodToggle == 0 and MethDescToggle == 1"
+		enabled 	"cheatMode and MethodToggle == 0 and MethDescToggle == 1"
 		area 		724 542 390 154
 		text		"ACM_AUTOROLL_DESCRIPTION"
 		text style 	"normal"
@@ -347,7 +350,7 @@ menu
 	}
 	text
 	{
-		enabled 	"Infinity_GetINIValue('Game Options','CheatMode','1') and MethodToggle == 0 and MethDescToggle == 2"
+		enabled 	"cheatMode and MethodToggle == 0 and MethDescToggle == 2"
 		area 		724 542 390 154
 		text 		"ACM_RANGEROLL_DESCRIPTION"
 		text style 	"normal"
@@ -356,7 +359,7 @@ menu
 	}
 	text
 	{
-		enabled 	"Infinity_GetINIValue('Game Options','CheatMode','1') and MethodToggle == 0 and MethDescToggle == 3"
+		enabled 	"cheatMode and MethodToggle == 0 and MethDescToggle == 3"
 		area 		724 542 390 154
 		text	 	"ACM_POINTBUY_DESCRIPTION"
 		text style 	"normal"
@@ -365,7 +368,7 @@ menu
 	}
 	text
 	{
-		enabled 	"Infinity_GetINIValue('Game Options','CheatMode','1') and MethodToggle == 0 and MethDescToggle == 4"
+		enabled 	"cheatMode and MethodToggle == 0 and MethDescToggle == 4"
 		area 		724 542 390 154
 		text		"ACM_MINSTR_DESCRIPTION"
 		text style 	"normal"
@@ -374,7 +377,7 @@ menu
 	}
 	text
 	{
-		enabled 	"Infinity_GetINIValue('Game Options','CheatMode','1') and MethodToggle == 0 and MethDescToggle == 5"
+		enabled 	"cheatMode and MethodToggle == 0 and MethDescToggle == 5"
 		area 		724 542 390 154
 		text		"ACM_PRISTR_DESCRIPTION"
 		text style 	"normal"
@@ -383,7 +386,7 @@ menu
 	}
 	text
 	{
-		enabled 	"Infinity_GetINIValue('Game Options','CheatMode','1') and MethodToggle == 0 and MethDescToggle == 6"
+		enabled 	"cheatMode and MethodToggle == 0 and MethDescToggle == 6"
 		area 		724 542 390 154
 		text		"ACM_MAXMAX_DESCRIPTION"
 		text style 	"normal"
@@ -395,7 +398,7 @@ menu
 
 	button
 	{
-		enabled 		"MethodToggle > 0 and Infinity_GetINIValue('Game Options','CheatMode','1')"
+		enabled 		"MethodToggle > 0 and cheatMode"
 		clickable lua	"rolling==0"
 		area 			714 656 200 40
 		bam 			GUIBUTNT
@@ -426,7 +429,7 @@ menu
 -- Method 1, Auto Roller
 	text
 	{
-		enabled 	"Infinity_GetINIValue('Game Options','CheatMode','1') and MethodToggle == 1"
+		enabled 	"cheatMode and MethodToggle == 1"
 		area 		720 354 394 40
 		text 		"ACM_SELMETHOD_AUTOROLL_TEXT"
 		text style 	"normal"
@@ -437,7 +440,7 @@ menu
 -- METHOD 2 = RANGE ROLL
 	text
 	{
-		enabled 	"Infinity_GetINIValue('Game Options','CheatMode','1') and MethodToggle == 2"
+		enabled 	"cheatMode and MethodToggle == 2"
 		area 		712 354 402 40
 		text 		"ACM_SELMETHOD_RANGEROLL_TEXT"
 		text style 	"normal"
@@ -446,7 +449,7 @@ menu
 	}
 	edit
 	{
-		enabled 	"Infinity_GetINIValue('Game Options','CheatMode','1') and MethodToggle == 2"
+		enabled 	"cheatMode and MethodToggle == 2"
 		clickable lua "rolling == 0"
 		area		810 478 64 40
 		var			rollMinValue
@@ -468,7 +471,7 @@ menu
 	}
 	text
 	{
-		enabled		"Infinity_GetINIValue('Game Options','CheatMode','1') and MethodToggle == 2"
+		enabled		"cheatMode and MethodToggle == 2"
 		area 		894 478 42 40
 		text 		"ACM_SELMETHOD_RANGEROLL_TO_TEXT"
 		text style	"normal"
@@ -477,7 +480,7 @@ menu
 	}
 	edit
 	{
-		enabled		"Infinity_GetINIValue('Game Options','CheatMode','1') and MethodToggle == 2"
+		enabled		"cheatMode and MethodToggle == 2"
 		clickable lua "rolling == 0"
 		area		958 478 64 40
 		var			rollMaxValue
@@ -501,7 +504,7 @@ menu
 -- Method 3 = Point Buy
 	text
 	{
-		enabled		"Infinity_GetINIValue('Game Options','CheatMode','1') and MethodToggle == 3"
+		enabled		"cheatMode and MethodToggle == 3"
 		area 		712 354 406 40
 		text 		"ACM_SELMETHOD_POINTBUY_TEXT"
 		text style 	"normal"
@@ -510,7 +513,7 @@ menu
 	}
 	button
 	{
-		enabled		"Infinity_GetINIValue('Game Options','CheatMode','1') and MethodToggle == 3"
+		enabled		"cheatMode and MethodToggle == 3"
 		area 		760 414 142 40
 		bam 		RGSTBT
 		text 		"75"
@@ -524,7 +527,7 @@ menu
 	}
 	button
 	{
-		enabled		"Infinity_GetINIValue('Game Options','CheatMode','1') and MethodToggle == 3"
+		enabled		"cheatMode and MethodToggle == 3"
 		area 		910 414 142 40
 		bam 		RGSTBT
 		text 		"80"
@@ -538,7 +541,7 @@ menu
 	}
 	button
 	{
-		enabled		"Infinity_GetINIValue('Game Options','CheatMode','1') and MethodToggle == 3"
+		enabled		"cheatMode and MethodToggle == 3"
 		area 		760 462 142 40
 		bam 		RGSTBT
 		text 		"85"
@@ -552,7 +555,7 @@ menu
 	}
 	button
 	{
-		enabled		"Infinity_GetINIValue('Game Options','CheatMode','1') and MethodToggle == 3"
+		enabled		"cheatMode and MethodToggle == 3"
 		area 		910 462 142 40
 		bam 		RGSTBT
 		text 		"90"
@@ -566,7 +569,7 @@ menu
 	}
 	text
 	{
-		enabled		"Infinity_GetINIValue('Game Options','CheatMode','1') and MethodToggle == 3 and storedTotalRoll == PBuy and rolling == 1"
+		enabled		"cheatMode and MethodToggle == 3 and storedTotalRoll == PBuy and rolling == 1"
 		area 		712 626 402 30
 		text 		"ACM_SELMETHOD_POINTBUY_ACQUIRED"
 		text color 	'$'
@@ -577,7 +580,7 @@ menu
 -- Method 4 = MIN STR%
 	text
 	{
-		enabled		"Infinity_GetINIValue('Game Options','CheatMode','1') and MethodToggle == 4"
+		enabled		"cheatMode and MethodToggle == 4"
 		area 		720 354 394 40
 		text 		"ACM_SELMETHOD_MINSTR_TEXT"
 		text style 	"normal"
@@ -586,7 +589,7 @@ menu
 	}
 	text
 	{
-		enabled		"Infinity_GetINIValue('Game Options','CheatMode','1') and MethodToggle == 4"
+		enabled		"cheatMode and MethodToggle == 4"
 		area 		810 430 118 38
 		text		"ACM_SELMETHOD_MINSTR_MINSTR"
 		text style 	"normal"
@@ -595,7 +598,7 @@ menu
 	}
 	edit
 	{
-		enabled		"Infinity_GetINIValue('Game Options','CheatMode','1') and MethodToggle == 4"
+		enabled		"cheatMode and MethodToggle == 4"
 		area		944 430 64 38
 		var			minStr
 		text style	"normal"
@@ -617,7 +620,7 @@ menu
 -- Method 5 = Priority Str%
 	text
 	{
-		enabled 	"Infinity_GetINIValue('Game Options','CheatMode','1') and MethodToggle == 5"
+		enabled 	"cheatMode and MethodToggle == 5"
 		area 		720 354 394 40
 		text 		"ACM_SELMETHOD_PRISTR_TEXT"
 		text style 	"normal"
@@ -626,7 +629,7 @@ menu
 	}
 	text
 	{
-		enabled		"Infinity_GetINIValue('Game Options','CheatMode','1') and MethodToggle == 5"
+		enabled		"cheatMode and MethodToggle == 5"
 		area 		738 414 86 38
 		text 		"1% to 50%"
 		text style 	"normal"
@@ -635,7 +638,7 @@ menu
 	}
 	edit
 	{
-		enabled		"Infinity_GetINIValue('Game Options','CheatMode','1') and MethodToggle == 5"
+		enabled		"cheatMode and MethodToggle == 5"
 		area		836 414 64 38
 		var			fiftyStr
 		text style	"edit"
@@ -656,7 +659,7 @@ menu
 	}
 	text
 	{
-		enabled		"Infinity_GetINIValue('Game Options','CheatMode','1') and MethodToggle == 5"
+		enabled		"cheatMode and MethodToggle == 5"
 		area 		734 452 90 40
 		text 		"51% to 75%"
 		text style 	"normal"
@@ -665,7 +668,7 @@ menu
 	}
 	edit
 	{
-		enabled		"Infinity_GetINIValue('Game Options','CheatMode','1') and MethodToggle == 5"
+		enabled		"cheatMode and MethodToggle == 5"
 		area		836 452 64 40
 		var			seventyfiveStr
 		text style	"edit"
@@ -686,7 +689,7 @@ menu
 	}
 	text
 	{
-		enabled		"Infinity_GetINIValue('Game Options','CheatMode','1') and MethodToggle == 5"
+		enabled		"cheatMode and MethodToggle == 5"
 		area 		910 414 98 38
 		text 		"76% to 90%"
 		text style 	"normal"
@@ -695,7 +698,7 @@ menu
 	}
 	edit
 	{
-		enabled		"Infinity_GetINIValue('Game Options','CheatMode','1') and MethodToggle == 5"
+		enabled		"cheatMode and MethodToggle == 5"
 		area		1018 414 64 38
 		var			ninetyStr
 		text style	"edit"
@@ -716,7 +719,7 @@ menu
 	}
 	text
 	{
-		enabled		"Infinity_GetINIValue('Game Options','CheatMode','1') and MethodToggle == 5"
+		enabled		"cheatMode and MethodToggle == 5"
 		area 		910 452 98 40
 		text 		"91% to 99%"
 		text style 	"normal"
@@ -725,7 +728,7 @@ menu
 	}
 	edit
 	{
-		enabled		"Infinity_GetINIValue('Game Options','CheatMode','1') and MethodToggle == 5"
+		enabled		"cheatMode and MethodToggle == 5"
 		area		1018 452 64 40
 		var			ninetynineStr
 		text style	"edit"
@@ -746,7 +749,7 @@ menu
 	}
 	text
 	{
-		enabled		"Infinity_GetINIValue('Game Options','CheatMode','1') and MethodToggle == 5"
+		enabled		"cheatMode and MethodToggle == 5"
 		area 		910 492 98 38
 		text		"100%"
 		text style 	"normal"
@@ -755,7 +758,7 @@ menu
 	}
 	edit
 	{
-		enabled		"Infinity_GetINIValue('Game Options','CheatMode','1') and MethodToggle == 5"
+		enabled		"cheatMode and MethodToggle == 5"
 		area		1018 492 64 38
 		var			hundredStr
 		text style	"edit"
@@ -777,7 +780,7 @@ menu
 -- METHOD 6 = ALL 18s
 	text
 	{
-		enabled 	"Infinity_GetINIValue('Game Options','CheatMode','1') and MethodToggle == 6"
+		enabled 	"cheatMode and MethodToggle == 6"
 		area 		720 354 394 40
 		text 		"ACM_SELMETHOD_MAXMAX_TEXT"
 		text style 	"normal"
@@ -786,7 +789,7 @@ menu
 	}
 	text
 	{
-		enabled		"Infinity_GetINIValue('Game Options','CheatMode','1') and MethodToggle == 6"
+		enabled		"cheatMode and MethodToggle == 6"
 		area 		720 478 394 102
 		text		"ACM_SELMETHOD_MAXMAX_MAXMAX"
 		text style 	"normal"
@@ -801,7 +804,7 @@ menu
 
 	button
 	{
-		enabled 	"Infinity_GetINIValue('Game Options','CheatMode','1') and MethodToggle > 0 and MethodToggle < 6 and rolling == 0"
+		enabled 	"cheatMode and MethodToggle > 0 and MethodToggle < 6 and rolling == 0"
 		area 914 656 200 40
 		bam GUIBUTNT
 		sequence 0
@@ -869,7 +872,7 @@ menu
 	}
 	button
 	{
-		enabled 	"Infinity_GetINIValue('Game Options','CheatMode','1') and MethodToggle > 0 and MethodToggle < 6 and rolling == 1"
+		enabled 	"cheatMode and MethodToggle > 0 and MethodToggle < 6 and rolling == 1"
 		on escape
 		area 914 656 200 40
 		bam GUIBUTNT

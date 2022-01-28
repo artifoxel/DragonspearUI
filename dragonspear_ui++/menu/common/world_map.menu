@@ -8,7 +8,7 @@ menu
 #end
 	onOpen "
 	#if GAME_VERSION == 'iwd' then
-		if showJournal == 1 and JournalSize ~= UIStrings.UI_Large then
+		if showJournal == 1 and not duiSettings:get('largeJournal') then
 			Infinity_PopMenu('JOURNAL_SMALL')
 		end
 	#end
@@ -69,8 +69,9 @@ menu
 		worldmap
 		action
 		"
+			local oneClickTravel = duiSettings:get('oneClickTravel')
 			worldMapScreen:OnMapMouseDown(eventXCoord,eventYCoord)
-			if singleClickTravel and worldMapScreen:IsTravelButtonClickable() then
+			if oneClickTravel and worldMapScreen:IsTravelButtonClickable() then
 				worldMapScreen:TravelToSelected()
 			end
 		"

@@ -140,11 +140,7 @@ menu {
 		action
 		"
 			e:GetActiveEngine():OnLeftPanelButtonClick(2)
-			if JournalSize == UIStrings.UI_Large then
-				JournalSize = UIStrings.UI_Small
-			else
-				JournalSize = UIStrings.UI_Large
-			end
+			duiSettings:toggle('largeJournal', true)
 			e:GetActiveEngine():OnLeftPanelButtonClick(2)
 		"
 	}

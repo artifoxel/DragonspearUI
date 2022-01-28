@@ -6,19 +6,8 @@
 		return loot.groundItems[idxScrolled].containerId
 	end
 	function hideQuicklootSlot()
-		if QuicklootENum == "Ten" then
-			QLrows = 10
-		elseif QuicklootENum == "Six" then
-			QLrows = 6
-		elseif QuicklootENum == "Five" then
-			QLrows = 5
-		elseif QuicklootENum == "Four" then
-			QLrows = 4
-		elseif QuicklootENum == "Three" then
-			QLrows = 3
-		elseif QuicklootENum == "Two" then
-			QLrows = 2
-		end
+		local QLrows = duiSettings:get('quickLootRows')
+
 		QLcols = 60 / QLrows
 		QLrows = QLrows - 1
 		for j = 0,QLrows,1 do

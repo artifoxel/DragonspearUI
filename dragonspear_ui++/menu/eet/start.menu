@@ -34,7 +34,7 @@ menu
 			Infinity_PushMenu('START_MP')
 		end
 
-		duiInitSettings({ eet = true })
+		duiOnStartOpen({ eet = true })
 
 		Infinity_SetBackground('BACKGROUND')
 		getMenuPanelArea()

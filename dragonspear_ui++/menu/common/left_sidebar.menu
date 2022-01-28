@@ -19,7 +19,9 @@ menu
 	#end
 		sidebarForceTooltips = 0
 #if WITH_LEFT_SIDE_PORTRAITS then
+	if duiSettings:get('leftSidePortraits') then
 		onPortraitsSidebarOpen()
+	end
 #end
 	"
 	onClose
@@ -38,6 +40,7 @@ menu
 	button
 	{
 		area 0 0 88 1
+		enabled "duiLeftSidePortraits"
 		text lua "hidePortraits('A')"
 	}
 
@@ -46,7 +49,7 @@ menu
 	label
 	{
 		name "portrait`i + 1`ShadowSmallA"
-		enabled "Infinity_GetNumCharacters() > `i` and rgEscPortrait ~= 1 and LargePortraits == 0 and duiLeftSidePortrait == 1"
+		enabled "Infinity_GetNumCharacters() > `i` and rgEscPortrait ~= 1 and not duiLargePortraits and duiLeftSidePortraits"
 		area 22 `y` 68 99
 		mosaic RGGFRM4
 	}
@@ -56,7 +59,7 @@ menu
 		area 24 `y + 4` 64 91
 		portrait `i`
 		bam RGGFRM3
-		enabled "Infinity_GetNumCharacters() > `i` and rgEscPortrait ~= 1 and LargePortraits == 0 and duiLeftSidePortrait == 1"
+		enabled "Infinity_GetNumCharacters() > `i` and rgEscPortrait ~= 1 and not duiLargePortraits and duiLeftSidePortraits"
 		glow lua "draggedPortrait and draggedPortrait ~= `i`"
 		action "Infinity_OnPortraitLClick(`i`)"
 		actionAlt "Infinity_OnPortraitRClick(`i`)"
@@ -77,7 +80,7 @@ menu
 	label
 	{
 		name "portrait`i + 1`ShadowBigA"
-		enabled "Infinity_GetNumCharacters() > `i` and rgEscPortrait ~= 1 and LargePortraits == 1 and duiLeftSidePortrait == 1"
+		enabled "Infinity_GetNumCharacters() > `i` and rgEscPortrait ~= 1 and duiLargePortraits and duiLeftSidePortraits"
 	#if GAME_VERSION == 'sod' then
 		area 2 `y` 86 131
 	#else
@@ -95,7 +98,7 @@ menu
 	#end
 		portrait `i`
 		bam RGGFRM5
-		enabled "Infinity_GetNumCharacters() > `i` and rgEscPortrait ~= 1 and LargePortraits == 1 and duiLeftSidePortrait == 1"
+		enabled "Infinity_GetNumCharacters() > `i` and rgEscPortrait ~= 1 and duiLargePortraits and duiLeftSidePortraits"
 		glow lua "draggedPortrait and draggedPortrait ~= `i`"
 		action "Infinity_OnPortraitLClick(`i`)"
 		actionAlt "Infinity_OnPortraitRClick(`i`)"

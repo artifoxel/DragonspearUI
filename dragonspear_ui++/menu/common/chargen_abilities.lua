@@ -258,7 +258,7 @@ function StoreRoll()
 	chargen.ability[ 6 ].storedRoll = chargen.ability[ 6 ].roll
 end
 
-function rgAbilityText()
+function rgAbilityText(cheatMode)
 	if cheatMode == 1 then
 	Infinity_SetArea('abilityText', 724, 157, 388, 193)
 	else

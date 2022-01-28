@@ -7,29 +7,29 @@ function getSaveBackground(row)
 	end
 end
 
-function getLoadArea()
+function getLoadArea(LeftSideMenu)
 	local screenWidth, screenHeight = Infinity_GetScreenSize()
-	if screenWidth <= 1372 and LeftSideMenu == 0 then
+	if screenWidth <= 1372 and not LeftSideMenu then
 	Infinity_SetArea('SaveArea', 0, 0, screenWidth-444, screenHeight)
 	Infinity_SetArea('SaveAreaPanel', -50, 0, screenWidth-394, 2160)
-	elseif screenWidth > 1372 and screenWidth <= 1552 and LeftSideMenu == 0 then
+	elseif screenWidth > 1372 and screenWidth <= 1552 and not LeftSideMenu then
 	Infinity_SetArea('SaveArea', 0, 0, 928, screenHeight)
 	Infinity_SetArea('SaveAreaPanel', -42, 0, 1012, 2160)
-	elseif screenWidth > 1552 and LeftSideMenu == 0 then
+	elseif screenWidth > 1552 and not LeftSideMenu then
 	Infinity_SetArea('SaveArea', screenWidth-1552, 0, 928, screenHeight)
 	Infinity_SetArea('SaveAreaPanel', screenWidth-1594, 0, 1012, 2160)
 
-	elseif screenWidth <= 1372 and LeftSideMenu == 1 then
+	elseif screenWidth <= 1372 and LeftSideMenu then
 	Infinity_SetArea('SaveArea', 444, 0, screenWidth-444, screenHeight)
 	Infinity_SetArea('SaveAreaPanel', 444, 0, screenWidth-444, 2160)
-	elseif screenWidth > 1372 and screenWidth <= 1552 and LeftSideMenu == 1 then
+	elseif screenWidth > 1372 and screenWidth <= 1552 and LeftSideMenu then
 	Infinity_SetArea('SaveArea', 444, 0, 928, screenHeight)
 	Infinity_SetArea('SaveAreaPanel', 444, 0, 1012, 2160)
-	elseif screenWidth > 1552 and LeftSideMenu == 1 then
+	elseif screenWidth > 1552 and LeftSideMenu then
 	Infinity_SetArea('SaveArea', 624, 0, 928, screenHeight)
 	Infinity_SetArea('SaveAreaPanel', 582, 0, 1012, 2160)
 	end
-	if LeftSideMenu == 1 then
+	if LeftSideMenu then
 	Infinity_SetArea('LoadPanel', 76, nil, nil, nil)
 	Infinity_SetArea('LoadTitle1', 33, nil, nil, nil)
 	Infinity_SetArea('LoadTitle2', 16, nil, nil, nil)

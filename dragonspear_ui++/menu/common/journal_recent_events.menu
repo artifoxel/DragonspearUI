@@ -5,21 +5,21 @@
 	-- modal
 	-- label
 	-- {
-		-- enabled "JournalSize == UIStrings.UI_Large"
+		-- enabled "duiSettings:get('largeJournal')"
 		-- area 0 0 672 672
 		-- mosaic "RECENTEV"
 
 	-- }
 	-- label
 	-- {
-		-- enabled "JournalSize == UIStrings.UI_Large"
+		-- enabled "duiSettings:get('largeJournal')"
 		-- area 158 52 354 46
 		-- text "RECENT_EVENTS_TITLE"
 		-- text style "title"
 	-- }
 	-- button
 	-- {
-		-- enabled "JournalSize == UIStrings.UI_Large"
+		-- enabled "duiSettings:get('largeJournal')"
 		-- area 594 10 33 35
 		-- bam "XBUTT"
 		-- action
@@ -29,14 +29,14 @@
 	-- }
 	-- text
 	-- {
-		-- enabled "JournalSize == UIStrings.UI_Large"
+		-- enabled "duiSettings:get('largeJournal')"
 		-- area 126 106 422 458
 		-- text "Recent events text will go here."
 		-- text style "normal"
 	-- }
 	-- button
 	-- {
-		-- enabled "JournalSize == UIStrings.UI_Large"
+		-- enabled "duiSettings:get('largeJournal')"
 		-- area		320 572 200 44
 		-- text		"DONE_BUTTON"
 		-- text style	'button'
@@ -52,21 +52,21 @@
 
 	-- label
 	-- {
-		-- enabled "JournalSize == UIStrings.UI_Small"
+		-- enabled "not duiSettings:get('largeJournal')"
 		-- area 0 0 672 672
 		-- mosaic "RECENTEV"
 
 	-- }
 	-- label
 	-- {
-		-- enabled "JournalSize == UIStrings.UI_Small"
+		-- enabled "not duiSettings:get('largeJournal')"
 		-- area 158 52 354 46
 		-- text "RECENT_EVENTS_TITLE"
 		-- text style "title"
 	-- }
 	-- button
 	-- {
-		-- enabled "JournalSize == UIStrings.UI_Small"
+		-- enabled "not duiSettings:get('largeJournal')"
 		-- area 594 10 33 35
 		-- bam "XBUTT"
 		-- action
@@ -76,14 +76,14 @@
 	-- }
 	-- text
 	-- {
-		-- enabled "JournalSize == UIStrings.UI_Small"
+		-- enabled "not duiSettings:get('largeJournal')"
 		-- area 126 106 422 458
 		-- text "Recent events text will go here."
 		-- text style "normal"
 	-- }
 	-- button
 	-- {
-		-- enabled "JournalSize == UIStrings.UI_Small"
+		-- enabled "not duiSettings:get('largeJournal')"
 		-- area		320 572 200 44
 		-- text		"DONE_BUTTON"
 		-- text style	'button'

@@ -9,7 +9,7 @@ menu
 
 	onOpen
 	"
-		local isLarge = JournalSize ~= UIStrings.UI_Small
+		local isLarge = duiSettings:get('largeJournal')
 		local activeEngine = e:GetActiveEngine()
 
 	#if GAME_VERSION == 'iwd' then
@@ -54,10 +54,10 @@ menu
 	"
 	onClose
 	"
-		if JournalSize == UIStrings.UI_Small then
-			Infinity_PopMenu('JOURNAL_SMALL')
-		else
+		if duiSettings:get('largeJournal') then
 			Infinity_PopMenu('JOURNAL_LARGE')
+		else
+			Infinity_PopMenu('JOURNAL_SMALL')
 		end
 	"
 

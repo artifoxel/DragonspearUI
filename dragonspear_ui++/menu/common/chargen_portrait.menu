@@ -4,8 +4,8 @@ menu
 	align center center
 	ignoreesc
 	onopen "
-		MultiPortraitPicker = Infinity_GetINIValue('Game Options','MultiPortraitPicker',1)
-		if MultiPortraitPicker == 1 then
+		duiMultiPortraitPicker = duiSettings:get('duiMultiPortraitPicker')
+		if duiMultiPortraitPicker then
 			IncPortraitArray()
 		else
 			duiPPNameFilter1 = ''
@@ -16,12 +16,13 @@ menu
 	onclose "
 		duiPPNameFilter1 = nil
 		duiPPNameFilter2 = nil
+		duiMultiPortraitPicker = nil
 		listPP = nil
 	"
 
 	label
 	{
-		enabled "MultiPortraitPicker == 1"
+		enabled "duiMultiPortraitPicker"
 		area 0 0 1444 818
 		mosaic 'RGCNAME'
 	}
@@ -34,7 +35,7 @@ menu
 
 	button
 	{
-		enabled "MultiPortraitPicker == 1"
+		enabled "duiMultiPortraitPicker"
 		area 336 362 52 132
 		bam GUIPRC
 		sequence 0
@@ -42,7 +43,7 @@ menu
 	}
 	button
 	{
-		enabled "MultiPortraitPicker == 1"
+		enabled "duiMultiPortraitPicker"
 		area 1059 362 52 132
 		bam GUIPRC
 		sequence 1
@@ -51,23 +52,23 @@ menu
 
 #local i = 0
 #for y = 156, 574, 139 do for x = 400, 965, 94 do i = i + 1
-	label { enabled "MultiPortraitPicker == 1" area `x` `y` 80 125 bitmap lua "GetPortrait(`i`)" }
+	label { enabled "duiMultiPortraitPicker" area `x` `y` 80 125 bitmap lua "GetPortrait(`i`)" }
 #end end
 
 #local i = 0
 #for y = 151, 569, 139 do for x = 395, 960, 94 do i = i + 1
-	button { enabled "MultiPortraitPicker == 1" area `x` `y` 90 135 bam "rgcfram" toggle togglePort`i` action "togglePortrait(`i`)" action "OnPortraitArrayClick(`i`)" }
+	button { enabled "duiMultiPortraitPicker" area `x` `y` 90 135 bam "rgcfram" toggle togglePort`i` action "togglePortrait(`i`)" action "OnPortraitArrayClick(`i`)" }
 #end end
 
 	label
 	{
-		enabled "IsPortraitChosen() and MultiPortraitPicker == 1"
+		enabled "IsPortraitChosen() and duiMultiPortraitPicker"
 		area 1142 248 210 330
 		bitmap lua "GetPortrait(portraitChoice)"
 	}
 	label
 	{
-		enabled "IsPortraitChosen() and MultiPortraitPicker == 1"
+		enabled "IsPortraitChosen() and duiMultiPortraitPicker"
 		area 1134 604 230 44
 		text lua "GetPortrait(portraitChoice)"
 		text style "button"
@@ -75,7 +76,7 @@ menu
 	button
 	{
 		on escape
-		enabled "MultiPortraitPicker == 1"
+		enabled "duiMultiPortraitPicker"
 		area 484 724 230 44
 		bam GUIBUTMT
 		text "BACK_BUTTON"
@@ -85,7 +86,7 @@ menu
 	button
 	{
 		on return
-		enabled "MultiPortraitPicker == 1"
+		enabled "duiMultiPortraitPicker"
 		area 730 724 230 44
 		bam GUIBUTMT
 		text "DONE_BUTTON"
@@ -98,7 +99,7 @@ menu
 
 	label
 	{
-		enabled "MultiPortraitPicker == 0"
+		enabled "not duiMultiPortraitPicker"
 		area 0 0 1444 818
 		mosaic 'RGCGAPP'
 	}
@@ -111,7 +112,7 @@ menu
 --	}
 	label
 	{
-		enabled "MultiPortraitPicker == 0"
+		enabled "not duiMultiPortraitPicker"
 		area 356 177 346 85
 		text 'RG_PP_TOOLTIP'
 		text style "label"
@@ -119,7 +120,7 @@ menu
 	}
 	label
 	{
-		enabled "MultiPortraitPicker == 0"
+		enabled "not duiMultiPortraitPicker"
 		area 356 498 346 82
 		text lua "listPP.portraitCountLabel"
 		text style "label"
@@ -127,7 +128,7 @@ menu
 	}
 	button
 	{
-		enabled "MultiPortraitPicker == 0"
+		enabled "not duiMultiPortraitPicker"
 		area 0 0 0 0
 		bam GUIPRC
 		sequence 0
@@ -135,7 +136,7 @@ menu
 	}
 	button
 	{
-		enabled "MultiPortraitPicker == 0"
+		enabled "not duiMultiPortraitPicker"
 		area 0 0 0 0
 		bam GUIPRC
 		sequence 1
@@ -143,14 +144,14 @@ menu
 	}
 	label
 	{
-		enabled "MultiPortraitPicker == 0"
+		enabled "not duiMultiPortraitPicker"
 		area 1142 248 210 330
 		bitmap lua "listPP.selected and listPP.selected.filename or 'NOPORTMD'"
 	}
 	button
 	{
 --		enabled "listPP.selected == nil"
-		enabled "MultiPortraitPicker == 0 and not e:IsTouchUI()"
+		enabled "not duiMultiPortraitPicker and not e:IsTouchUI()"
 		area 1134 604 230 40
 		bam GUIBUTMT
 		text "CUSTOM_BUTTON"
@@ -163,32 +164,32 @@ menu
 	label
 	{
 --		area 1120 618 234 78
-		enabled "MultiPortraitPicker == 0 and listPP.selected ~= nil"
+		enabled "not duiMultiPortraitPicker and listPP.selected ~= nil"
 		rectangle 4
 	}
 	label
 	{
 		area 356 372 346 60
-		enabled "MultiPortraitPicker == 0 and listPP.selected ~= nil"
+		enabled "not duiMultiPortraitPicker and listPP.selected ~= nil"
 		text lua "listPP.selected.description"
 		text style "label"
 		align left center
 	}
 	label
 	{
-		enabled "MultiPortraitPicker == 0 and (listPP.selected and listPP.selected.medium) ~= nil"
+		enabled "not duiMultiPortraitPicker and (listPP.selected and listPP.selected.medium) ~= nil"
 		area 1206 108 76 108
 		rectangle 0
 	}
 	label
 	{
-		enabled "MultiPortraitPicker == 0 and (listPP.selected and listPP.selected.medium) ~= nil"
+		enabled "not duiMultiPortraitPicker and (listPP.selected and listPP.selected.medium) ~= nil"
 		area 1217 120 54 85
 		bitmap lua "listPP.selected.medium"
 	}
 	label
 	{
-		enabled "MultiPortraitPicker == 0"
+		enabled "not duiMultiPortraitPicker"
 		area 356 446 346 36
 		text lua "t(PPStrings.PP_SORT) .. t(listPP.sort.selected.label)"
 		text style "label"
@@ -197,7 +198,7 @@ menu
 	button
 	{
 		on escape
-		enabled "MultiPortraitPicker == 0"
+		enabled "not duiMultiPortraitPicker"
 		area 420 726 230 40
 		bam GUIBUTMT
 		text "BACK_BUTTON"
@@ -210,7 +211,7 @@ menu
 	button
 	{
 		on return
-		enabled "MultiPortraitPicker == 0"
+		enabled "not duiMultiPortraitPicker"
 		area 806 726 230 40
 		bam GUIBUTMT
 		text "DONE_BUTTON"
@@ -229,7 +230,7 @@ menu
 	edit
 	{
 		area	392 `668 + dy` 274 32
-		enabled "MultiPortraitPicker == 0 and not listPP.invertNameFilter[`k`]"
+		enabled "not duiMultiPortraitPicker and not listPP.invertNameFilter[`k`]"
 		var "duiPPNameFilter`k`"
 		placeholder "..."
 		text style "edit"
@@ -242,7 +243,7 @@ menu
 	edit
 	{
 		area	392 `668 + dy` 274 32
-		enabled "MultiPortraitPicker == 0 and listPP.invertNameFilter[`k`]"
+		enabled "not duiMultiPortraitPicker and listPP.invertNameFilter[`k`]"
 		var "duiPPNameFilter`k`"
 		placeholder "..."
 		text style "edit"
@@ -253,7 +254,7 @@ menu
 	}
 	button
 	{
-		enabled "MultiPortraitPicker == 0 and duiPPNameFilter`k` ~= ''"
+		enabled "not duiMultiPortraitPicker and duiPPNameFilter`k` ~= ''"
 		area 674 `664 + dy` 34 40
 		text "X"
 		text style "button"
@@ -265,7 +266,7 @@ menu
 	}
 	button
 	{
-		enabled "MultiPortraitPicker == 0"
+		enabled "not duiMultiPortraitPicker"
 		area 352 `668 + dy` 36 32
 		bam ROUNDBUT
 		glow lua "not listPP.invertNameFilter[`k`]"
@@ -306,7 +307,7 @@ menu
 				align		center center
 			}
 		}
-		enabled "MultiPortraitPicker == 0"
+		enabled "not duiMultiPortraitPicker"
 		name		'Portrait_Picker'
 		area		742 178 350 522
 		rowheight	dynamic
@@ -326,7 +327,7 @@ menu
 	}
 	button
 	{
-		enabled "MultiPortraitPicker == 0"
+		enabled "not duiMultiPortraitPicker"
 		area 1010 146 68 35
 --		text lua "PPStrings.PP_SORT_LABEL"
 --		text style "button"

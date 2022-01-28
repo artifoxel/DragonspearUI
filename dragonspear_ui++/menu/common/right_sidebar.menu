@@ -11,7 +11,14 @@ menu
 			Infinity_PopMenu('RIGHT_SIDEBAR')
 			Infinity_PushMenu('RIGHT_SIDEBAR_HIDDEN')
 		end
+
+	#if WITH_LEFT_SIDE_PORTRAITS then
+		if not duiSettings:get('leftSidePortraits') then
+			onPortraitsSidebarOpen()
+		end
+	#else
 		onPortraitsSidebarOpen()
+	#end
 	"
 	onClose
 	"
@@ -29,6 +36,7 @@ menu
 	button
 	{
 		area 7 0 88 1
+		enabled "not duiLeftSidePortraits"
 		text lua "hidePortraits()"
 	}
 
@@ -40,9 +48,9 @@ menu
 	{
 		name "portrait`i + 1`ShadowSmall"
 	#if WITH_LEFT_SIDE_PORTRAITS then
-		enabled "Infinity_GetNumCharacters() > `i` and rgEscPortrait ~= 1 and LargePortraits == 0 and duiLeftSidePortrait ~= 1"
+		enabled "Infinity_GetNumCharacters() > `i` and rgEscPortrait ~= 1 and not duiLargePortraits and not duiLeftSidePortraits"
 	#else
-		enabled "Infinity_GetNumCharacters() > `i` and rgEscPortrait ~= 1 and LargePortraits == 0"
+		enabled "Infinity_GetNumCharacters() > `i` and rgEscPortrait ~= 1 and not duiLargePortraits"
 	#end
 		area 22 `y` 68 99
 		mosaic RGGFRM4
@@ -54,9 +62,9 @@ menu
 		portrait `i`
 		bam RGGFRM3
 	#if WITH_LEFT_SIDE_PORTRAITS then
-		enabled "Infinity_GetNumCharacters() > `i` and rgEscPortrait ~= 1 and LargePortraits == 0 and duiLeftSidePortrait ~= 1"
+		enabled "Infinity_GetNumCharacters() > `i` and rgEscPortrait ~= 1 and not duiLargePortraits and not duiLeftSidePortraits"
 	#else
-		enabled "Infinity_GetNumCharacters() > `i` and rgEscPortrait ~= 1 and LargePortraits == 0"
+		enabled "Infinity_GetNumCharacters() > `i` and rgEscPortrait ~= 1 and not duiLargePortraits"
 	#end
 		glow lua "draggedPortrait and draggedPortrait ~= `i`"
 		action "Infinity_OnPortraitLClick(`i`)"
@@ -79,9 +87,9 @@ menu
 	{
 		name "portrait`i + 1`ShadowBig"
 	#if WITH_LEFT_SIDE_PORTRAITS then
-		enabled "Infinity_GetNumCharacters() > `i` and rgEscPortrait ~= 1 and LargePortraits == 1 and duiLeftSidePortrait ~= 1"
+		enabled "Infinity_GetNumCharacters() > `i` and rgEscPortrait ~= 1 and duiLargePortraits and not duiLeftSidePortraits"
 	#else
-		enabled "Infinity_GetNumCharacters() > `i` and rgEscPortrait ~= 1 and LargePortraits == 1"
+		enabled "Infinity_GetNumCharacters() > `i` and rgEscPortrait ~= 1 and duiLargePortraits"
 	#end
 	#if GAME_VERSION == 'sod' then
 		area 2 `y` 86 131
@@ -101,9 +109,9 @@ menu
 		portrait `i`
 		bam RGGFRM5
 	#if WITH_LEFT_SIDE_PORTRAITS then
-		enabled "Infinity_GetNumCharacters() > `i` and rgEscPortrait ~= 1 and LargePortraits == 1 and duiLeftSidePortrait ~= 1"
+		enabled "Infinity_GetNumCharacters() > `i` and rgEscPortrait ~= 1 and duiLargePortraits and not duiLeftSidePortraits"
 	#else
-		enabled "Infinity_GetNumCharacters() > `i` and rgEscPortrait ~= 1 and LargePortraits == 1"
+		enabled "Infinity_GetNumCharacters() > `i` and rgEscPortrait ~= 1 and duiLargePortraits"
 	#end
 		glow lua "draggedPortrait and draggedPortrait ~= `i`"
 		action "Infinity_OnPortraitLClick(`i`)"

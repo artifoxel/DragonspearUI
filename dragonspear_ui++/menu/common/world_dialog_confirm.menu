@@ -9,7 +9,7 @@ menu
 		area 0 0 300 45
 		--bam GUIBUTWT
 		text lua "dialogButtonText"
-		enabled "#worldPlayerDialogChoices == 0 and ClassicDialog == 1"
+		enabled "#worldPlayerDialogChoices == 0 and duiSettings:get('classicDialog')"
 		text style "button"
 		action
 		"

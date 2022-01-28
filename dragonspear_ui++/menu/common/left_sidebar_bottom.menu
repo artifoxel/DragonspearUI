@@ -37,7 +37,7 @@ menu
 		"
 		#if GAME_VERSION == 'iwd' then
 			-- without this sidebars stay visible in IWD
-			if showJournal == 1 and JournalSize == UIStrings.UI_Large then
+			if showJournal == 1 and duiSettings:get('largeJournal') then
 				e:GetActiveEngine():OnLeftPanelButtonClick(1)
 			end
 		#end

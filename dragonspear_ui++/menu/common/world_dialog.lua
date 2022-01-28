@@ -115,7 +115,7 @@
 	function resizeDialog()
 		buildResponsesList()
 
-	if ( ClassicDialog == 1) then
+	if duiClassicDialog then
 	previousTop = nil
 	scrolled = false
 	else
@@ -199,13 +199,8 @@
 	end
 
 	function getDialogEntryText(row)
-		if (ClassicDialog == 1) then
-			row = row - 2
-		end
-	local text = worldPlayerDialogChoices[row].text
-		if (ClassicDialog == 1) then
-			row = row + 2
-		end
+		local delta = duiClassicDialog and -2 or 0
+		local text = worldPlayerDialogChoices[row + delta].text
 		if (row == worldPlayerDialogSelection) then
 			--Color the text white when selected
 			text = string.gsub(text, "%^0xff212eff", "^0xFFFFFFFF")
@@ -249,9 +244,9 @@
 	function AddNewNote(text)
 		if alreadyAdded == 0 then
 			RevertJournal = 0
-			if JournalSize == UIStrings.UI_Large then
+			if duiSettings:get('largeJournal') then
 				RevertJournal = 1
-				JournalSize = UIStrings.UI_Small
+				duiSettings:toggle('largeJournal')
 			end
 			e:GetActiveEngine():OnLeftPanelButtonClick(2)
 			journalMode = const.JOURNAL_MODE_EDIT
@@ -265,7 +260,7 @@
 			e:GetActiveEngine():OnLeftPanelButtonClick(2)
 			if RevertJournal == 1 then
 				RevertJournal = 0
-				JournalSize = UIStrings.UI_Large
+				duiSettings:toggle('largeJournal')
 			end
 			alreadyAdded = 1
 		end
@@ -320,8 +315,8 @@
 		restored = false
 	}
 
-	function WorldDialog:save()
-		if ClassicDialog == 1 then
+	function WorldDialog:save(classicDialog)
+		if classicDialog then
 			return
 		end
 
@@ -330,9 +325,9 @@
 		Infinity_SetINIValue('WorldDialog', 'PortPosition', PortPosition)
 	end
 
-	function WorldDialog:restore()
+	function WorldDialog:restore(classicDialog)
 		-- only try to restore the first time and for enhanced dialog
-		if ClassicDialog == 1 or self.restored then
+		if classicDialog or self.restored then
 			return
 		end
 		self.restored = true
@@ -356,7 +351,7 @@
 		end
 
 		-- margin + dialog + dialog portrait + portraits panel
-		local w = 5 + wd + wp + (LargePortraits == 1 and 86 or 68)
+		local w = 5 + wd + wp + (duiSettings:get('largePortraits') and 86 or 68)
 		x = math.min(x, math.max(0, Infinity_GetScreenSize() - w))
 
 		-- everything is okay, finally set the variables

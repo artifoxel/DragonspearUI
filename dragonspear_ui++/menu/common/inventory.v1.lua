@@ -364,7 +364,7 @@ function getInventoryAC()
 	return characters[id].AC.current
 end
 
-if Infinity_GetINIValue('Game Options', 'Equipment Comparison', 1) ~= 0 then
+if duiSettings:get('compareEquipment') then
 	-- dimmed ^D, default text color for stats
 	fontcolors['O'] = 'AA96C8FF'
 

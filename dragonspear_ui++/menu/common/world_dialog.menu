@@ -6,24 +6,20 @@ menu
 	onOpen
 	"
 		Infinity_PopMenu('ITEM_DESCRIPTION')
-		ClassicDialog = Infinity_GetINIValue('Game Options','ClassicDialog',0)
-		disableDialogOnSpace = Infinity_GetINIValue('Game Options', 'Disable Space Key In Conversations', 1)
-		WorldDialog:restore()
+		duiClassicDialog = duiSettings:get('classicDialog')
+		duiDisableSpaceKeyInDialog = duiSettings:get('disableSpaceKeyInDialog')
+		WorldDialog:restore(duiClassicDialog)
 
 		SetBottomPosition()
 		resizeDialog()
 		greySidebars()
 		Infinity_PushMenu('WORLD_MESSAGEBOXHISTORY')
 		Infinity_PopMenu('JOURNAL')
-		SMH = Infinity_GetINIString('Game Options','ShowMessageHistory',1)
-		if ClassicDialog ~= 0 or SMH ~= 'On' then
-			SMH = 'Off'
+
+		showWorldMessages = Infinity_GetINIValue('Game Options', 'ShowMessageHistory', 1)
+		if duiClassicDialog or showWorldMessages ~= 1 then
 			showWorldMessages = 0
-			Infinity_SetINIValue('Game Options','ShowMessageHistory','Off')
-		else
-			SMH = 'On'
-			showWorldMessages = 1
-			Infinity_SetINIValue('Game Options','ShowMessageHistory','On')
+			Infinity_SetINIValue('Game Options', 'ShowMessageHistory', showWorldMessages)
 		end
 		alreadyAdded = 0
 		Infinity_PushMenu('WORLD_DIALOG_CONFIRM')
@@ -43,7 +39,7 @@ menu
 
 			-- make sure the enhanced dialog is not covered
 			local x = Infinity_GetArea('worldDialogBackground')
-			if ClassicDialog ~= 1 and x < 90 then
+			if duiClassicDialog == false and x < 90 then
 				dragDialogX(90 - x)
 			end
 		end
@@ -68,7 +64,9 @@ menu
 		end
 		Infinity_PopMenu('WORLD_DIALOG_CONFIRM')
 
-		WorldDialog:save()
+		WorldDialog:save(duiClassicDialog)
+		duiClassicDialog = nil
+		duiDisableSpaceKeyInDialog = nil
 	"
 
 	-- Optionally disable continuing dialog on space bar
@@ -76,48 +74,48 @@ menu
 	{
 		on space
 		name "worldDialogOnSpaceLabel"
-		enabled "disableDialogOnSpace == 1"
+		enabled "duiDisableSpaceKeyInDialog"
 	}
 
 	--classic dialog
 	label
 	{
-		enabled "ClassicDialog == 1"
+		enabled "duiClassicDialog"
 		name "worldDialogBackgroundBottom"
 		area 125 0 863 303
 		mosaic RGDBBOX1
 	}
 	label
 	{
-		enabled "ClassicDialog == 1"
+		enabled "duiClassicDialog"
 		name "worldDialogBackgroundBottom1"
 		area 125 270 863 83
 		mosaic RGDBBOX2
 	}
 	label
 	{
-		enabled "worldNPCDialogPortrait~='NONE' and worldNPCDialogPortrait~='' and ClassicDialog == 1"
+		enabled "worldNPCDialogPortrait~='NONE' and worldNPCDialogPortrait~='' and duiClassicDialog"
 		name "worldDialogPortraitAreaBottom"
 		area 24 70 108 170
 		bitmap lua "worldNPCDialogPortrait"
 	}
 	label
 	{
-		enabled "worldNPCDialogPortrait~='NONE' and worldNPCDialogPortrait~='' and ClassicDialog == 1"
+		enabled "worldNPCDialogPortrait~='NONE' and worldNPCDialogPortrait~='' and duiClassicDialog"
 		name "worldDialogPortraitBackgroundBottom"
 		area 13 50 125 209
 		mosaic "rgboxp1"
 	}
 	--label
 	--{
-	--	enabled "ClassicDialog == 1"
+	--	enabled "duiClassicDialog"
 	--	name "worldDialogBackgroundBottom"
 	--	area 0 0 863 253
 	--	rectangle 4
 	--}
 	--label
 	--{
-	--	enabled "ClassicDialog == 1"
+	--	enabled "duiClassicDialog"
 	--	name "worldDialogPortraitAreaBottom"
 	--	area 24 24 54 84
 	--	bitmap lua "worldNPCDialogPortrait"
@@ -174,7 +172,7 @@ menu
 				text style "gamelog"
 			}
 		}
-		enabled "ClassicDialog == 1"
+		enabled "duiClassicDialog"
 		name "worldPlayerDialogChoicesListBottom"
 		area 88 24 806 265
 		rowheight dynamic
@@ -201,35 +199,35 @@ menu
 	--enhanced dialog
 	button
 	{
-		enabled "ClassicDialog ~= 1"
+		enabled "not duiClassicDialog"
 		area 0 0 500 330
 		name "worldDialogBackground"
 		mosaic RGDBOX1
 	}
 	label
 	{
-		enabled "worldNPCDialogPortrait~='NONE' and worldNPCDialogPortrait~='' and ClassicDialog ~= 1"
+		enabled "worldNPCDialogPortrait~='NONE' and worldNPCDialogPortrait~='' and not duiClassicDialog"
 		name "worldDialogPortraitArea"
 		area 496 70 108 170
 		bitmap lua "worldNPCDialogPortrait"
 	}
 	label
 	{
-		enabled "worldNPCDialogPortrait~='NONE' and worldNPCDialogPortrait~='' and PortPosition == 'Right' and ClassicDialog ~= 1"
+		enabled "worldNPCDialogPortrait~='NONE' and worldNPCDialogPortrait~='' and PortPosition == 'Right' and not duiClassicDialog"
 		name "worldDialogPortraitBackgroundL"
 		area -112 50 125 209
 		mosaic "rgboxp1"
 	}
 	label
 	{
-		enabled "worldNPCDialogPortrait~='NONE' and worldNPCDialogPortrait~='' and PortPosition == 'Left' and ClassicDialog ~= 1"
+		enabled "worldNPCDialogPortrait~='NONE' and worldNPCDialogPortrait~='' and PortPosition == 'Left' and not duiClassicDialog"
 		name "worldDialogPortraitBackgroundR"
 		area 488 50 125 209
 		mosaic "rgboxp2"
 	}
 	text
 	{
-		enabled "ClassicDialog ~= 1"
+		enabled "not duiClassicDialog"
 		name "worldNPCDialog"
 		area 30 50 440 133
 		text lua "worldNPCDialogText"
@@ -254,7 +252,7 @@ menu
 				text style "gamelog"
 			}
 		}
-		enabled "ClassicDialog ~= 1"
+		enabled "not duiClassicDialog"
 		name "worldPlayerDialogChoicesList"
 		area 30 193 440 40
 		rowheight dynamic
@@ -285,14 +283,14 @@ menu
 	}
 	button
 	{
-		enabled "ClassicDialog ~= 1"
+		enabled "not duiClassicDialog"
 		name "worldDialogHandle"
 		area 0 285 500 83
 		mosaic "RGDBOX2"
 	}
 	handle
 	{
-		enabled "ClassicDialog ~= 1"
+		enabled "not duiClassicDialog"
 		name "worldDialogHandleDrag"
 		area 0 0 500 30
 		actionDrag
@@ -302,7 +300,7 @@ menu
 	}
 	button
 	{
-		enabled "ClassicDialog ~= 1"
+		enabled "not duiClassicDialog"
 		name "worldDialogButton1"
 		tooltip lua "t('LOG_HISTORY_TOOLTIP')"
 		area 340 13 36 22
@@ -310,19 +308,13 @@ menu
 		sequence 1
 		action
 		"
-			if SMH == 'Off' then
-				SMH = 'On'
-				Infinity_SetINIValue('Game Options','ShowMessageHistory','On')
-			else
-				SMH = 'Off'
-				Infinity_SetINIValue('Game Options','ShowMessageHistory','Off')
-			end
-			toggleDialogShowMessages()
+			showWorldMessages = showWorldMessages == 1 and 0 or 1
+			Infinity_SetINIValue('Game Options', 'ShowMessageHistory', showWorldMessages)
 		"
 	}
 	button
 	{
-		enabled "ClassicDialog ~= 1"
+		enabled "not duiClassicDialog"
 		name "worldDialogButton2"
 		area 380 13 36 22
 		bam "RGDBUTT"
@@ -334,7 +326,7 @@ menu
 	}
 	button
 	{
-		enabled "ClassicDialog ~= 1"
+		enabled "not duiClassicDialog"
 		name "worldDialogButton3"
 		area 420 13 36 22
 		bam "RGDBUTT"
@@ -350,7 +342,7 @@ menu
 		name "worldDialogConfirm"
 		bam "RGBOXD"
 		text lua "dialogButtonText"
-		enabled "getDialogButtonEnabled() and ClassicDialog ~= 1"
+		enabled "getDialogButtonEnabled() and not duiClassicDialog"
 		clickable lua "getDialogButtonClickable()"
 		text style "button"
 		action

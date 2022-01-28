@@ -18,7 +18,7 @@ menu
 			return
 		end
 
-		duiInitSettings({ doFirstLoad = false })
+		duiOnStartOpen({ doFirstLoad = false })
 
 		campaignsString = ''
 		canContinue = startEngine:HasGameToContinue()

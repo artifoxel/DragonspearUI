@@ -11,7 +11,7 @@ menu
 		campaignsString = ''
 		canContinue = startEngine:HasGameToContinue()
 		Infinity_PlayMovie('flames','flames')
-		duiInitSettings({ doFirstLoad = true })
+		duiOnStartOpen({ doFirstLoad = true })
 		getMenuPanelArea()
 		e:CheckGUISong()
 		local state = startEngine:GetEngineState()

@@ -8,8 +8,7 @@ menu
 		if gameSaves.isImporting == 1 and e:IsIOS() and (gameSaves.files == nil or #(gameSaves.files) == 0) then
 			popupInfo(Infinity_FetchString(71373))
 		end
-		LeftSideMenu = Infinity_GetINIValue('Game Options','LeftSideMenu',0)
-		getLoadArea()
+		getLoadArea(duiSettings:get('leftSideMenu'))
 	"
 	button
 	{

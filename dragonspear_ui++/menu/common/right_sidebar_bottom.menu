@@ -5,7 +5,7 @@ menu
 	ignoreEsc
 	onOpen "
 		PermThiefKey = nil
-		if PermThief == 1 then
+		if duiSettings:get('permThief') then
 			local key = Infinity_GetINIValue('Keymap Action', 'Thieving', 0)
 			if key ~= 0 then
 				PermThiefKey = string.char(key)
@@ -106,11 +106,11 @@ menu
 		clickable lua "sidebarsGreyed ~= 1"
 		action
 		"
-			if(groundItemsButtonToggle == 0) then
-				worldScreen:StopGroundItems()
-
-			else
+			local visible = groundItemsButtonToggle == 1
+			if duiSettings:set('quickLootVisible', visible, true) then
 				worldScreen:StartGroundItems()
+			else
+				worldScreen:StopGroundItems()
 			end
 		"
 		actionEnter
@@ -190,7 +190,7 @@ menu
 		"
 		actionhold
 		"
-		if Infinity_GetINIValue('Game Options','CheatMode',1) == 1 then
+		if duiSettings:get('cheatMode') then
 			C:ExploreArea()
 		end
 		"

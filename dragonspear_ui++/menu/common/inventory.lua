@@ -168,7 +168,7 @@ function Inventory:create()
 
 	-- Optional equipment comparison
 	self.stats = { AC = '', THAC0 = '', damage = '', HP = '' }
-	self.compare_equipment = Infinity_GetINIValue('Game Options', 'Equipment Comparison', 1) ~= 0
+	self.compare_equipment = duiSettings:get('compareEquipment')
 	self:updateStats()
 
 	-- set offhand color

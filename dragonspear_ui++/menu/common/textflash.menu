@@ -51,11 +51,7 @@ menu
 		"
 			FindTitle = getSubtitleString()
 			if(sidebarsGreyed ~= 1) and showJournal ~= 1 then
-				if JournalSize == UIStrings.UI_Large then
-					e:GetActiveEngine():OnLeftPanelButtonClick(2)
-				elseif JournalSize == UIStrings.UI_Small then
-					e:GetActiveEngine():OnLeftPanelButtonClick(2)
-				end
+				e:GetActiveEngine():OnLeftPanelButtonClick(2)
 			end
 			CloseAll_Small()
 			findQuestPopUp()
