@@ -31,7 +31,7 @@ local settings = {
 	multiPortraitPicker     = { value = true,  label = "RG_UI_MPPICKER" },
 	largePortraits          = { value = false, label = "RG_UI_LPORTRAITS" },
 	permThief               = { value = false, label = "RG_UI_THIEFBUTT" },
-	disableSpaceKeyInDialog = { value = true,  label = "RG_UI_DIALOG_DISABLE_SPACE" },
+	disableSpaceKeyInDialog = { value = false, label = "RG_UI_DIALOG_DISABLE_SPACE" },
 
 	-- TODO: translation
 	compareEquipment        = { value = true,  label = "RG_UI_COMPARE_EQUIPMENT" },
