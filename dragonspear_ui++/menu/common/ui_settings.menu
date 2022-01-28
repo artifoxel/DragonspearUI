@@ -7,43 +7,20 @@ menu
 	"
 		duiSettings:save() -- save any unsaved settings
 		duiSettings:load()
+		duiSettingToggles = duiSettings:buildToggles()
 
-		duiClassicDialog = duiSettings:get('classicDialog')
-		duiCheatMode = duiSettings:get('cheatMode')
-		duiMultiPortraitPicker = duiSettings:get('multiPortraitPicker')
-		duiLargePortraits = duiSettings:get('largePortraits')
-		duiPermThief = duiSettings:get('permThief')
 		duiLargeJournal = duiSettings:get('largeJournal') and UIStrings.UI_Large or UIStrings.UI_Small
 		duiQuickLootExpertMode = duiSettings:get('quickLootExpertMode')
 		duiQuickLootExpertModeLabel = duiQuickLootExpertMode and UIStrings.UI_Expert or UIStrings.UI_Advanced
 		duiQuickLootRows = duiSettings:get('quickLootRows')
-		duiQuickLootVisible = duiSettings:get('quickLootVisible') and UIStrings.UI_Visible or UIStrings.UI_Hidden
-		duiDisableSpaceKeyInDialog = duiSettings:get('disableSpaceKeyInDialog')
-		duiLeftSidePortraits = duiSettings:get('leftSidePortraits')
-
-		thievingKeyAssigned = 0 ~= Infinity_GetINIValue('Keymap Action', 'Thieving', 0)
-		permThiefButtonHelp = t('RG_UI_THIEFBUTT1')
-		if not thievingKeyAssigned then
-			permThiefButtonHelp = permThiefButtonHelp .. '\n\n^W' .. t('RG_UI_THIEFBUTT_WARN')
-		end
 	"
 	onClose "
-		thievingKeyAssigned = nil
-		permThiefButtonHelp = nil
 		UIhelp = nil
-
-		duiClassicDialog = nil
-		duiCheatMode = nil
-		duiMultiPortraitPicker = nil
-		duiLargePortraits = nil
-		duiPermThief = nil
+		duiSettingToggles = nil
 		duiLargeJournal = nil
 		duiQuickLootExpertMode = nil
 		duiQuickLootExpertModeLabel = nil
 		duiQuickLootRows = nil
-		duiQuickLootVisible = nil
-		duiDisableSpaceKeyInDialog = nil
-		duiLeftSidePortraits = nil
 	"
 
 	label
@@ -58,148 +35,61 @@ menu
 		text style	title
 	}
 
-
--- Left Side Menu >> Toggles to Right Side Menu
-
--- Classic dialog toggle
-	label
+	list
 	{
-		area 	106 130 315 46
-		text 	"RG_UI_CLASSIC_DIALOG"
-		text style "normal"
-		text align left center
-	}
-	button
-	{
-		area		421 130 83 46
-		bam			ROUNDBUT
-		glow lua 	"duiClassicDialog"
-		align 		center center
-		action		"
+
+		column
+		{
+			width 85
+			label
+			{
+				area 0 0 -1 -1
+				text lua "duiSettingToggles[rowNumber].label"
+				text style "normal"
+				text align left center
+			}
+		}
+		column
+		{
+			width 15
+			button
+			{
+				area		20 8 32 32
+				bam			ROUNDBUT
+				glow	lua "duiSettingToggles[rowNumber].value"
+				clickable lua "duiSettingToggles[rowNumber].clickable"
+				align center center
+			}
+		}
+
+		area 106 130 400 350
+
+		rowheight	50
+		table		"duiSettingToggles"
+		var		duiSelectedToggle
+		scrollbar	'GUISCRC'
+		hideHighlight
+		action
 		"
-	}
-	button
-	{
-		area		106 130 400 46
-		action		"duiClassicDialog = duiSettings:toggle('classicDialog')"
-		actionEnter	"UIhelp = t('RG_UI_CLASSIC_DIALOG1')"
-		actionExit "UIhelp = nil"
-	}
-
-
--- Cheat Mode >> Toggles to ON / OFF
-	label
-	{
-		area 	106 180 315 46
-		text	'RG_UI_CHEAT'
-		text style "normal"
-		text align left center
-	}
-	button
-	{
-		area		421 180 85 46
-		bam			ROUNDBUT
-		glow lua 	"duiCheatMode"
-		align 		center center
-		action		"
+			local selected = duiSettingToggles[duiSelectedToggle]
+			selected.value = duiSettings:toggle(selected.key)
+			UIhelp = selected.help
 		"
-	}
-	button
-	{
-		area		106 180 400 46
-		action		"duiCheatMode = duiSettings:toggle('cheatMode')"
-		actionEnter	"UIhelp = t('RG_UI_CHEAT1')"
-		actionExit "UIhelp = nil"
-	}
-
--- Enable multiportrait picker
-	label
-	{
-		area 	106 230 315 46
-		text	'RG_UI_MPPICKER'
-		text style "normal"
-		text align left center
-	}
-	button
-	{
-		area		421 230 85 46
-		bam			ROUNDBUT
-		glow lua 	"duiMultiPortraitPicker"
-		align 		center center
-		action		"
-		"
-	}
-	button
-	{
-		area		106 230 400 46
-		action		"duiMultiPortraitPicker = duiSettings:toggle('multiPortraitPicker')"
-		actionEnter	"UIhelp = t('RG_UI_MPPICKER1')"
-		actionExit "UIhelp = nil"
-	}
-
--- Large portraits
-	label
-	{
-		area 	106 280 315 46
-		text	'RG_UI_LPORTRAITS'
-		text style "normal"
-		text align left center
-	}
-	button
-	{
-		area		421 280 85 46
-		bam			ROUNDBUT
-		glow lua 	"duiLargePortraits"
-		align 		center center
-		action		"
-		"
-	}
-	button
-	{
-		area		106 280 400 46
-		action		"duiLargePortraits = duiSettings:toggle('largePortraits')"
-		actionEnter	"UIhelp = t('RG_UI_LPORTRAITS1')"
-		actionExit "UIhelp = nil"
-	}
-
--- Permanent thieving button
-	label
-	{
-		area 	106 330 315 46
-		text	'RG_UI_THIEFBUTT'
-		text style "normal"
-		text align left center
-	}
-	button
-	{
-		area		421 330 85 46
-		bam			ROUNDBUT
-		glow lua 	"duiPermThief"
-		clickable lua "thievingKeyAssigned"
-		align 		center center
-		action		"
-		"
-	}
-	button
-	{
-		area		106 330 400 46
-		action		"duiPermThief = duiSettings:toggle('permThief')"
-		actionEnter	"UIhelp = permThiefButtonHelp"
-		actionExit "UIhelp = nil"
+		actionAlt "UIhelp = duiSettingToggles[duiSelectedToggle].help"
 	}
 
 
 -- Journal Size
 	text
 	{
-		area		106 380 315 46
+		area		106 480 315 46
 		text lua	'UIStrings.UI_JMode'
 		text style	normal
 		text align	left center
 	}
 	button
 	{
-		area		421 380 85 46
+		area		421 480 85 46
 		text lua	"duiLargeJournal"
 		text style 	"normal"
 		text align 	center center
@@ -207,7 +97,7 @@ menu
 	}
 	button
 	{
-		area		106 380 400 46
+		area		106 480 400 46
 		action		"
 			duiLargeJournal = duiSettings:toggle('largeJournal') and UIStrings.UI_Large or UIStrings.UI_Small
 		"
@@ -215,18 +105,17 @@ menu
 		actionExit "UIhelp = nil"
 	}
 
-
 -- Quickloot Mode
 	label
 	{
-		area 		106 430 315 46
+		area 		106 530 315 46
 		text lua 	'UIStrings.UI_QLMode'
 		text style 	"normal"
 		text align 	left center
 	}
 	button
 	{
-		area		421 430 85 46
+		area		421 530 85 46
 		text lua	"duiQuickLootExpertModeLabel"
 		text style 	"normal"
 		text align 	center center
@@ -234,7 +123,7 @@ menu
 	}
 	button
 	{
-		area		106 430 400 46
+		area		106 530 400 46
 		action		"
 			duiQuickLootExpertMode = duiSettings:toggle('quickLootExpertMode')
 			duiQuickLootExpertModeLabel = duiQuickLootExpertMode and UIStrings.UI_Expert or UIStrings.UI_Advanced
@@ -248,7 +137,7 @@ menu
 	text
 	{
 		enabled 	"duiQuickLootExpertMode"
-		area		131 480 99 38
+		area		131 580 99 38
 		text lua	'UIStrings.UI_QRows'
 		text style	normal
 		text align	left center
@@ -259,83 +148,11 @@ menu
 	button
 	{
 		enabled 	"duiQuickLootExpertMode"
-		area		`230 + 46 * (i - 1)` 480 46 38
+		area		`230 + 46 * (i - 1)` 580 46 38
 		text lua	"duiHighlightSelectedText('`n`', `n`, duiQuickLootRows)"
 		text style	"normal"
 		text align 	center center
 		action "duiQuickLootRows = duiSettings:set('quickLootRows', `n`)"
-	}
-#end
-
--- Quickloot Hidden/Visible
-	text
-	{
-		area		131 530 375 38
-		text lua	'UIStrings.UI_QShow'
-		text style	normal
-		text align	left center
-		actionEnter	"UIhelp = UIStrings.UI_QShowExp"
-		actionExit "UIhelp = nil"
-	}
-	button
-	{
-		area		421 530 85 38
-		text lua	"duiQuickLootVisible"
-		text style	"normal"
-		text align 	center center
-		text color	'R'
-		action "
-			if duiSettings:toggle('quickLootVisible') then
-				duiQuickLootVisible = UIStrings.UI_Visible
-			else
-				duiQuickLootVisible = UIStrings.UI_Hidden
-			end
-		"
-	}
-
-	label
-	{
-		area 	106 570 315 46
-		text	'RG_UI_DIALOG_DISABLE_SPACE'
-		text style "normal"
-		text align left center
-	}
-	button
-	{
-		area		421 570 85 46
-		bam			ROUNDBUT
-		glow lua 	"duiDisableSpaceKeyInDialog"
-		align 		center center
-	}
-	button
-	{
-		area		106 570 400 46
-		action		"duiDisableSpaceKeyInDialog = duiSettings:toggle('disableSpaceKeyInDialog')"
-		actionEnter	"UIhelp = t('RG_UI_DIALOG_DISABLE_SPACE_HELP')"
-		actionExit "UIhelp = nil"
-	}
-
-#if WITH_LEFT_SIDE_PORTRAITS then
-	label
-	{
-		area 	106 610 315 46
-		text	'RG_UI_LEFTPORTRAITS'
-		text style "normal"
-		text align left center
-	}
-	button
-	{
-		area		421 610 85 46
-		bam			ROUNDBUT
-		glow lua 	"duiLeftSidePortraits"
-		align 		center center
-	}
-	button
-	{
-		area		106 610 400 46
-		action		"duiLeftSidePortraits = duiSettings:toggle('leftSidePortraits')"
-		actionEnter	"UIhelp = t('RG_UI_LEFTPORTRAITS1')"
-		actionExit "UIhelp = nil"
 	}
 #end
 
