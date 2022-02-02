@@ -22,7 +22,7 @@ function addStoryModeOption()
 	for index = #toggleTitles, 1, -1 do
 		toggleTitles[index+1] = toggleTitles[index]
 	end
-	toggleTitles[1] = {'DIFFICULTY_LABEL_STORYMODE',	'DIFFICULTY_DESCRIPTION_STORYMODE`CHARGEN_DIFFICULTY_DESCRIPTION_SUFFIX`',	65, 0, 0}
+	toggleTitles[1] = {'DIFFICULTY_LABEL_STORYMODE_MIXED',	'DIFFICULTY_DESCRIPTION_STORYMODE`CHARGEN_DIFFICULTY_DESCRIPTION_SUFFIX`',	65, 0, 0}
 end
 
 function removeOptionFromList(list, option)
@@ -45,6 +45,11 @@ end
 
 toggleTitles = {
 {"DIFFICULTY_LABEL_STORYMODE_MIXED",	"DIFFICULTY_DESCRIPTION_STORYMODE`CHARGEN_DIFFICULTY_DESCRIPTION_SUFFIX`",	65, 0, 0},
+#if GAME_VERSION == 'iwd' then
+{40200,									40201, 								59, 0, 0}, -- Heart of Fury mode
+{40198,									40199, 								57, 0, 0}, -- 3E sneak attack
+{40844,									40845,								62, 0, 0}, -- No difficulty-based XP bonus
+#end
 {"ENABLE_CLOUD_LABEL",					"ENABLE_CLOUD_DESCRIPTION", 		60, 0, 0},
 {"WORLDMAP_HIGHLIGHT_LABEL",			"WORLDMAP_HIGHLIGHT_DESCRIPTION", 	66, 0, 0},
 {"MP_CHAT_LABEL",						"MP_CHAT_DESCRIPTION",				67, 0, 0},
@@ -83,4 +88,12 @@ function getDifficulty(d)
 		text = string.upper(t("MULTIPLAYER_DIFFICULTY_LABEL")).." "..t("DIFFICULTY_LABEL_LEGACYOFBHAAL")
 	end
 	return text
+end
+
+function duiIsLegacyOfBhaal()
+#if GAME_VERSION == 'iwd' then
+	return toggleTitles[2][4] ~= 0
+#else
+	return Infinity_GetOption(59, 8) ~= 0
+#end
 end

@@ -10,11 +10,13 @@ menu
 		selectedOpt = 0
 		selectedSL = 0
 
-		if Infinity_GetOption(59, 8) ~= 0 and toggleTitles[1][3] == 65 then
+	#if GAME_VERSION ~= 'iwd' then
+		if duiIsLegacyOfBhaal() and toggleTitles[1][3] == 65 then
 			removeStoryModeOption()
-		elseif Infinity_GetOption(59, 8) == 0 and toggleTitles[1][3] ~= 65 then
+		elseif not duiIsLegacyOfBhaal() and toggleTitles[1][3] ~= 65 then
 			addStoryModeOption()
 		end
+	#end
 
 		ttDelaySLDR = Infinity_GetOption(1, panelID)
 		keyboardSLDR = Infinity_GetOption(3, panelID)
@@ -107,6 +109,16 @@ menu
 				groundItemsButtonToggle = 1
 				highlightButtonToggle = 1
 			end
+
+		#if GAME_VERSION == 'iwd' then
+			-- Story Mode and Heart of Fury Mode are mutually exclusive
+			local storyMode, hofMode = toggleTitles[1], toggleTitles[2]
+			if selectedOpt == 1 and storyMode[5] == 1 then
+				hofMode[4], hofMode[5] = 0
+			elseif selectedOpt == 2 and hofMode[5] == 1 then
+				storyMode[4], storyMode[5] = 0
+			end
+		#end
 		"
 	}
 
@@ -240,7 +252,6 @@ menu
 		text align	right center
 		text upper
 		text highlight lua "getSelected(selectedSL, 4)"
-		enabled "Infinity_GetOption(59, 8) == 0"
 		action
 		"
 			helpString = 'DIFFICULTY_DESCRIPTION'
@@ -259,7 +270,7 @@ menu
 		frame	 1
 		settings	5
 		pad 5 0 4 0
-		enabled "Infinity_GetOption(59, 8) == 0 and toggleTitles[1][4] == 0"
+		enabled "not duiIsLegacyOfBhaal() and toggleTitles[1][4] == 0"
 		action
 		"
 			helpString = 'DIFFICULTY_DESCRIPTION'
@@ -273,42 +284,36 @@ menu
 		text		lua "t( getDifficulty(difficultySLDR) )"
 		text style	"label"
 		text align	center center
-		enabled "Infinity_GetOption(59, 8) == 0 and toggleTitles[1][4] == 0"
+		enabled "not duiIsLegacyOfBhaal() and toggleTitles[1][4] == 0"
 	}
 	--fakes for story mode
-	slider
+	label
 	{
 		area 806 345 200 39
-		position "0"
-		bam	 'SLDRSTAR'
-		sliderBackground 'SLDRBACK'
+		bam SLDRBACK
+		greyscale 1
 		scaleToClip
-		sequence 0
-		frame	 1
-		settings	5
-		pad 5 0 4 0
-		enabled "Infinity_GetOption(59, 8) == 0 and toggleTitles[1][4] ~= 0"
-		action
-		"
-			helpString = 'DIFFICULTY_DESCRIPTION'
-			selectedOpt = 0
-			selectedSL = 4
-		"
+		enabled "duiIsLegacyOfBhaal() or toggleTitles[1][4] ~= 0"
 	}
 	label
 	{
 		area		806 384 200 35
-		text		lua "t( getDifficulty(0) )"
+		text	"DIFFICULTY_LABEL_STORYMODE"
 		text style	"label"
 		text align	center center
-		enabled "Infinity_GetOption(59, 8) == 0 and toggleTitles[1][4] ~= 0"
+		enabled "toggleTitles[1][4] ~= 0"
 	}
 	label
 	{
-		area 806 345 200 35
-		enabled "Infinity_GetOption(59, 8) == 0 and toggleTitles[1][4] ~= 0"
-		rectangle 0
-		rectangle opacity 150
+		area		806 384 200 35
+	#if GAME_VERSION == 'iwd' then
+		text lua 	"Infinity_FetchString(40200):upper()"
+	#else
+		text "DIFFICULTY_LABEL_LEGACYOFBHAAL"
+	#end
+		text style	"label"
+		text align	center center
+		enabled "duiIsLegacyOfBhaal()"
 	}
 
 	button
