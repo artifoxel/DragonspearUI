@@ -133,7 +133,8 @@ duiStrings = {
 	RG_UI_COMPARE_EQUIPMENT_HELP = "Toggling this option will enable equipment comparison in the inventory.",
 	RG_UI_ONE_CLICK_TRAVEL = "One click travel",
 	RG_UI_ONE_CLICK_TRAVEL_HELP = "Toggling this option will make traveling between destinations in the world map work with a single mouse click.",
-
+	RG_UI_CLOSE_MAP_ON_RMB = "Right click closes the map",
+	RG_UI_CLOSE_MAP_ON_RMB_HELP = "Toggling this option will allow to close the world map by clicking on it with the right mouse button.",
 	RG_ABILITY_BONUSES = 'Ability bonuses',
 	RG_MENU_BG1_CAMPAIGN = "Baldur's Gate EE Campaigns",
 	RG_MENU_BG1_CAMPAIGN1 = "Baldur's Gate",

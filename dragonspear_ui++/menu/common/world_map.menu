@@ -83,6 +83,11 @@ menu
 		"
 			worldMapScreen:OnMapMouseMove(eventXCoord,eventYCoord)
 		"
+		actionAlt "
+			if duiSettings:get('closeMapOnRMB') then
+				worldMapScreen:OnCancelButtonClick()
+			end
+		"
 	}
 --	button
 --	{

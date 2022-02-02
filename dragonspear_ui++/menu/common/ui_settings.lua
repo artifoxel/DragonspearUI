@@ -32,10 +32,9 @@ local settings = {
 	largePortraits          = { value = false, label = "RG_UI_LPORTRAITS" },
 	permThief               = { value = false, label = "RG_UI_THIEFBUTT" },
 	disableSpaceKeyInDialog = { value = false, label = "RG_UI_DIALOG_DISABLE_SPACE" },
-
-	-- TODO: translation
 	compareEquipment        = { value = true,  label = "RG_UI_COMPARE_EQUIPMENT" },
 	oneClickTravel          = { value = false, label = "RG_UI_ONE_CLICK_TRAVEL" },
+	closeMapOnRMB           = { value = false, label = "RG_UI_CLOSE_MAP_ON_RMB" },
 
 #if WITH_LEFT_SIDE_PORTRAITS then
 	leftSidePortraits       = { value = false, label = "RG_UI_LEFTPORTRAITS" },
