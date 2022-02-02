@@ -80,7 +80,8 @@ function duiSettings:save()
 end
 
 function duiSettings:get(key, default)
-	return settings[key].value or default
+	local setting = assert(settings[key], "Invalid settings key: " .. key)
+	return setting.value or default
 end
 
 function duiSettings:set(key, new, save)

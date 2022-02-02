@@ -62,7 +62,7 @@ menu
 			}
 		}
 
-		area 106 130 400 350
+		area 106 130 400 370
 
 		rowheight	50
 		table		"duiSettingToggles"
@@ -82,14 +82,14 @@ menu
 -- Journal Size
 	text
 	{
-		area		106 480 315 46
+		area		106 510 315 46
 		text lua	'UIStrings.UI_JMode'
 		text style	normal
 		text align	left center
 	}
 	button
 	{
-		area		421 480 85 46
+		area		421 510 85 46
 		text lua	"duiLargeJournal"
 		text style 	"normal"
 		text align 	center center
@@ -97,7 +97,7 @@ menu
 	}
 	button
 	{
-		area		106 480 400 46
+		area		106 510 400 46
 		action		"
 			duiLargeJournal = duiSettings:toggle('largeJournal') and UIStrings.UI_Large or UIStrings.UI_Small
 		"
@@ -108,14 +108,14 @@ menu
 -- Quickloot Mode
 	label
 	{
-		area 		106 530 315 46
+		area 		106 560 315 46
 		text lua 	'UIStrings.UI_QLMode'
 		text style 	"normal"
 		text align 	left center
 	}
 	button
 	{
-		area		421 530 85 46
+		area		421 560 85 46
 		text lua	"duiQuickLootExpertModeLabel"
 		text style 	"normal"
 		text align 	center center
@@ -123,7 +123,7 @@ menu
 	}
 	button
 	{
-		area		106 530 400 46
+		area		106 560 400 46
 		action		"
 			duiQuickLootExpertMode = duiSettings:toggle('quickLootExpertMode')
 			duiQuickLootExpertModeLabel = duiQuickLootExpertMode and UIStrings.UI_Expert or UIStrings.UI_Advanced
@@ -137,7 +137,7 @@ menu
 	text
 	{
 		enabled 	"duiQuickLootExpertMode"
-		area		131 580 99 38
+		area		131 610 99 38
 		text lua	'UIStrings.UI_QRows'
 		text style	normal
 		text align	left center
@@ -148,7 +148,7 @@ menu
 	button
 	{
 		enabled 	"duiQuickLootExpertMode"
-		area		`230 + 46 * (i - 1)` 580 46 38
+		area		`230 + 46 * (i - 1)` 610 46 38
 		text lua	"duiHighlightSelectedText('`n`', `n`, duiQuickLootRows)"
 		text style	"normal"
 		text align 	center center

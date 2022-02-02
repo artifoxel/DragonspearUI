@@ -4,7 +4,7 @@ menu
 	align center center
 	ignoreesc
 	onopen "
-		duiMultiPortraitPicker = duiSettings:get('duiMultiPortraitPicker')
+		duiMultiPortraitPicker = duiSettings:get('multiPortraitPicker')
 		if duiMultiPortraitPicker then
 			IncPortraitArray()
 		else
