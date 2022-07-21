@@ -48,6 +48,8 @@ menu
 
 		if isLarge then
 			Infinity_PushMenu('JOURNAL_LARGE')
+			Infinity_PushMenu('LEFT_SIDEBAR_BOTTOM')
+			Infinity_PushMenu('RIGHT_SIDEBAR_BOTTOM')
 		else
 			Infinity_PushMenu('JOURNAL_SMALL')
 		end
