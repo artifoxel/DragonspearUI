@@ -50,13 +50,13 @@ menu
 	{
 		name "portrait`i + 1`ShadowSmallA"
 		enabled "Infinity_GetNumCharacters() > `i` and rgEscPortrait ~= 1 and not duiLargePortraits and duiLeftSidePortraits"
-		area 22 `y` 68 99
+		area 0 `y` 68 99
 		mosaic RGGFRM4
 	}
 	button
 	{
 		name "portrait`i + 1`ButtonSmallA"
-		area 24 `y + 4` 64 91
+		area 1 `y + 4` 64 91
 		portrait `i`
 		bam RGGFRM3
 		enabled "Infinity_GetNumCharacters() > `i` and rgEscPortrait ~= 1 and not duiLargePortraits and duiLeftSidePortraits"

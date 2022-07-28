@@ -176,33 +176,32 @@ menu
 				text style "label"
 				align	center top
 			}
-			label
-			{
-				area		10 47 200 40
-				enabled	"SaveContainsSearchString(rowNumber) and SaveContainsSearchString1(rowNumber) and SaveContainsSearchString2(rowNumber)"
-				bam 		GUIBUTNT
-				frame lua 	"currentCellCheck(2)"
-				sequence 	0
-				text		"SAVE_BUTTON"
-				text style	"button"
-			}
+--overwrite button on sidebar is cleaner
+--			label
+--			{
+--				area		10 47 200 40
+--				enabled	"SaveContainsSearchString(rowNumber) and SaveContainsSearchString1(rowNumber) and SaveContainsSearchString2(rowNumber)"
+--				bam 		GUIBUTNT
+--				frame lua 	"currentCellCheck(2)" --unnecessary
+--				sequence 	0
+--				text		"SAVE_BUTTON"
+--				text style	"button"
+--			}
 		}
 
-		action
-		"
-			if cellNumber == 1 then
-				cellNumber = nil
-			elseif cellNumber == 2 then
-				cellNumber = nil
-				Infinity_PlaySound('GAM_09')
-				Infinity_PushMenu( 'SAVE_NEWSAVE' );
-			end
-		"
+--		action
+--		"
+--			if cellNumber == 1 then
+--				cellNumber = nil
+--			elseif cellNumber == 2 then
+--				cellNumber = nil
+--				Infinity_PushMenu( 'SAVE_NEWSAVE' );
+--			end
+--		"
 
-		actionDbl
-		"
-			Infinity_PlaySound('GAM_09')
-			Infinity_PushMenu( 'SAVE_NEWSAVE' );
+		actionDbl "
+--			Infinity_PushMenu( 'SAVE_NEWSAVE' ); --text edit focus requires extra click
+			Infinity_ClickItem(Infinity_FindUIItemByName('SideOverwriteBtn'))
 		"
 
 		area 98 84 928 690
@@ -235,6 +234,20 @@ menu
 			--saveScreen:SaveGame(#saveFiles, 'Test Save ' .. #saveFiles)
 			currentSave = 0
 			Infinity_PushMenu( 'SAVE_NEWSAVE' );
+		"
+	}
+	button
+	{
+		name		"SideOverwriteBtn"
+		area		1092 250 230 40
+		bam			GUIBUTMT
+		enabled		currentSave
+--		text lua	"Infinity_FetchString(15306)"
+		text		"OVERWRITE_BUTTON"
+		text style	"button"
+
+		action "
+			Infinity_PushMenu('SAVE_NEWSAVE') --text edit focus works properly
 		"
 	}
 

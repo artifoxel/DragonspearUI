@@ -20,25 +20,28 @@ menu
 	{
 		column
 		{
-			width 100
+			width 98
 			label
 			{
 				area 		0 0 310 42
 				mosaic lua  'getClassBackground(rowNumber)'
 				respectClipping
-				align		center center
+				align		left center
 			}
 			label
 			{
-				area 0 0 310 42
+				area 10 10 280 42
 				text lua "Infinity_FetchString(chargen.class[rowNumber].name)"
 				text style "list"
-				text align center center
-				pad -8 0 0 0
+				text align center top
+				--pad  8 0 0 0
 				text lower
 
 			}
 		}
+		--hack invisible column
+		--prevents scrollbar from offsetting centered text
+		column {	width 2	label { area 0 0 0 0 }	}
 		action "
 			if chargen.class[currentChargenClass] then
 				createCharScreen:OnClassSelectButtonClick(chargen.class[currentChargenClass].id)

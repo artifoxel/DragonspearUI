@@ -7,6 +7,12 @@ menu
 		rgprspelldesc = 0
 		table.sort(chargen.choose_spell, sortByPriestSpellName)
 		currentChargenMemorizePriestSpell = nil
+
+--mirrored from 'CHARGEN_CHOOSE_SPELLS' menu
+--spell content is filled and updated on scroll (function scrollSpellSlots)
+--initialize variables for first page
+		choose_spell = { page_info = '1 / 1', offset = 0, total = #chargen.choose_spell }
+		scrollSpellSlots(0) -- init
 		"
 	label
 	{
@@ -85,96 +91,168 @@ menu
 			end
 		"
 	}
-	list	{	column	{	width 52	label	{	bam GUIBTBUT	area 0 0 52 52 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[1].key].groundicon"	frame 0	count lua "chargen.choose_spell[1].count"	}	}
-		rowwidth 52	area 347 178 52 52	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(1, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(1, -1)"
-		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[1].key].desc	rgprspelldesc = 1"}
-	list	{	column	{	width 52	label	{	bam GUIBTBUT	area 0 0 52 52 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[2].key].groundicon"	frame 0	count lua "chargen.choose_spell[2].count"	}	}
-		rowwidth 52	area 419 178 52 52	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(2, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(2, -1)"
-		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[2].key].desc	rgprspelldesc = 1"}
-	list	{	column	{	width 52	label	{	bam GUIBTBUT	area 0 0 52 52 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[3].key].groundicon"	frame 0	count lua "chargen.choose_spell[3].count"	}	}
-		rowwidth 52	area 491 178 52 52	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(3, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(3, -1)"
-		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[3].key].desc	rgprspelldesc = 1"}
-	list	{	column	{	width 52	label	{	bam GUIBTBUT	area 0 0 52 52 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[4].key].groundicon"	frame 0	count lua "chargen.choose_spell[4].count"	}	}
-		rowwidth 52	area 563 178 52 52	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(4, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(4, -1)"
-		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[4].key].desc	rgprspelldesc = 1"}
-	list	{	column	{	width 52	label	{	bam GUIBTBUT	area 0 0 52 52 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[5].key].groundicon"	frame 0	count lua "chargen.choose_spell[5].count"	}	}
-		rowwidth 52	area 635 178 52 52	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(5, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(5, -1)"
-		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[5].key].desc	rgprspelldesc = 1"}
-	list	{	column	{	width 52	label	{	bam GUIBTBUT	area 0 0 52 52 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[6].key].groundicon"	frame 0	count lua "chargen.choose_spell[6].count"	}	}
-		rowwidth 52	area 347 258 52 52	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(6, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(6, -1)"
-		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[6].key].desc	rgprspelldesc = 1"}
-	list	{	column	{	width 52	label	{	bam GUIBTBUT	area 0 0 52 52 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[7].key].groundicon"	frame 0	count lua "chargen.choose_spell[7].count"	}	}
-		rowwidth 52	area 419 258 52 52	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(7, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(7, -1)"
-		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[7].key].desc	rgprspelldesc = 1"}
-	list	{	column	{	width 52	label	{	bam GUIBTBUT	area 0 0 52 52 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[8].key].groundicon"	frame 0	count lua "chargen.choose_spell[8].count"	}	}
-		rowwidth 52	area 491 258 52 52	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(8, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(8, -1)"
-		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[8].key].desc	rgprspelldesc = 1"}
-	list	{	column	{	width 52	label	{	bam GUIBTBUT	area 0 0 52 52 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[9].key].groundicon"	frame 0	count lua "chargen.choose_spell[9].count"	}	}
-		rowwidth 52	area 563 258 52 52	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(9, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(9, -1)"
-		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[9].key].desc	rgprspelldesc = 1"}
-	list	{	column	{	width 52	label	{	bam GUIBTBUT	area 0 0 52 52 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[10].key].groundicon"	frame 0	count lua "chargen.choose_spell[10].count"	}	}
-		rowwidth 52	area 635 258 52 52	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(10, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(10, -1)"
-		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[10].key].desc	rgprspelldesc = 1"}
-	list	{	column	{	width 52	label	{	bam GUIBTBUT	area 0 0 52 52 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[11].key].groundicon"	frame 0	count lua "chargen.choose_spell[11].count"	}	}
-		rowwidth 52	area 347 338 52 52	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(11, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(11, -1)"
-		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[11].key].desc	rgprspelldesc = 1"}
-	list	{	column	{	width 52	label	{	bam GUIBTBUT	area 0 0 52 52 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[12].key].groundicon"	frame 0	count lua "chargen.choose_spell[12].count"	}	}
-		rowwidth 52	area 419 338 52 52	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(12, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(12, -1)"
-		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[12].key].desc	rgprspelldesc = 1"}
-	list	{	column	{	width 52	label	{	bam GUIBTBUT	area 0 0 52 52 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[13].key].groundicon"	frame 0	count lua "chargen.choose_spell[13].count"	}	}
-		rowwidth 52	area 491 338 52 52	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(13, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(13, -1)"
-		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[13].key].desc	rgprspelldesc = 1"}
-	list	{	column	{	width 52	label	{	bam GUIBTBUT	area 0 0 52 52 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[14].key].groundicon"	frame 0	count lua "chargen.choose_spell[14].count"	}	}
-		rowwidth 52	area 563 338 52 52	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(14, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(14, -1)"
-		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[14].key].desc	rgprspelldesc = 1"}
-	list	{	column	{	width 52	label	{	bam GUIBTBUT	area 0 0 52 52 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[15].key].groundicon"	frame 0	count lua "chargen.choose_spell[15].count"	}	}
-		rowwidth 52	area 635 338 52 52	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(15, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(15, -1)"
-		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[15].key].desc	rgprspelldesc = 1"}
-	list	{	column	{	width 52	label	{	bam GUIBTBUT	area 0 0 52 52 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[16].key].groundicon"	frame 0	count lua "chargen.choose_spell[16].count"	}	}
-		rowwidth 52	area 347 418 52 52	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(16, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(16, -1)"
-		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[16].key].desc	rgprspelldesc = 1"}
-	list	{	column	{	width 52	label	{	bam GUIBTBUT	area 0 0 52 52 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[17].key].groundicon"	frame 0	count lua "chargen.choose_spell[17].count"	}	}
-		rowwidth 52	area 419 418 52 52	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(17, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(17, -1)"
-		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[17].key].desc	rgprspelldesc = 1"}
-	list	{	column	{	width 52	label	{	bam GUIBTBUT	area 0 0 52 52 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[18].key].groundicon"	frame 0	count lua "chargen.choose_spell[18].count"	}	}
-		rowwidth 52	area 491 418 52 52	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(18, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(18, -1)"
-		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[18].key].desc	rgprspelldesc = 1"}
-	list	{	column	{	width 52	label	{	bam GUIBTBUT	area 0 0 52 52 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[19].key].groundicon"	frame 0	count lua "chargen.choose_spell[19].count"	}	}
-		rowwidth 52	area 563 418 52 52	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(19, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(19, -1)"
-		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[19].key].desc	rgprspelldesc = 1"}
-	list	{	column	{	width 52	label	{	bam GUIBTBUT	area 0 0 52 52 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[20].key].groundicon"	frame 0	count lua "chargen.choose_spell[20].count"	}	}
-		rowwidth 52	area 635 418 52 52	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(20, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(20, -1)"
-		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[20].key].desc	rgprspelldesc = 1"}
-	list	{	column	{	width 52	label	{	bam GUIBTBUT	area 0 0 52 52 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[21].key].groundicon"	frame 0	count lua "chargen.choose_spell[21].count"	}	}
-		rowwidth 52	area 347 498 52 52	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(21, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(21, -1)"
-		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[21].key].desc	rgprspelldesc = 1"}
-	list	{	column	{	width 52	label	{	bam GUIBTBUT	area 0 0 52 52 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[22].key].groundicon"	frame 0	count lua "chargen.choose_spell[22].count"	}	}
-		rowwidth 52	area 419 498 52 52	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(22, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(22, -1)"
-		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[22].key].desc	rgprspelldesc = 1"}
-	list	{	column	{	width 52	label	{	bam GUIBTBUT	area 0 0 52 52 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[23].key].groundicon"	frame 0	count lua "chargen.choose_spell[23].count"	}	}
-		rowwidth 52	area 491 498 52 52	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(23, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(23, -1)"
-		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[23].key].desc	rgprspelldesc = 1"}
-	list	{	column	{	width 52	label	{	bam GUIBTBUT	area 0 0 52 52 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[24].key].groundicon"	frame 0	count lua "chargen.choose_spell[24].count"	}	}
-		rowwidth 52	area 563 498 52 52	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(24, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(24, -1)"
-		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[24].key].desc	rgprspelldesc = 1"}
-	list	{	column	{	width 52	label	{	bam GUIBTBUT	area 0 0 52 52 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[25].key].groundicon"	frame 0	count lua "chargen.choose_spell[25].count"	}	}
-		rowwidth 52	area 635 498 52 52	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(25, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(25, -1)"
-		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[25].key].desc	rgprspelldesc = 1"}
-	list	{	column	{	width 52	label	{	bam GUIBTBUT	area 0 0 52 52 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[26].key].groundicon"	frame 0	count lua "chargen.choose_spell[26].count"	}	}
-		rowwidth 52	area 347 578 52 52	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(26, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(26, -1)"
-		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[26].key].desc	rgprspelldesc = 1"}
-	list	{	column	{	width 52	label	{	bam GUIBTBUT	area 0 0 52 52 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[27].key].groundicon"	frame 0	count lua "chargen.choose_spell[27].count"	}	}
-		rowwidth 52	area 419 578 52 52	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(27, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(27, -1)"
-		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[27].key].desc	rgprspelldesc = 1"}
-	list	{	column	{	width 52	label	{	bam GUIBTBUT	area 0 0 52 52 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[28].key].groundicon"	frame 0	count lua "chargen.choose_spell[28].count"	}	}
-		rowwidth 52	area 491 578 52 52	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(28, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(28, -1)"
-		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[28].key].desc	rgprspelldesc = 1"}
-	list	{	column	{	width 52	label	{	bam GUIBTBUT	area 0 0 52 52 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[29].key].groundicon"	frame 0	count lua "chargen.choose_spell[29].count"	}	}
-		rowwidth 52	area 563 578 52 52	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(29, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(29, -1)"
-		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[29].key].desc	rgprspelldesc = 1"}
-	list	{	column	{	width 52	label	{	bam GUIBTBUT	area 0 0 52 52 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[30].key].groundicon"	frame 0	count lua "chargen.choose_spell[30].count"	}	}
-		rowwidth 52	area 635 578 52 52	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(30, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(30, -1)"
-		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[30].key].desc	rgprspelldesc = 1"}
+	
+--mirrored from 'CHARGEN_CHOOSE_SPELLS' menu
+	button
+	{
+		enabled "choose_spell.total > 30"
+		clickable lua "choose_spell.offset > 0"
+		area		90 180 42 42
+		bam "GUIPRC"
+		scaleToClip
+		sequence 3
+		action "scrollSpellSlots(-1)"
+		actionScroll "scrollSpellSlots()"
+	}
+
+	button
+	{
+		enabled "choose_spell.total > 30"
+		clickable lua "choose_spell.offset + 30 <= choose_spell.total"
+		area		265 180 42 42
+		bam "GUIPRC"
+		scaleToClip
+		sequence 2
+		action "scrollSpellSlots(1)"
+		actionScroll "scrollSpellSlots()"
+	}
+
+	label {
+		enabled "choose_spell.total > 30"
+		area	137 180 123 42
+		text lua "choose_spell.page_info"
+		text style "title"
+		align center center
+		actionScroll "scrollSpellSlots()"
+	}
+
+	-- to be able to scroll without hovering spell slots
+	label {
+		area 322 174 406 480
+		mosaic "rgjback"
+		actionScroll "scrollSpellSlots()"
+	}	
+	
+	list	{	column	{	width 100	label	{ 	bam RGCMHI	area 0 0 72 72	align center center	enabled "choose_spell[1].count"	}
+		label	{	bam GUIBTBUT	area 0 0 72 72 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][choose_spell[1].key].groundicon"	frame 0	count lua "choose_spell[1].count"	}	}
+		rowwidth 72 hideHighlight	area 347 178 72 72	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(1+choose_spell.offset, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(1+choose_spell.offset, -1)"
+		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][choose_spell[1].key].desc	rgprspelldesc = 1" actionScroll "scrollSpellSlots()"}
+	list	{	column	{	width 100	label	{ 	bam RGCMHI	area 0 0 72 72	align center center	enabled "choose_spell[2].count"	}
+		label	{	bam GUIBTBUT	area 0 0 72 72 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][choose_spell[2].key].groundicon"	frame 0	count lua "choose_spell[2].count"	}	}
+		rowwidth 72 hideHighlight	area 419 178 72 72	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(2+choose_spell.offset, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(2+choose_spell.offset, -1)"
+		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][choose_spell[2].key].desc	rgprspelldesc = 1" actionScroll "scrollSpellSlots()"}
+	list	{	column	{	width 100	label	{ 	bam RGCMHI	area 0 0 72 72	align center center	enabled "choose_spell[3].count"	}
+		label	{	bam GUIBTBUT	area 0 0 72 72 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][choose_spell[3].key].groundicon"	frame 0	count lua "choose_spell[3].count"	}	}
+		rowwidth 72 hideHighlight	area 491 178 72 72	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(3+choose_spell.offset, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(3+choose_spell.offset, -1)"
+		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][choose_spell[3].key].desc	rgprspelldesc = 1" actionScroll "scrollSpellSlots()"}
+	list	{	column	{	width 100	label	{ 	bam RGCMHI	area 0 0 72 72	align center center	enabled "choose_spell[4].count"	}
+		label	{	bam GUIBTBUT	area 0 0 72 72 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][choose_spell[4].key].groundicon"	frame 0	count lua "choose_spell[4].count"	}	}
+		rowwidth 72 hideHighlight	area 563 178 72 72	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(4+choose_spell.offset, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(4+choose_spell.offset, -1)"
+		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][choose_spell[4].key].desc	rgprspelldesc = 1" actionScroll "scrollSpellSlots()"}
+	list	{	column	{	width 100	label	{ 	bam RGCMHI	area 0 0 72 72	align center center	enabled "choose_spell[5].count"	}
+		label	{	bam GUIBTBUT	area 0 0 72 72 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][choose_spell[5].key].groundicon"	frame 0	count lua "choose_spell[5].count"	}	}
+		rowwidth 72 hideHighlight	area 635 178 72 72	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(5+choose_spell.offset, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(5+choose_spell.offset, -1)"
+		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][choose_spell[5].key].desc	rgprspelldesc = 1" actionScroll "scrollSpellSlots()"}
+	list	{	column	{	width 100	label	{ 	bam RGCMHI	area 0 0 72 72	align center center	enabled "choose_spell[6].count"	}
+		label	{	bam GUIBTBUT	area 0 0 72 72 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][choose_spell[6].key].groundicon"	frame 0	count lua "choose_spell[6].count"	}	}
+		rowwidth 72 hideHighlight	area 347 258 72 72	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(6+choose_spell.offset, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(6+choose_spell.offset, -1)"
+		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][choose_spell[6].key].desc	rgprspelldesc = 1" actionScroll "scrollSpellSlots()"}
+	list	{	column	{	width 100	label	{ 	bam RGCMHI	area 0 0 72 72	align center center	enabled "choose_spell[7].count"	}
+		label	{	bam GUIBTBUT	area 0 0 72 72 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][choose_spell[7].key].groundicon"	frame 0	count lua "choose_spell[7].count"	}	}
+		rowwidth 72 hideHighlight	area 419 258 72 72	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(7+choose_spell.offset, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(7+choose_spell.offset, -1)"
+		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][choose_spell[7].key].desc	rgprspelldesc = 1" actionScroll "scrollSpellSlots()"}
+	list	{	column	{	width 100	label	{ 	bam RGCMHI	area 0 0 72 72	align center center	enabled "choose_spell[8].count"	}
+		label	{	bam GUIBTBUT	area 0 0 72 72 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][choose_spell[8].key].groundicon"	frame 0	count lua "choose_spell[8].count"	}	}
+		rowwidth 72 hideHighlight	area 491 258 72 72	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(8+choose_spell.offset, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(8+choose_spell.offset, -1)"
+		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][choose_spell[8].key].desc	rgprspelldesc = 1" actionScroll "scrollSpellSlots()"}
+	list	{	column	{	width 100	label	{ 	bam RGCMHI	area 0 0 72 72	align center center	enabled "choose_spell[9].count"	}
+		label	{	bam GUIBTBUT	area 0 0 72 72 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][choose_spell[9].key].groundicon"	frame 0	count lua "choose_spell[9].count"	}	}
+		rowwidth 72 hideHighlight	area 563 258 72 72	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(9+choose_spell.offset, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(9+choose_spell.offset, -1)"
+		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][choose_spell[9].key].desc	rgprspelldesc = 1" actionScroll "scrollSpellSlots()"}
+	list	{	column	{	width 100	label	{ 	bam RGCMHI	area 0 0 72 72	align center center	enabled "choose_spell[10].count"	}
+		label	{	bam GUIBTBUT	area 0 0 72 72 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][choose_spell[10].key].groundicon"	frame 0	count lua "choose_spell[10].count"	}	}
+		rowwidth 72 hideHighlight	area 635 258 72 72	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(10+choose_spell.offset, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(10+choose_spell.offset, -1)"
+		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][choose_spell[10].key].desc	rgprspelldesc = 1" actionScroll "scrollSpellSlots()"}
+	list	{	column	{	width 100	label	{ 	bam RGCMHI	area 0 0 72 72	align center center	enabled "choose_spell[11].count"	}
+		label	{	bam GUIBTBUT	area 0 0 72 72 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][choose_spell[11].key].groundicon"	frame 0	count lua "choose_spell[11].count"	}	}
+		rowwidth 72 hideHighlight	area 347 338 72 72	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(11+choose_spell.offset, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(11+choose_spell.offset, -1)"
+		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][choose_spell[11].key].desc	rgprspelldesc = 1" actionScroll "scrollSpellSlots()"}
+	list	{	column	{	width 100	label	{ 	bam RGCMHI	area 0 0 72 72	align center center	enabled "choose_spell[12].count"	}
+		label	{	bam GUIBTBUT	area 0 0 72 72 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][choose_spell[12].key].groundicon"	frame 0	count lua "choose_spell[12].count"	}	}
+		rowwidth 72 hideHighlight	area 419 338 72 72	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(12+choose_spell.offset, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(12+choose_spell.offset, -1)"
+		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][choose_spell[12].key].desc	rgprspelldesc = 1" actionScroll "scrollSpellSlots()"}
+	list	{	column	{	width 100	label	{ 	bam RGCMHI	area 0 0 72 72	align center center	enabled "choose_spell[13].count"	}
+		label	{	bam GUIBTBUT	area 0 0 72 72 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][choose_spell[13].key].groundicon"	frame 0	count lua "choose_spell[13].count"	}	}
+		rowwidth 72 hideHighlight	area 491 338 72 72	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(13+choose_spell.offset, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(13+choose_spell.offset, -1)"
+		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][choose_spell[13].key].desc	rgprspelldesc = 1" actionScroll "scrollSpellSlots()"}
+	list	{	column	{	width 100	label	{ 	bam RGCMHI	area 0 0 72 72	align center center	enabled "choose_spell[14].count"	}
+		label	{	bam GUIBTBUT	area 0 0 72 72 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][choose_spell[14].key].groundicon"	frame 0	count lua "choose_spell[14].count"	}	}
+		rowwidth 72 hideHighlight	area 563 338 72 72	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(14+choose_spell.offset, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(14+choose_spell.offset, -1)"
+		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][choose_spell[14].key].desc	rgprspelldesc = 1" actionScroll "scrollSpellSlots()"}
+	list	{	column	{	width 100	label	{ 	bam RGCMHI	area 0 0 72 72	align center center	enabled "choose_spell[15].count"	}
+		label	{	bam GUIBTBUT	area 0 0 72 72 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][choose_spell[15].key].groundicon"	frame 0	count lua "choose_spell[15].count"	}	}
+		rowwidth 72 hideHighlight	area 635 338 72 72	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(15+choose_spell.offset, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(15+choose_spell.offset, -1)"
+		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][choose_spell[15].key].desc	rgprspelldesc = 1" actionScroll "scrollSpellSlots()"}
+	list	{	column	{	width 100	label	{ 	bam RGCMHI	area 0 0 72 72	align center center	enabled "choose_spell[16].count"	}
+		label	{	bam GUIBTBUT	area 0 0 72 72 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][choose_spell[16].key].groundicon"	frame 0	count lua "choose_spell[16].count"	}	}
+		rowwidth 72 hideHighlight	area 347 418 72 72	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(16+choose_spell.offset, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(16+choose_spell.offset, -1)"
+		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][choose_spell[16].key].desc	rgprspelldesc = 1" actionScroll "scrollSpellSlots()"}
+	list	{	column	{	width 100	label	{ 	bam RGCMHI	area 0 0 72 72	align center center	enabled "choose_spell[17].count"	}
+		label	{	bam GUIBTBUT	area 0 0 72 72 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][choose_spell[17].key].groundicon"	frame 0	count lua "choose_spell[17].count"	}	}
+		rowwidth 72 hideHighlight	area 419 418 72 72	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(17+choose_spell.offset, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(17+choose_spell.offset, -1)"
+		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][choose_spell[17].key].desc	rgprspelldesc = 1" actionScroll "scrollSpellSlots()"}
+	list	{	column	{	width 100	label	{ 	bam RGCMHI	area 0 0 72 72	align center center	enabled "choose_spell[18].count"	}
+		label	{	bam GUIBTBUT	area 0 0 72 72 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][choose_spell[18].key].groundicon"	frame 0	count lua "choose_spell[18].count"	}	}
+		rowwidth 72 hideHighlight	area 491 418 72 72	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(18+choose_spell.offset, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(18+choose_spell.offset, -1)"
+		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][choose_spell[18].key].desc	rgprspelldesc = 1" actionScroll "scrollSpellSlots()"}
+	list	{	column	{	width 100	label	{ 	bam RGCMHI	area 0 0 72 72	align center center	enabled "choose_spell[19].count"	}
+		label	{	bam GUIBTBUT	area 0 0 72 72 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][choose_spell[19].key].groundicon"	frame 0	count lua "choose_spell[19].count"	}	}
+		rowwidth 72 hideHighlight	area 563 418 72 72	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(19+choose_spell.offset, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(19+choose_spell.offset, -1)"
+		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][choose_spell[19].key].desc	rgprspelldesc = 1" actionScroll "scrollSpellSlots()"}
+	list	{	column	{	width 100	label	{ 	bam RGCMHI	area 0 0 72 72	align center center	enabled "choose_spell[20].count"	}
+		label	{	bam GUIBTBUT	area 0 0 72 72 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][choose_spell[20].key].groundicon"	frame 0	count lua "choose_spell[20].count"	}	}
+		rowwidth 72 hideHighlight	area 635 418 72 72	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(20+choose_spell.offset, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(20+choose_spell.offset, -1)"
+		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][choose_spell[20].key].desc	rgprspelldesc = 1" actionScroll "scrollSpellSlots()"}
+	list	{	column	{	width 100	label	{ 	bam RGCMHI	area 0 0 72 72	align center center	enabled "choose_spell[21].count"	}
+		label	{	bam GUIBTBUT	area 0 0 72 72 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][choose_spell[21].key].groundicon"	frame 0	count lua "choose_spell[21].count"	}	}
+		rowwidth 72 hideHighlight	area 347 498 72 72	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(21+choose_spell.offset, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(21+choose_spell.offset, -1)"
+		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][choose_spell[21].key].desc	rgprspelldesc = 1" actionScroll "scrollSpellSlots()"}
+	list	{	column	{	width 100	label	{ 	bam RGCMHI	area 0 0 72 72	align center center	enabled "choose_spell[22].count"	}
+		label	{	bam GUIBTBUT	area 0 0 72 72 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][choose_spell[22].key].groundicon"	frame 0	count lua "choose_spell[22].count"	}	}
+		rowwidth 72 hideHighlight	area 419 498 72 72	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(22+choose_spell.offset, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(22+choose_spell.offset, -1)"
+		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][choose_spell[22].key].desc	rgprspelldesc = 1" actionScroll "scrollSpellSlots()"}
+	list	{	column	{	width 100	label	{ 	bam RGCMHI	area 0 0 72 72	align center center	enabled "choose_spell[23].count"	}
+		label	{	bam GUIBTBUT	area 0 0 72 72 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][choose_spell[23].key].groundicon"	frame 0	count lua "choose_spell[23].count"	}	}
+		rowwidth 72 hideHighlight	area 491 498 72 72	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(23+choose_spell.offset, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(23+choose_spell.offset, -1)"
+		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][choose_spell[23].key].desc	rgprspelldesc = 1" actionScroll "scrollSpellSlots()"}
+	list	{	column	{	width 100	label	{ 	bam RGCMHI	area 0 0 72 72	align center center	enabled "choose_spell[24].count"	}
+		label	{	bam GUIBTBUT	area 0 0 72 72 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][choose_spell[24].key].groundicon"	frame 0	count lua "choose_spell[24].count"	}	}
+		rowwidth 72 hideHighlight	area 563 498 72 72	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(24+choose_spell.offset, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(24+choose_spell.offset, -1)"
+		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][choose_spell[24].key].desc	rgprspelldesc = 1" actionScroll "scrollSpellSlots()"}
+	list	{	column	{	width 100	label	{ 	bam RGCMHI	area 0 0 72 72	align center center	enabled "choose_spell[25].count"	}
+		label	{	bam GUIBTBUT	area 0 0 72 72 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][choose_spell[25].key].groundicon"	frame 0	count lua "choose_spell[25].count"	}	}
+		rowwidth 72 hideHighlight	area 635 498 72 72	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(25+choose_spell.offset, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(25+choose_spell.offset, -1)"
+		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][choose_spell[25].key].desc	rgprspelldesc = 1" actionScroll "scrollSpellSlots()"}
+	list	{	column	{	width 100	label	{ 	bam RGCMHI	area 0 0 72 72	align center center	enabled "choose_spell[26].count"	}
+		label	{	bam GUIBTBUT	area 0 0 72 72 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][choose_spell[26].key].groundicon"	frame 0	count lua "choose_spell[26].count"	}	}
+		rowwidth 72 hideHighlight	area 347 578 72 72	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(26+choose_spell.offset, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(26+choose_spell.offset, -1)"
+		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][choose_spell[26].key].desc	rgprspelldesc = 1" actionScroll "scrollSpellSlots()"}
+	list	{	column	{	width 100	label	{ 	bam RGCMHI	area 0 0 72 72	align center center	enabled "choose_spell[27].count"	}
+		label	{	bam GUIBTBUT	area 0 0 72 72 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][choose_spell[27].key].groundicon"	frame 0	count lua "choose_spell[27].count"	}	}
+		rowwidth 72 hideHighlight	area 419 578 72 72	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(27+choose_spell.offset, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(27+choose_spell.offset, -1)"
+		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][choose_spell[27].key].desc	rgprspelldesc = 1" actionScroll "scrollSpellSlots()"}
+	list	{	column	{	width 100	label	{ 	bam RGCMHI	area 0 0 72 72	align center center	enabled "choose_spell[28].count"	}
+		label	{	bam GUIBTBUT	area 0 0 72 72 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][choose_spell[28].key].groundicon"	frame 0	count lua "choose_spell[28].count"	}	}
+		rowwidth 72 hideHighlight	area 491 578 72 72	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(28+choose_spell.offset, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(28+choose_spell.offset, -1)"
+		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][choose_spell[28].key].desc	rgprspelldesc = 1" actionScroll "scrollSpellSlots()"}
+	list	{	column	{	width 100	label	{ 	bam RGCMHI	area 0 0 72 72	align center center	enabled "choose_spell[29].count"	}
+		label	{	bam GUIBTBUT	area 0 0 72 72 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][choose_spell[29].key].groundicon"	frame 0	count lua "choose_spell[29].count"	}	}
+		rowwidth 72 hideHighlight	area 563 578 72 72	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(29+choose_spell.offset, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(29+choose_spell.offset, -1)"
+		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][choose_spell[29].key].desc	rgprspelldesc = 1" actionScroll "scrollSpellSlots()"}
+	list	{	column	{	width 100	label	{ 	bam RGCMHI	area 0 0 72 72	align center center	enabled "choose_spell[30].count"	}
+		label	{	bam GUIBTBUT	area 0 0 72 72 	align center center	icon lua "priestSpells[chargen.currentSpellLevelChoice][choose_spell[30].key].groundicon"	frame 0	count lua "choose_spell[30].count"	}	}
+		rowwidth 72 hideHighlight	area 635 578 72 72	table "chargen.choose_spell"	action "createCharScreen:OnMemorizePriestSpellButtonClick(30+choose_spell.offset, 1)"	actionAlt "createCharScreen:OnMemorizePriestSpellButtonClick(30+choose_spell.offset, -1)"
+		actionEnter	"desc = priestSpells[chargen.currentSpellLevelChoice][choose_spell[30].key].desc	rgprspelldesc = 1" actionScroll "scrollSpellSlots()"}
 
 	text
 	{
@@ -210,14 +288,14 @@ menu
 
 	label
 	{
-		area 434 654 224 48
+		area 474 654 192 48
 		text "SPELLS_REMAINING_NORMAL"
 		text style "normal"
 		text align right center
 	}
 	label
 	{
-		area 664 654 36 48
+		area 666 654 36 48
 		text lua "chargen.extraSpells"
 		text style "normal"
 		text align center center
@@ -226,7 +304,7 @@ menu
 	button
 	{
 		on escape
-		area 410 722 230 40
+		area 408 724 230 40
 		bam GUIBUTMT
 		text "BACK_BUTTON"
 		text style "button"
@@ -235,7 +313,7 @@ menu
 	button
 	{
 		on return
-		area 806 722 230 40
+		area 806 724 230 40
 		bam GUIBUTMT
 		text lua "nextOrDone()"
 		text style "button"

@@ -13,7 +13,9 @@
 @1001=~Aggiorna diverse stringhe nel file dialog.tlk~
 @1003=~BGEE non trovato, salta installazione~
 @1006=~Componente principale di SoD GUI Overhaul non trovata~
-@1007=~Aggiungi Tooltip trasparenti sullo sfondo~
-@1008=~Seleziona il numero di slot per i Salvataggi Rapidi~
+@1007=~Aggiungi tooltip trasparenti sullo sfondo~
+@1008=~Seleziona il numero di slot per i salvataggi rapidi~
+
 @1009=~Fix Blurry Portraits~
-@1010=~Add mouse cursor from the original Icewind Dale~
+@1010=~Restore original Icewind Dale mouse cursors~
+@1011=~Mute tooltip sound effect~

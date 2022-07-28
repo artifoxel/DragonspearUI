@@ -221,10 +221,12 @@ function addMageBookLevel(value)
 end
 
 function incrementMageBookLevel()
+	Infinity_PlaySound('GAM_05')
 	addMageBookLevel(1)
 end
 
 function decrementMageBookLevel()
+	Infinity_PlaySound('GAM_05')
 	addMageBookLevel(-1)
 end
 

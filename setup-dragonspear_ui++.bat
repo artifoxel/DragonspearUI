@@ -8,10 +8,10 @@
 :: set DUI_INVENTORY=v1
 
 :: Add an option to move portraits panel to left of the screen:
-:: set DUI_WITH_LEFT_SIDE_PORTRAITS=1
+set DUI_WITH_LEFT_SIDE_PORTRAITS=1
 
 :: Add "select all" button store and container screens:
-:: set DUI_ENABLE_BUYSELL_SELECT_ALL=1
+set DUI_ENABLE_BUYSELL_SELECT_ALL=1
 
 :: Pausing the game upon opening the large journal doesn't always succeed.
 :: Enabling this feature adds a fallback method based on party AI scripting.

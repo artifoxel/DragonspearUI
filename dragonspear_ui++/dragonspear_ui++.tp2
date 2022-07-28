@@ -2,18 +2,22 @@ BACKUP ~dragonspear_ui++/backup~
 AUTHOR ~Pecca (https://forums.beamdog.com/discussion/50357/mod-dragonspear-ui-v2-31/p1)~
 VERSION ~22.01.3~
 
+/////////////////////////////////////////////////////////////////////////////////
+///  LANGUAGE OPTIONS (WITH ENGLISH FALLBACK)
+/////////////////////////////////////////////////////////////////////////////////
+
 LANGUAGE
-	~English~ ~dragonspear_ui++/tra~ ~dragonspear_ui++/tra/english.tra~
+	~English~ ~dragonspear_ui++/tra/~ ~dragonspear_ui++/tra/english.tra~
 LANGUAGE
 	~Polski (by Etamin)~ ~dragonspear_ui++/tra/english.tra~ ~dragonspear_ui++/tra/polish.tra~
 LANGUAGE
 	~Italian (by Aedan)~ ~dragonspear_ui++/tra/english.tra~ ~dragonspear_ui++/tra/italian.tra~
 LANGUAGE
-	~Russian (by d0lphin)~ ~dragonspear_ui++/tra/russian.tra~ ~dragonspear_ui++/tra/russian.tra~
+	~Russian (by d0lphin)~ ~dragonspear_ui++/tra/english.tra~ ~dragonspear_ui++/tra/russian.tra~
 LANGUAGE
-	~Brazilian Portuguese (by Felipefpl)~ ~dragonspear_ui++/tra/brazilian portuguese.tra~ ~dragonspear_ui++/tra/brazilian portuguese.tra~
+	~Brazilian Portuguese (by Felipefpl)~ ~dragonspear_ui++/tra/english.tra~ ~dragonspear_ui++/tra/brazilian portuguese.tra~
 LANGUAGE
-	~French (by Shodead)~ ~dragonspear_ui++/tra/french.tra~ ~dragonspear_ui++/tra/french.tra~
+	~French (by Shodead)~ ~dragonspear_ui++/tra/english.tra~ ~dragonspear_ui++/tra/french.tra~
 
 /////////////////////////////////////////////////////////////////////////////////
 ///  SOD GUI OVERHAUL CORE COMPONENT
@@ -216,11 +220,19 @@ ACTION_PHP_EACH blurry_portraits AS _ => v BEGIN
 END
 
 /////////////////////////////////////////////////////////////////////////////////
-///  ORIGINAL ICEWIND DALE CURSOR
+///  ORIGINAL ICEWIND DALE CURSORS
 /////////////////////////////////////////////////////////////////////////////////
 
-BEGIN ~Yes~
+BEGIN @1010
 
 REQUIRE_PREDICATE GAME_IS ~iwdee~ @1003
-SUBCOMPONENT @1010
 COPY ~dragonspear_ui++/copy/CURSORS.BAM~ ~override~
+
+/////////////////////////////////////////////////////////////////////////////////
+///  MUTE TOOLTIP SOUND EFFECT
+/////////////////////////////////////////////////////////////////////////////////
+
+BEGIN @1011
+
+REQUIRE_PREDICATE GAME_IS ~bgee bg2ee eet iwdee~ @1003
+COPY ~G:\_gog\Icewind Dale Enhanced Edition\dragonspear_ui++\copy\paper.wav~ ~override~

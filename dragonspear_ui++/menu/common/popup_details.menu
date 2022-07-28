@@ -3,7 +3,9 @@ menu
 	name "POPUP_DETAILS"
 	align center center
 	modal
-
+	onOpen "
+		Infinity_PlaySound('GAM_03')
+	"
 	label
 	{
 		area 0 0 1364 756
@@ -17,7 +19,7 @@ menu
 	}
 	label
 	{
-		area 525 82 300 50
+		area 531 82 300 50
 		text lua "Infinity_FetchString(PopupDetails.name)"
 		text style "label"
 	}
@@ -30,7 +32,7 @@ menu
 	}
 	label
 	{
-		area 338 89 52 52
+		area 345 89 52 52
 		bam lua "PopupDetails.icon"
 		align center center
 		sequence 0

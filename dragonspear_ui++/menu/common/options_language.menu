@@ -54,6 +54,9 @@ menu
 		table		"displayLanguages"
 		var			language
 		scrollbar	'GUISCRC'
+		action "
+			Infinity_PlaySound('GAM_09')
+		"
 	}
 	text
 	{

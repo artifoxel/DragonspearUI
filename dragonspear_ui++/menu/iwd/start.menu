@@ -54,24 +54,31 @@ menu
 		area 1476 190 368 470
 		mosaic "RGMMENU"
 	}
-	-- label
-	-- {
-	-- 	name "MenuTitle1"
-	-- 	enabled "startEngine:GetCampaign() == const.START_CAMPAIGN_BG"
-	-- 	area 1410 78 488 96
-	-- 	bam 'RGTITLE'
-	-- 	sequence 0
-	-- 	frame 0
-	-- }
-	-- label
-	-- {
-	-- 	name "MenuTitle2"
-	-- 	enabled "startEngine:GetCampaign() == const.START_CAMPAIGN_BG and isTob == 1"
-	-- 	area 1410 78 488 96
-	-- 	bam 'RGTITLE'
-	-- 	sequence 0
-	-- 	frame 1
-	-- }
+--	movie
+--	{
+--		enabled "startEngine:GetCampaign() == const.START_CAMPAIGN_SOD"
+--		name "flames"
+--		area 324 124 404 564
+--		loop
+--	}
+	label
+	{
+		name "MenuTitle1"
+		enabled "startEngine:GetCampaign() == const.START_CAMPAIGN_BG and isTob == 0"
+		area 1248 51 488 140
+		bam 'RGTITLE'
+		sequence 0
+		frame 0
+	}
+	label
+	{
+		name "MenuTitle2"
+		enabled "startEngine:GetCampaign() == const.START_CAMPAIGN_BG and isTob == 1"
+		area 1252 43 488 160
+		bam 'RGTITLE'
+		sequence 0
+		frame 1
+	}
 
 	button
 	{

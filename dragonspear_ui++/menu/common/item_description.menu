@@ -3,6 +3,9 @@ menu
 	name 'ITEM_DESCRIPTION'
 	align center center
 	modal
+	onOpen "
+		Infinity_PlaySound('GAM_03')
+	"
 	label
 	{
 		area 0 0 1364 756

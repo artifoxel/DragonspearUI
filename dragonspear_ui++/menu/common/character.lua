@@ -12,6 +12,10 @@ end
 listMetaInfo = {}
 combatLog = {}
 
+#if GAME_VERSION == 'iwd' then --teal highlight for iwd
+Infinity_SetHighlightColors(20,107,102,204, 20,107,102,136, 20,107,102,0)
+#end
+
 currentPanelID = 0
 
 function displayTHAC()

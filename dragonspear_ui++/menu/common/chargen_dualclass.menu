@@ -26,11 +26,18 @@ menu
 		text lua "characters[currentID].class"
 		text style "label"
 	}
-	label
-	{
-		area 136 191 177 243
+		
+	--border
+	label { 
+		area 133 181 175 263
+		rectangle 0 
+	}
+	--portrait
+	label {
+		area 143 191 155 243 --210x330 standard dim
 		bitmap		lua "characters[currentID].portrait"
 	}
+	
 	text
 	{
 		area 481 194 336 407

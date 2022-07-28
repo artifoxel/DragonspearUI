@@ -95,7 +95,7 @@
 	Infinity_SetArea('MenuTitle1', screenWidth-486, nil, nil, nil)
 	Infinity_SetArea('MenuTitle1SP', screenWidth-486, nil, nil, nil)
 	Infinity_SetArea('MenuTitle1OP', screenWidth-486, nil, nil, nil)
-#elseif GAME_VERSION == 'bg2' then
+#elseif GAME_VERSION == 'bg2' or GAME_VERSION == 'iwd' then
 	Infinity_SetArea('MenuTitle1', screenWidth-510, nil, nil, nil)
 	Infinity_SetArea('MenuTitle1SP', screenWidth-510, nil, nil, nil)
 	Infinity_SetArea('MenuTitle1OP', screenWidth-510, nil, nil, nil)

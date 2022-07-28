@@ -29,13 +29,13 @@ menu
 		name "MenuTitle1OP"
 	#if GAME_VERSION == 'bg1' or GAME_VERSION == 'sod' then
 		enabled "startEngine:GetCampaign() == const.START_CAMPAIGN_BG"
-		area 1434 46 450 121
+		area 1252 43 488 160
 		mosaic 'RGTITLE2'
 --		sequence 0
 --		frame 0
 	#else
 		enabled "startEngine:GetCampaign() == const.START_CAMPAIGN_BG and isTob == 0"
-		area 1410 78 488 96
+		area 1248 51 488 140
 		bam 'RGTITLE'
 		sequence 0
 		frame 0

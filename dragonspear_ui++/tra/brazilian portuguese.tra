@@ -9,11 +9,13 @@
 @109=~Total de mortes no grupo~
 @110=~Experiência das mortes~
 
-@1000=~Instalar o Componente Núcleo da Reformulação da GUI do SoD~
+@1000=~Instalar o componente núcleo da Reformulação da GUI do SoD~
 @1001=~Atualizar vários textos no Dialog.tlk~
 @1003=~O BG-EE não foi encontrado, ignorando~
-@1006=~O Componente Núcleo da Reformulação da GUI do SoD não foi encontrado~
-@1007=~Adicionar Cenário de Fundo Transparente das Dicas~
-@1008=~Selecionar Número de Slots do Quicksave~
-@1009=~Consertar Retratos Desfocados~
-@1010=~Add mouse cursor from the original Icewind Dale~
+@1006=~O componente núcleo da Reformulação da GUI do SoD não foi encontrado~
+@1007=~Adicionar cenário de fundo transparente das dicas~
+@1008=~Selecionar número de slots do quicksave~
+@1009=~Consertar retratos desfocados~
+
+@1010=~Restore original Icewind Dale mouse cursors~
+@1011=~Mute tooltip sound effect~

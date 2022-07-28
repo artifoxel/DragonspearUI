@@ -32,17 +32,28 @@ menu
 	}
 	label
 	{
-		area 422 428 598 36
-		fill            112 111 111 64
+		area 432 428 578 36
+		fill 112 111 111 64 --edit area background
 	}
 	edit
 	{
 		name		"charNameEditArea"
-		area		422 432 586 52
+		area		422 434 598 52
 		var			charNameEdit
 		text style	"edit"
+		align	center top
 		maxlines	1
 		maxchars	20
+		action
+		"
+			--On return pressed
+			if (key_pressed == 13 and charNameEdit ~= '') then
+				Infinity_PopMenu()
+				createCharScreen:OnDoneButtonClick()
+				return -1
+			end
+			return 1
+		"		
 	}
 	button
 	{

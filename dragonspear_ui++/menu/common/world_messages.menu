@@ -3,12 +3,13 @@ menu
 	name 'WORLD_MESSAGES'
 	align center bottom
 	ignoreEsc
-	onOpen
-	"
-		Infinity_SetOffset('WORLD_MESSAGES', 0, -toolbarTop)
+	onOpen "
+--50px spacer handles this without dropping after F5
+--	Infinity_SetOffset('WORLD_MESSAGES', 0, -toolbarTop)
 		local x,y,w,h = Infinity_GetArea('messagesRect')
 		toolbarTop = toolbarTop + h
-		setMessagesY(worldMessageBoxTop - y)
+--retain the dragged height until F5 resets to 157px default
+--	setMessagesY(worldMessageBoxTop - y) --deltaY, not posY
 	"
 	onClose
 	"
@@ -29,6 +30,10 @@ menu
 	{
 		area 0 201 792 56
 		mosaic RGBOXY
+	}
+--spacer to prevent drop on F5 (sized to WORLD_ACTIONBAR height 50px)
+	label {
+		area 0 257 1 50
 	}
 	button
 	{

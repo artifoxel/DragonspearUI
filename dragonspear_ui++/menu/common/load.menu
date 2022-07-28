@@ -120,7 +120,25 @@ menu
 		scaleToClip
 	}
 #elseif GAME_VERSION == 'iwd' then
-	-- TODO: do we need title here?
+	-- TODO: do we need title here? artyfox: yes, for consistency ^^
+	label
+	{
+		name "LoadTitle1"
+		enabled "startEngine:GetCampaign() == const.START_CAMPAIGN_BG and isTob == 0"
+		area 1248 51 488 140
+		bam 'RGTITLE'
+		sequence 0
+		frame 0
+	}
+	label
+	{
+		name "LoadTitle2"
+		enabled "startEngine:GetCampaign() == const.START_CAMPAIGN_BG and isTob == 1"
+		area 1252 43 488 160
+		bam 'RGTITLE'
+		sequence 0
+		frame 1
+	}
 #else
 	label
 	{

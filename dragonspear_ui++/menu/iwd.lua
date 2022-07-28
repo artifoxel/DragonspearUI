@@ -268,6 +268,7 @@ return {
 		"common/connection_waiting_for_server.menu",
 		"common/background.lua",
 		"common/background.menu",
+		"common/background_modal_tint.menu",
 		"common/multiplayer.lua",
 		"common/multiplayer.menu",
 		"common/mp_permissions.lua",

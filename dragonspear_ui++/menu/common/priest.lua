@@ -94,10 +94,12 @@ function addPriestBookLevel(value)
 end
 
 function incrementPriestBookLevel()
+	Infinity_PlaySound('GAM_05')
 	addPriestBookLevel(1)
 end
 
 function decrementPriestBookLevel()
+	Infinity_PlaySound('GAM_05')
 	addPriestBookLevel(-1)
 end
 

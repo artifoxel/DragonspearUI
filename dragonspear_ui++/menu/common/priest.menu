@@ -75,7 +75,7 @@ menu
 #for i = 1, 7 do
 	button
 	{
-		area		691 `184 + 55 * (i - 1)` 48 45
+		area		690 `183 + 55 * (i - 1)` 48 45
 		--bam		GUIPRTC
 --		--highlightgroup	prpage
 		--sequence	`i - 1`
@@ -87,37 +87,72 @@ menu
 		action		"setPriestBookLevel(`i`)"
 	}
 #end
-	button
-	{
-		area		491 168 34 44
-		bam		RGSPARR
-		sequence	1
-		enabled		"currentSpellLevel < maxPriestPage or PriestBook:canScroll(1)"
-		action		"
+
+
+	--Priest spellbook headers
+	label {
+		area 130 152 156 36 --130 144 156 36
+
+--		text lua "Infinity_FetchString(11945)" --Known
+--		text lua "Infinity_FetchString(11945) .. ' ' .. Infinity_FetchString(8624)" --Known spells
+--		text lua "Infinity_FetchString(11028)" --Known Priest Spells
+		
+		--build 'Spells Known' string
+		text lua "string.upper(string.sub(Infinity_FetchString(8624),1,1)) .. string.sub(Infinity_FetchString(8624),2) .. ' ' .. Infinity_FetchString(11945)"
+		text style "rg_trajan" --	text color '5'
+		text point 11
+		text align left top --center y 144
+	}
+	label {
+		area 950 152 282 36 --1050 144 186 36
+		
+--		text lua "Infinity_FetchString(11944)" --Memorized
+--		text lua "priestPageInfo()" --Memorized X/Y, Spells Can Cast X/Y
+		
+		--build string 'Spells Memorized X/Y'; 'Spells Can Cast X/Y' for Shamans
+		text lua "string.gsub(priestPageInfo(),Infinity_FetchString(11944),string.upper(string.sub(Infinity_FetchString(8624),1,1)) .. string.sub(Infinity_FetchString(8624),2) .. ' ' .. Infinity_FetchString(11944))"
+		text style "rg_trajan" --text color '5'
+		text point 11
+		text align right top --center y 144
+		
+		enabled "currentSpell == nil"
+	}
+
+	--spell page forward
+	button {
+		area 471 163 60 44
+		bam RGSPARR
+		sequence 1
+		align center center
+		enabled	"currentSpellLevel < maxPriestPage or PriestBook:canScroll(1)"
+		action "
 			if PriestBook:canScroll(1) then
 				PriestBook:scroll(1)
+				Infinity_PlaySound('GAM_06')
 			else
 				incrementPriestBookLevel()
 			end
 		"
 	}
-	button
-	{
-		area		280 168 34 44
-		bam		RGSPARR
-		sequence	0
-		enabled		"currentSpellLevel > 1 or PriestBook:canScroll(-1)"
-		action		"
+	--spell page back
+	button {
+		area 258 164 60 44
+		bam RGSPARR
+		sequence 0
+		align center center
+		enabled "currentSpellLevel > 1 or PriestBook:canScroll(-1)"
+		action "
 			if PriestBook:canScroll(-1) then
 				PriestBook:scroll(-1)
+				Infinity_PlaySound('GAM_06')
 			else
 				decrementPriestBookLevel()
 			end
 		"
 	}
-	label
-	{
-		area 		318 171 152 29
+	--spell level title
+	label {
+		area 		318 170 152 29
 		text lua	"Infinity_FetchString(7192) .. '  ' .. currentSpellLevel"
 		text style "rg_trajan"
 		--text color lua "parchment"
@@ -178,7 +213,10 @@ menu
 		table       "PriestBook.columns[`i`]"
 		var         "index"
 		action      "PriestBook:memorizeSpell(PriestBook.columns[`i`][index], 'bookSpellsList`i`', index)"
-		actionAlt   "currentSpell = PriestBook.columns[`i`][index]"
+		actionAlt   "
+			currentSpell = PriestBook.columns[`i`][index]
+			Infinity_PlaySound('GAM_06') --page sound in place of standard GAM_03
+		"
 		actionScroll "PriestBook:scroll()"
 	}
 #end
@@ -203,24 +241,6 @@ menu
 	}
 #end
 
-
-	label
-	{
-		area 1050 144 186 36
-		text lua "Infinity_FetchString(11944)"
-		text style "rg_trajan"
---		text color '5'
-		enabled "currentSpell == nil"
-		text align right center
-	}
-	label
-	{
-		area 130 144 156 36
-		text lua "Infinity_FetchString(11945)"
-		text style "rg_trajan"
---		text color '5'
-		text align left center
-	}
 
 	text
 	{

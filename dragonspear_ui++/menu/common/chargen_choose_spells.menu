@@ -154,6 +154,7 @@ menu
 	-- to be able to scroll without hovering spell slots
 	label {
 		area 322 174 406 480
+		mosaic "rgjback"
 		actionScroll "scrollSpellSlots()"
 	}
 

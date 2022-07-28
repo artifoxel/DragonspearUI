@@ -75,7 +75,7 @@ menu
 #for i = 0, 8 do
 	button
 	{
-		area		691 `184 + 55 * i` 48 45
+		area		690 `183 + 55 * i` 48 45
 		--bam		RGSPNUM
 --		--highlightgroup	mgpage
 		--sequence	0
@@ -89,37 +89,72 @@ menu
 		action		"setMageBookLevel(`i + 1`)"
 	}
 #end
-	button
-	{
-		area		491 168 34 44
-		bam		RGSPARR
-		sequence	1
-		enabled		"bookMode == 0 and (currentSpellLevel < maxMagePage or MageBook:canScroll(1))"
-		action		"
+
+
+	--Mage spellbook headers
+	label {
+		area 130 152 156 36 --130 144 156 36
+		
+--		text lua "Infinity_FetchString(11945)" --Known
+--		text lua "Infinity_FetchString(11945) .. ' ' .. Infinity_FetchString(8624)" --Known spells
+--		text lua "Infinity_FetchString(11027)" --Known Mage Spells
+
+		--build string 'Spells Known'
+		text lua "string.upper(string.sub(Infinity_FetchString(8624),1,1)) .. string.sub(Infinity_FetchString(8624),2) .. ' ' .. Infinity_FetchString(11945)"
+		text style "rg_trajan" --	text color '5'
+		text point 11
+		text align left top --center y 144
+	}
+	label {
+		area 950 152 282 36 --1046 144 186 36
+		
+--		text lua "Infinity_FetchString(11944)" --Memorized
+--		text lua "magePageInfo()" --Memorized X/Y; Spells Can Cast X/Y
+		
+		--build string 'Spells Memorized X/Y'; 'Spells Can Cast X/Y' for sorcerers
+		text lua "string.gsub(magePageInfo(),Infinity_FetchString(11944),string.upper(string.sub(Infinity_FetchString(8624),1,1)) .. string.sub(Infinity_FetchString(8624),2) .. ' ' .. Infinity_FetchString(11944))"		
+		text style "rg_trajan" --text color '5'
+		text point 11
+		text align right top --center y 144
+		
+		enabled "currentSpell == nil"
+	}
+
+	--spell page forward
+	button {
+		area 471 163 60 44
+		bam RGSPARR
+		align center center
+		sequence 1
+		enabled "bookMode == 0 and (currentSpellLevel < maxMagePage or MageBook:canScroll(1))"
+		action "
 			if MageBook:canScroll(1) then
 				MageBook:scroll(1)
+				Infinity_PlaySound('GAM_06')
 			else
 				incrementMageBookLevel()
 			end
 		"
 	}
-	button
-	{
-		area		280 168 38 44
-		bam		RGSPARR
-		sequence	0
-		enabled		"bookMode == 0 and (currentSpellLevel > 1 or MageBook:canScroll(-1))"
-		action		"
+	--spell page back
+	button {
+		area 258 164 60 44
+		bam RGSPARR
+		align center center
+		sequence 0
+		enabled	"bookMode == 0 and (currentSpellLevel > 1 or MageBook:canScroll(-1))"
+		action "
 			if MageBook:canScroll(-1) then
 				MageBook:scroll(-1)
+				Infinity_PlaySound('GAM_06')
 			else
 				decrementMageBookLevel()
 			end
 		"
 	}
-	label
-	{
-		area 		318 171 152 29
+	--spell level title
+	label {
+		area 		318 170 152 29
 		text lua	"Infinity_FetchString(7192) .. '  ' .. currentSpellLevel"
 		text style "rg_trajan"
 		--text color lua "parchment"
@@ -238,26 +273,6 @@ menu
 		"
 	}
 
-
-	label
-	{
-		area 1050 144 186 36
-		--text "ZAPAMATOVANÁ KOUZLA" --lua "priestPageInfo()"  .. ' ' .. Infinity_FetchString(8624)
-		text lua "Infinity_FetchString(11944)"
-		text style "rg_trajan"
---		text color '5'
-		enabled "currentSpell == nil"
-		text align right center
-	}
-	label
-	{
-		area 130 144 156 36
-		--text "ZNÁMÁ KOUZLA" --lua "Infinity_FetchString(11945)"  .. ' ' .. Infinity_FetchString(8624)
-		text lua "Infinity_FetchString(11945)"
-		text style "rg_trajan"
---		text color '5'
-		text align left center
-	}
 
 	text
 	{
@@ -502,7 +517,10 @@ menu
 		table       "MageBook.columns[`i`]"
 		var         "index"
 		action      "MageBook:memorizeSpell(MageBook.columns[`i`][index], 'bookSpellsList`i`', index)"
-		actionAlt   "currentSpell = MageBook.columns[`i`][index]"
+		actionAlt   "
+			currentSpell = MageBook.columns[`i`][index]
+			Infinity_PlaySound('GAM_06') --page sound in place of standard GAM_03
+		"
 		actionScroll "MageBook:scroll()"
 	}
 #end

@@ -94,8 +94,13 @@ menu
 		enabled		"record.classes[1].progress ~= nil"
 		progressbar lua "record.classes[1].progress"  -- progress percentage, number 0-100
 		greyscale	0 --display greyscale or not, number 0-1
+#if GAME_VERSION == 'iwd' then --teal color bar for iwd
+		progressbar color	128 184 184 255	 --color when percentage != 100
+		progressbar full	128 255 255 255	 --color when percentage == 100
+#else --default red bar
 		progressbar color	128 0 0 255	 --color when percentage != 100
 		progressbar full	128 0 0 255	 --color when percentage == 100
+#end
 	}
 	label
 	{
@@ -118,8 +123,13 @@ menu
 		enabled		"record.classes[2] ~= nil and record.classes[2].progress ~= nil"
 		progressbar	lua "record.classes[2].progress"  -- progress percentage, number 0-100
 		greyscale	0 --display greyscale or not, number 0-1
+#if GAME_VERSION == 'iwd' then --teal color bar for iwd
+		progressbar color	128 184 184 255	 --color when percentage != 100
+		progressbar full	128 255 255 255	 --color when percentage == 100
+#else --default red bar
 		progressbar color	128 0 0 255	 --color when percentage != 100
 		progressbar full	128 0 0 255	 --color when percentage == 100
+#end
 	}
 	label
 	{
@@ -151,8 +161,13 @@ menu
 		enabled		"record.classes[3] ~= nil and record.classes[3].progress ~= nil"
 		progressbar	lua "record.classes[3].progress"  -- progress percentage, number 0-100
 		greyscale	0 --display greyscale or not, number 0-1
+#if GAME_VERSION == 'iwd' then --teal color bar for iwd
+		progressbar color	128 184 184 255	 --color when percentage != 100
+		progressbar full	128 255 255 255	 --color when percentage == 100
+#else --default red bar
 		progressbar color	128 0 0 255	 --color when percentage != 100
 		progressbar full	128 0 0 255	 --color when percentage == 100
+#end
 	}
 	label
 	{

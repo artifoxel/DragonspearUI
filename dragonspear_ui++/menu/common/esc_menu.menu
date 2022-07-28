@@ -66,7 +66,7 @@ menu
 	}
 	button
 	{
-		area		665 250 587 587
+		area		586 91 586 586
 		action
 		"
 			e:SelectEngine( worldScreen );

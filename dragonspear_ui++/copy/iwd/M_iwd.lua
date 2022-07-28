@@ -1,0 +1,1 @@
+fontcolors['R'] = 'FFFFFF00' -- replace red with icewind dale teal
