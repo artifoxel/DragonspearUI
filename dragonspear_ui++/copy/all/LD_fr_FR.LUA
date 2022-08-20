@@ -12,7 +12,7 @@ UIStrings = {
 	UI_Small = "Petit",
 	UI_JToggle = "Activer cette option vous permet de définir votre journal par défaut avec les versions grandes et petites.",
 	UI_QLMode = "Mode de butin rapide",
-	UI_QToggle = "Activer cette option vous permet de changer entre les modes de butin rapide experts et avancés.",
+	UI_QToggle = "Activer cette option vous permet de basculer entre les modes experts et avancés du butin rapide, .",
 	UI_Advanced = "Avancé",
 	UI_Expert = "Expert",
 	UI_QShow = "- Butin rapide au démarrage du jeu :",
@@ -30,7 +30,7 @@ PPStrings = {
 	PP_SORTZA = "Z à A", -- 'Z to A'
 	PP_SORTDC = "Par défaut vers personnalisé", -- 'Default to Custom'
 	PP_SORTCD = "Personnalisé vers par défaut", -- 'Custom to Default'
-	PP_TOTAL = "PORTRAITS COMPLETS", -- 'TOTAL PORTRAITS'
+	PP_TOTAL = "TOUS LES PORTRAITS", -- 'TOTAL PORTRAITS'
 	PP_DEFAULT = "Par défaut : ", -- 'Default: '
 	PP_CUSTOM = "Personnalisé : ", -- 'Custom: '
 	PP_SORT = "Trier : ", -- 'Sort: '
@@ -40,10 +40,10 @@ PPStrings = {
 
 -- beware of the "\n" symbols (they are beginnings of new rows), do not move them, just ignore them
 PDD = {
-	"THAC0 : -3 \nDégâts : +5 \nFacteur de vitesse: -3 \nAttaque supplémentaire par round : 1/2 (combattants uniquement)",
-	"THAC0 : -3 \nDégâts : +4 \nFacteur de vitesse: -1 \nAttaque supplémentaire par round : 1/2 (combattants uniquement)",
-	"THAC0 : -3 \nDégâts : +3 \nAttaque supplémentaire par round : 1/2 (combattants uniquement)",
-	"THAC0 : -1 \nDégâts : +2 \nAttaque supplémentaire par round : 1/2 (combattants uniquement)",
+	"TAC0 : -3 \nDégâts : +5 \nFacteur de vitesse: -3 \nAttaque supplémentaire par round : 1/2 (combattants uniquement)",
+	"TAC0 : -3 \nDégâts : +4 \nFacteur de vitesse: -1 \nAttaque supplémentaire par round : 1/2 (combattants uniquement)",
+	"TAC0 : -3 \nDégâts : +3 \nAttaque supplémentaire par round : 1/2 (combattants uniquement)",
+	"TAC0 : -1 \nDégâts : +2 \nAttaque supplémentaire par round : 1/2 (combattants uniquement)",
 	"Pas de pénalités",
 	"Dégâts : +1 \nVitesse de l'arme : -4 \nChance de coup critique : +1",
 	"Dégâts : +1 \nVitesse de l'arme : -2 \nChance de coup critique : +1",
@@ -129,6 +129,12 @@ duiStrings = {
 	RG_UI_THIEFBUTT = "Bouton permanent pour les actions de voleur",
 	RG_UI_THIEFBUTT1 = "Activer cette option affichera un bouton permanent pour activer les actions de voleur en bas à gauche de l'écran. Cette option est utile pour les Clercs/Voleurs.",
 	RG_UI_THIEFBUTT_WARN = "Nécessite une touche assignée pour les actions de voleur.",
+	RG_UI_COMPARE_EQUIPMENT = "Comparaison de l'équipement",
+	RG_UI_COMPARE_EQUIPMENT_HELP = "Activer cette option rend disponible la comparaison de l'équipement dans l'écran d'inventaire.",
+	RG_UI_ONE_CLICK_TRAVEL = "Voyager en un seul clic",
+	RG_UI_ONE_CLICK_TRAVEL_HELP = "En activant cette option, vous pourrez vous déplacer sur la carte du monde d'un simple clic sur la zone choisie.",
+	RG_UI_CLOSE_MAP_ON_RMB = "Clic droit pour quitter la carte du monde",
+	RG_UI_CLOSE_MAP_ON_RMB_HELP = "En activant cette option, vous pouvez fermer la carte du monde avec un simple clic à droite de votre souris.",
 	RG_ABILITY_BONUSES = 'Bonus de caractéristiques',										
 	RG_MENU_BG1_CAMPAIGN = "Campagnes de Baldur's Gate EE",
 	RG_MENU_BG1_CAMPAIGN1 = "Baldur's Gate",
@@ -138,4 +144,7 @@ duiStrings = {
 	RG_MENU_BG2_CAMPAIGN1 = "Les Ombres de l'Amn",
 	RG_MENU_BG2_CAMPAIGN2 = "Le Trône de Bhaal",
 	RG_MENU_BG2_CAMPAIGN3 = "Les Fosses Noires 2",
+	RG_MENU_IWD_CAMPAIGN = "Campagnes de Icewind Dale EE",
+	RG_MENU_IWD_CAMPAIGN1 = "Icewind Dale",
+	RG_MENU_IWD_CAMPAIGN2 = "Heart of Winter",
 }

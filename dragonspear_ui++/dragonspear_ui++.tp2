@@ -235,4 +235,4 @@ COPY ~dragonspear_ui++/copy/CURSORS.BAM~ ~override~
 BEGIN @1011
 
 REQUIRE_PREDICATE GAME_IS ~bgee bg2ee eet iwdee~ @1003
-COPY ~G:\_gog\Icewind Dale Enhanced Edition\dragonspear_ui++\copy\paper.wav~ ~override~
+COPY ~dragonspear_ui++/copy/paper.wav~ ~override~
